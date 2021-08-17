@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 namespace MarvinBlogv._2._0.Models
 {
-    public class UserBlogPost
+    public class PostCategory : BaseEntity
     {
+        public Post PostId { get; set; }
+        public Category CategoryId { get; set; }
     }
 }

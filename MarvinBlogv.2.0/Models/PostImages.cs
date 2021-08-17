@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 namespace MarvinBlogv._2._0.Models
 {
-    public class BlogPost
+    public class PostImages : BaseEntity
     {
+        public string ImageURL { get; set; }
+        public Post PostId { get; set; }
     }
 }
