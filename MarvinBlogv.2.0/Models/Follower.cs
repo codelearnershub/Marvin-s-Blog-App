@@ -2,7 +2,9 @@
 {
     public class Follower : BaseEntity
     {
-        public User FollowerId { get; set; }
-        public User FollowingId { get; set; }
+        public User Followers { get; set; }
+        public int FollewerId { get; set; }
+        public User Following{ get; set; }
+        public int FollowingId { get; set; }
     }
 }
