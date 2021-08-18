@@ -14,10 +14,12 @@ namespace MarvinBlogv._2._0.Models
         [Required, MaxLength(50)]
         public string Description { get; set; }
 
-        public List<Category> Categories { get;set; } 
+        public List<PostCategory> Categories { get;set; } 
+        public List<PostImages> PostImages { get; set; }
         public List<Review> Reviews { get; set; }
         public string PostURL { get; set; }
-        public User UserId { get; set; }
+        public User User{ get; set; }
+        public int UserId { get; set; }
        
         public bool Status { get; set; }
     }
