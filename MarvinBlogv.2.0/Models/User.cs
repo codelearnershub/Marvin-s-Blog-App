@@ -9,6 +9,7 @@ namespace MarvinBlogv._2._0.Models
         public string FullName { get; set; }
 
         [Required]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required]
