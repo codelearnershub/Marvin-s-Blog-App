@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 namespace MarvinBlogv._2._0.Models
 {
-    public class UserComments
+    public class Role : BaseEntity
     {
+        public string Name { get; set; }
+        public List<UserRole> Users { get; set; }
     }
 }
