@@ -22,6 +22,7 @@ namespace MarvinBlogv._2._0.Models
         public int RoleId { get; set;}
         public List<Post> Posts { get; set; }
         public int PostId { get; set; }
+        public List<Follower> Followers { get; set; }
         public List<UserRole> UserRole { get; set; }
     }
 }
