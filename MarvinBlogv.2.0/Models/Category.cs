@@ -6,6 +6,6 @@ namespace MarvinBlogv._2._0.Models
     {
         public string Name { get; set; }
         public string ImageURL { get; set; }
-        public List<Post> AssociatedPosts { get; set; }
+        public List<PostCategory> AssociatedPosts { get; set; }
     }
 }

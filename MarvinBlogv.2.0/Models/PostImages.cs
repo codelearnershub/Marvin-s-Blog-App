@@ -8,6 +8,7 @@ namespace MarvinBlogv._2._0.Models
     public class PostImages : BaseEntity
     {
         public string ImageURL { get; set; }
-        public Post PostId { get; set; }
+        public Post Post { get; set; }
+        public int PostId { get; set; }
     }
 }
