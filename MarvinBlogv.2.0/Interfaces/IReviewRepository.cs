@@ -9,8 +9,7 @@ namespace MarvinBlogv._2._0.Interfaces
     public interface IReviewRepository
     {
         public Review AddReview(Review review);
-        public Review Reaction(int reaction);
-        public User FindReviewer(int userId);
+        public Review FindReviewer(int reviewerId);
         public Review FindReviewById(int? id);
         public Review UpdateReview(Review review);
         public void Delete(int id);
