@@ -11,10 +11,10 @@ namespace MarvinBlogv._2._0.Interfaces
         public Post AddBlogPost(Post post);
         public Post FindById(int? id);
         public User FindByUser(int userId);
-        public IEnumerable<PostImages> GetAllPostImages();
-        public IEnumerable<PostCategory> GetAllPostCategories();
+        public IEnumerable<PostImages> GetAllPostImages(int postId);
+        public IEnumerable<PostCategory> GetAllPostCategories(int postId);
         public IEnumerable<Post> GetAllPosts();
-        public IEnumerable<IReviewRepository> GetAllReviews();
+        public IEnumerable<Review> GetAllPostReviews(int postId);
         public Post UpdatePost(Post post);
         public void Delete(int id);
     }

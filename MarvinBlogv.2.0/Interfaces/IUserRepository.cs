@@ -11,6 +11,7 @@ namespace MarvinBlogv._2._0.Interfaces
         public User AddUser(User user);
         public User FindUserByEmail(string email);
         public Role FindRole(string name);
+        public IEnumerable<User> GetUserPosts(int postId);
         public IEnumerable<Follower> FindFollower(int followerId);
         public IEnumerable<Follower> FindFollowing(int followingId);
         public User FindUserById(int id);
