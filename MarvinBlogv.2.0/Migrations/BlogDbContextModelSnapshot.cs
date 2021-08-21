@@ -259,6 +259,15 @@ namespace MarvinBlogv._2._0.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2021, 8, 21, 13, 18, 18, 302, DateTimeKind.Local).AddTicks(8310),
+                            CreatedBy = "adeoyemarvellous7@gmail.com",
+                            Name = "SuperAdmin"
+                        });
                 });
 
             modelBuilder.Entity("MarvinBlogv._2._0.Models.User", b =>
@@ -299,14 +308,22 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<DateTime?>("PublishedOn")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2021, 8, 21, 13, 18, 18, 291, DateTimeKind.Local).AddTicks(9071),
+                            CreatedBy = "adeoyemarvellous7@gmail.com",
+                            Email = "adeoyemarvellous7@gmail.com",
+                            FullName = "Marvellous Adeoye",
+                            HashSalt = "GHAku+jJgJVENsz/Y7le9w==",
+                            PasswordHash = "jeYMxCrAXGBEfEJB7j3IuPv4LhgThc7OIsAovL/J13Q=",
+                            PostId = 0
+                        });
                 });
 
             modelBuilder.Entity("MarvinBlogv._2._0.Models.UserRole", b =>
@@ -340,6 +357,16 @@ namespace MarvinBlogv._2._0.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2021, 8, 21, 13, 18, 18, 303, DateTimeKind.Local).AddTicks(2383),
+                            CreatedBy = "adeoyemarvellous@gmail.com",
+                            RoleId = 1,
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("MarvinBlogv._2._0.Models.Follower", b =>
@@ -397,25 +424,16 @@ namespace MarvinBlogv._2._0.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MarvinBlogv._2._0.Models.User", b =>
+            modelBuilder.Entity("MarvinBlogv._2._0.Models.UserRole", b =>
                 {
                     b.HasOne("MarvinBlogv._2._0.Models.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MarvinBlogv._2._0.Models.UserRole", b =>
-                {
-                    b.HasOne("MarvinBlogv._2._0.Models.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.HasOne("MarvinBlogv._2._0.Models.User", "User")
-                        .WithMany("UserRole")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

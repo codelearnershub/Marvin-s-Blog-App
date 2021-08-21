@@ -1,0 +1,16 @@
+﻿using MarvinBlogv._2._0.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace MarvinBlogv._2._0.Interfaces
+{
+    public interface IPostCategoryService
+    {
+        public PostCategory AddPostCategory(int id, DateTime createdAt, int postId, int categoryId);
+        public void Delete(int id);
+        public PostCategory UpdatePostCategory(int id, DateTime createdAt, int postId, int categoryId);
+        public PostCategory FindPostCategory(int id);
+    }
+}

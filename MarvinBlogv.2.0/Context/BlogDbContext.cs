@@ -23,5 +23,42 @@ namespace MarvinBlogv._2._0.Context
         public DbSet<PostCategory> PostCategories { get; set; }
         public DbSet<PostImages> PostImages { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = 1,
+                    FullName = "Marvellous Adeoye",
+                    Email = "adeoyemarvellous7@gmail.com",
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = "adeoyemarvellous7@gmail.com",
+                    PasswordHash = "jeYMxCrAXGBEfEJB7j3IuPv4LhgThc7OIsAovL/J13Q=",
+                    HashSalt = "GHAku+jJgJVENsz/Y7le9w==",
+                }
+            );
+
+            modelBuilder.Entity<Role>().HasData(
+                new Role
+                {
+                    Id = 1,
+                    Name = "SuperAdmin",
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = "adeoyemarvellous7@gmail.com",
+                }
+            );
+
+            modelBuilder.Entity<UserRole>().HasData(
+                new UserRole
+                {
+                    Id = 1,
+                    UserId = 1,
+                    RoleId = 1,
+                    CreatedAt = DateTime.Now,
+                    CreatedBy = "adeoyemarvellous@gmail.com",
+                }
+            );
+        }
     }
 }
