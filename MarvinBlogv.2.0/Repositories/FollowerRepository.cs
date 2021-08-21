@@ -23,11 +23,20 @@ namespace MarvinBlogv._2._0.Repositories
             return follower;
         }
 
-        public Follower Unfollow(Follower follower)
+        public Follower FindById(int id) 
         {
-            _dbContext.Followers.Remove(follower);
-            _dbContext.SaveChanges();
-            return follower;
+           return _dbContext.Followers.Find(id);
+        }
+        public void Unfollow(int id)
+        {
+            var unfollow = FindById(id);
+            {
+                if (unfollow != null)
+                {
+                    _dbContext.Followers.Remove(unfollow);
+                    _dbContext.SaveChanges();
+                }
+            }
         }
     }
 }

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MarvinBlogv._2._0.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    [Migration("20210818140540_initialMigration")]
-    partial class initialMigration
+    [Migration("20210821121130_InitialMigratration")]
+    partial class InitialMigratration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,10 +60,7 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("FollewerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FollowersId")
+                    b.Property<int>("FollowerId")
                         .HasColumnType("int");
 
                     b.Property<int>("FollowingId")
@@ -75,11 +72,12 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<DateTime?>("PublishedOn")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("FollowersId");
-
-                    b.HasIndex("FollowingId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Followers");
                 });
@@ -218,10 +216,7 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<DateTime?>("LastModifiedOn")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("MadeById")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PostId")
+                    b.Property<int>("PostId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("PublishedOn")
@@ -230,11 +225,14 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<int>("Reaction")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("MadeById");
-
                     b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
                 });
@@ -303,12 +301,7 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<DateTime?>("PublishedOn")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -348,15 +341,9 @@ namespace MarvinBlogv._2._0.Migrations
 
             modelBuilder.Entity("MarvinBlogv._2._0.Models.Follower", b =>
                 {
-                    b.HasOne("MarvinBlogv._2._0.Models.User", "Followers")
-                        .WithMany()
-                        .HasForeignKey("FollowersId");
-
-                    b.HasOne("MarvinBlogv._2._0.Models.User", "Following")
-                        .WithMany()
-                        .HasForeignKey("FollowingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("MarvinBlogv._2._0.Models.User", "User")
+                        .WithMany("Followers")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("MarvinBlogv._2._0.Models.Post", b =>
@@ -394,20 +381,15 @@ namespace MarvinBlogv._2._0.Migrations
 
             modelBuilder.Entity("MarvinBlogv._2._0.Models.Review", b =>
                 {
-                    b.HasOne("MarvinBlogv._2._0.Models.User", "MadeBy")
-                        .WithMany()
-                        .HasForeignKey("MadeById");
-
                     b.HasOne("MarvinBlogv._2._0.Models.Post", "Post")
                         .WithMany("Reviews")
-                        .HasForeignKey("PostId");
-                });
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("MarvinBlogv._2._0.Models.User", b =>
-                {
-                    b.HasOne("MarvinBlogv._2._0.Models.Role", "Role")
+                    b.HasOne("MarvinBlogv._2._0.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("RoleId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -415,13 +397,13 @@ namespace MarvinBlogv._2._0.Migrations
             modelBuilder.Entity("MarvinBlogv._2._0.Models.UserRole", b =>
                 {
                     b.HasOne("MarvinBlogv._2._0.Models.Role", "Role")
-                        .WithMany("Users")
+                        .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MarvinBlogv._2._0.Models.User", "User")
-                        .WithMany("UserRole")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

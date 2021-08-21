@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MarvinBlogv._2._0.Migrations
 {
-    public partial class initialMigration : Migration
+    public partial class InitialMigratration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -57,18 +57,11 @@ namespace MarvinBlogv._2._0.Migrations
                     Email = table.Column<string>(nullable: false),
                     PasswordHash = table.Column<string>(nullable: false),
                     HashSalt = table.Column<string>(nullable: false),
-                    RoleId = table.Column<int>(nullable: false),
                     PostId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_Roles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Roles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,25 +74,19 @@ namespace MarvinBlogv._2._0.Migrations
                     LastModifiedOn = table.Column<DateTime>(nullable: true),
                     PublishedOn = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(nullable: true),
-                    FollowersId = table.Column<int>(nullable: true),
-                    FollewerId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: true),
+                    FollowerId = table.Column<int>(nullable: false),
                     FollowingId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Followers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Followers_Users_FollowersId",
-                        column: x => x.FollowersId,
+                        name: "FK_Followers_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Followers_Users_FollowingId",
-                        column: x => x.FollowingId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -224,38 +211,33 @@ namespace MarvinBlogv._2._0.Migrations
                     LastModifiedOn = table.Column<DateTime>(nullable: true),
                     PublishedOn = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(nullable: true),
-                    MadeById = table.Column<int>(nullable: true),
+                    UserId = table.Column<int>(nullable: false),
                     CreatedById = table.Column<int>(nullable: false),
                     Reaction = table.Column<int>(nullable: false),
-                    PostId = table.Column<int>(nullable: true),
+                    PostId = table.Column<int>(nullable: false),
                     Comment = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reviews", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reviews_Users_MadeById",
-                        column: x => x.MadeById,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Reviews_Posts_PostId",
                         column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Followers_FollowersId",
+                name: "IX_Followers_UserId",
                 table: "Followers",
-                column: "FollowersId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Followers_FollowingId",
-                table: "Followers",
-                column: "FollowingId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PostCategories_CategoryId",
@@ -278,14 +260,14 @@ namespace MarvinBlogv._2._0.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reviews_MadeById",
-                table: "Reviews",
-                column: "MadeById");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Reviews_PostId",
                 table: "Reviews",
                 column: "PostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reviews_UserId",
+                table: "Reviews",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_RoleId",
@@ -296,11 +278,6 @@ namespace MarvinBlogv._2._0.Migrations
                 name: "IX_UserRoles_UserId",
                 table: "UserRoles",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_RoleId",
-                table: "Users",
-                column: "RoleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -327,10 +304,10 @@ namespace MarvinBlogv._2._0.Migrations
                 name: "Posts");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "Users");
         }
     }
 }
