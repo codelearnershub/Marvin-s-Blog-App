@@ -9,7 +9,11 @@ namespace MarvinBlogv._2._0.Interfaces
     public interface IRoleRepository
     {
         public Role AddRole(Role role);
+
         public Role GetRoleById(int id);
+
+        public Role GetRoleByName(string roleName);
+
         public void Delete(int id);
     }
 }

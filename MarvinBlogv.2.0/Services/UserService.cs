@@ -2,20 +2,21 @@
 using MarvinBlogv._2._0.Models;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 
 namespace MarvinBlogv._2._0.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IRoleRepository _roleRepository;
+        private readonly IUserRoleRepository _userRoleRepository;
   
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IRoleRepository roleRepository, IUserRoleRepository userRoleRepository)
         {
             _userRepository = userRepository;
+            _roleRepository = roleRepository;
+            _userRoleRepository = userRoleRepository;
         }
 
         public User FindUserById(int id)
@@ -49,7 +50,7 @@ namespace MarvinBlogv._2._0.Services
             return null;
         }
 
-        public void RegisterUser(int id, string email, string fullname, string password, string cpassword, string userType)
+        public void RegisterUser(int id, string email, string fullname, DateTime createdAt, string password, string cpassword, string name, int roleId, int userId)
         {
             byte[] salt = new byte[128 / 8];
 
@@ -64,14 +65,23 @@ namespace MarvinBlogv._2._0.Services
 
             User user = new User
             {
-                Id = id,
-                FullName = fullname,
                 Email = email,
+                FullName = fullname,
+                CreatedAt = DateTime.Now,
                 HashSalt = saltString,
-                PasswordHash = hashedPassword
+                PasswordHash = hashedPassword,
             };
 
             _userRepository.AddUser(user);
+
+            UserRole userRole = new UserRole
+            {
+                CreatedAt = DateTime.Now,
+                UserId = _userRepository.FindUserByEmail(email).Id,
+                RoleId = _roleRepository.GetRoleByName(name).Id,
+            };
+
+            _userRoleRepository.AddUserRole(userRole);
         }
 
         private string HashPassword(string password, string salt)

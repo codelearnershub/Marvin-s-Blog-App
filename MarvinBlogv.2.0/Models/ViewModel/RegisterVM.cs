@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -29,9 +30,5 @@ namespace MarvinBlogv._2._0.Models.ViewModel
         [Display(Name = "ConfirmPassword")]
         [Compare("Password", ErrorMessage = "The password and confirmation password does not match")]
         public string ConfirmPassword { get; set; }
-
-        [Required]
-        [Display(Name = "Roles")]
-        public string Type { get; set; }
     }
 }

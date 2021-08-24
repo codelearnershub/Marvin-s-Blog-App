@@ -37,6 +37,21 @@ namespace MarvinBlogv._2._0.Services
             _userRoleRepository.Delete(id);
         }
 
+        public List<Role> FindUserRole(int userId) 
+        {
+            return _userRoleRepository.GetUserRoles(userId);
+        }
+
+        public User FindUserId(int userId) 
+        {
+            return _userRoleRepository.FindUserId(userId);
+        }
+
+        public Role FindRoleId(int roleId)
+        {
+            return _userRoleRepository.FindRoleId(roleId);
+        }
+
         public UserRole FindById(int id)
         {
             return _userRoleRepository.FindById(id);
