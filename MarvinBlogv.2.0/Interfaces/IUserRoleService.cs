@@ -11,6 +11,7 @@ namespace MarvinBlogv._2._0.Interfaces
         public UserRole AddUserRole(int id, DateTime createdOn, int userId, int roleId);
         public UserRole UpdateUserRole(int id, DateTime createdOn, int userId, int roleId);
         public void Delete(int id);
+        public List<Role> FindUserRole(int userId);
         public UserRole FindById(int id);
         public UserRole FindByName(string name);
     }

@@ -1,6 +1,7 @@
 ﻿using MarvinBlogv._2._0.Context;
 using MarvinBlogv._2._0.Interfaces;
 using MarvinBlogv._2._0.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,38 @@ namespace MarvinBlogv._2._0.Repositories
                     _dbContext.SaveChanges();
                 }
             }
+        }
+
+       
+        public List<Role> GetUserRoles(int userId)
+        {
+            var userRoles = _dbContext.UserRoles.Include(ur => ur.Role).Where(ur => ur.UserId == userId).ToList();
+
+            List<Role> roles = new List<Role>();
+
+            foreach(var userRole in userRoles)
+            {
+                Role role = new Role
+                {
+                    Id = userRole.RoleId,
+                    Name = userRole.Role.Name
+                };
+
+                roles.Add(role);
+            }
+
+            return roles;
+
+        }
+
+        public User FindUserId(int userId)
+        {
+            return _dbContext.Users.Find(userId);
+        }
+
+        public Role FindRoleId(int roleId)
+        {
+            return _dbContext.Roles.Find(roleId);
         }
 
         public UserRole FindById(int id)

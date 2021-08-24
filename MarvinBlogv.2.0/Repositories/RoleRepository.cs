@@ -40,5 +40,10 @@ namespace MarvinBlogv._2._0.Repositories
         {
             return _dbContext.Roles.Find(id);
         }
+
+        public Role GetRoleByName(string roleName)
+        {
+            return _dbContext.Roles.FirstOrDefault(r=> r.Name.Equals(roleName));
+        }
     }
 }
