@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MarvinBlogv._2._0.Context;
+using MarvinBlogv._2._0.Interfaces;
+using MarvinBlogv._2._0.Repositories;
+using MarvinBlogv._2._0.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +32,25 @@ namespace MarvinBlogv._2._0
             services.AddControllersWithViews();
      
             services.AddDbContext<BlogDbContext>(option => option.UseMySql(Configuration.GetConnectionString("BlogConnectionString")));
+
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<IRoleRepository, RoleRepository>();
+
+            services.AddScoped<IRoleService, RoleService>();
+
+            services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+
+            services.AddScoped<IUserRoleService, UserRoleService>();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(config =>
+            {
+                config.LoginPath = "/User/Login";
+       
+                config.Cookie.Name = "SimpleUser";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +70,8 @@ namespace MarvinBlogv._2._0
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

@@ -36,5 +36,10 @@ namespace MarvinBlogv._2._0.Services
         {
            return _roleRepository.GetRoleById(id);
         }
+
+        public Role GetRoleByName(string roleName)
+        {
+           return _roleRepository.GetRoleByName(roleName);
+        }
     }
 }

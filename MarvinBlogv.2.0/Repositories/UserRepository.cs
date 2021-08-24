@@ -51,7 +51,7 @@ namespace MarvinBlogv._2._0.Repositories
 
         public User FindUserByEmail(string email)
         {
-            return _dbContext.Users.Find(email);
+            return _dbContext.Users.FirstOrDefault(e => e.Email == email);
         }
 
         public User FindUserById(int id)
