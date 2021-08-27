@@ -31,6 +31,12 @@ namespace MarvinBlogv._2._0.Context
             modelBuilder.Entity<Post>().HasMany(p => p.PostCategories)
                 .WithOne(p => p.Post)
                 .HasForeignKey(c => c.PostId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<User>().HasMany(u => u.userRoles)
+                .WithOne(u => u.User)
+                .HasForeignKey(u => u.UserId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Role>().HasMany(u => u.userRoles)
+                .WithOne(u => u.Role)
+                .HasForeignKey(u => u.RoleId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<User>().HasData(
                 new User
                 {

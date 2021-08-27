@@ -8,7 +8,7 @@ namespace MarvinBlogv._2._0.Interfaces
 {
     public interface IPostService
     {
-        public void AddBlogPost(int id, DateTime publishedOn, string name, string title, string featuredImageURL, string content, string description, string postURL, int userId);
+        public void AddBlogPost(int id, DateTime publishedOn, string name, string title, string featuredImageURL, string content, string description, string postURL, int userId, string[] categoryIds);
         public Post FindById(int? id);
         public User FindByUser(int userId);
         public List<PostCategory> GetAllPostCategories(int postId);

@@ -88,8 +88,7 @@ namespace MarvinBlogv._2._0.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("varchar(1000) CHARACTER SET utf8mb4")
-                        .HasMaxLength(1000);
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -239,7 +238,7 @@ namespace MarvinBlogv._2._0.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 8, 26, 17, 33, 41, 248, DateTimeKind.Local).AddTicks(9080),
+                            CreatedAt = new DateTime(2021, 8, 27, 15, 15, 12, 820, DateTimeKind.Local).AddTicks(9208),
                             CreatedBy = "adeoyemarvellous7@gmail.com",
                             Name = "SuperAdmin"
                         });
@@ -291,7 +290,7 @@ namespace MarvinBlogv._2._0.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 8, 26, 17, 33, 41, 237, DateTimeKind.Local).AddTicks(8756),
+                            CreatedAt = new DateTime(2021, 8, 27, 15, 15, 12, 817, DateTimeKind.Local).AddTicks(580),
                             CreatedBy = "adeoyemarvellous7@gmail.com",
                             Email = "adeoyemarvellous7@gmail.com",
                             FullName = "Marvellous Adeoye",
@@ -337,7 +336,7 @@ namespace MarvinBlogv._2._0.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 8, 26, 17, 33, 41, 249, DateTimeKind.Local).AddTicks(4888),
+                            CreatedAt = new DateTime(2021, 8, 27, 15, 15, 12, 821, DateTimeKind.Local).AddTicks(1031),
                             CreatedBy = "adeoyemarvellous@gmail.com",
                             RoleId = 1,
                             UserId = 1
@@ -393,15 +392,15 @@ namespace MarvinBlogv._2._0.Migrations
             modelBuilder.Entity("MarvinBlogv._2._0.Models.UserRole", b =>
                 {
                     b.HasOne("MarvinBlogv._2._0.Models.Role", "Role")
-                        .WithMany()
+                        .WithMany("userRoles")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MarvinBlogv._2._0.Models.User", "User")
-                        .WithMany()
+                        .WithMany("userRoles")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

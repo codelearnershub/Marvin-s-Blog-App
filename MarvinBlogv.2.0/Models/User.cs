@@ -20,5 +20,7 @@ namespace MarvinBlogv._2._0.Models
         public List<Post> Posts { get; set; }
         public int PostId { get; set; }
         public List<Follower> Followers { get; set; }
+
+        public ICollection<UserRole> userRoles {set; get;} = new HashSet<UserRole>();
     }
 }
