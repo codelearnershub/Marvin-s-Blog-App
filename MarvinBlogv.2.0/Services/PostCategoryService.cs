@@ -1,19 +1,20 @@
 ﻿using MarvinBlogv._2._0.Interfaces;
 using MarvinBlogv._2._0.Models;
 using System;
+using System.Collections.Generic;
 
 namespace MarvinBlogv._2._0.Services
 {
     public class PostCategoryService : IPostCategoryService
     {
         private readonly IPostCategoryRepository _postCategoryRepository;
-        private readonly PostService _postService;
-        private readonly CategoryService _categoryService;
+        private readonly IPostRepository _postRepository;
+        private readonly ICategoryService _categoryService;
 
-        public PostCategoryService(IPostCategoryRepository postCategoryRepository, PostService postService, CategoryService categoryService)
+        public PostCategoryService(IPostCategoryRepository postCategoryRepository, IPostRepository postRepository, ICategoryService categoryService)
         {
             _postCategoryRepository = postCategoryRepository;
-            _postService = postService;
+            _postRepository = postRepository;
             _categoryService = categoryService;
         }
 
@@ -23,7 +24,7 @@ namespace MarvinBlogv._2._0.Services
             {
                 Id = id,
                 CreatedAt = DateTime.Now,
-                Post = _postService.FindById(postId),
+                Post = _postRepository.FindById(postId),
                 Category = _categoryService.FindById(categoryId)
             };
             return _postCategoryRepository.AddPostCategory(postCategory);
@@ -39,13 +40,18 @@ namespace MarvinBlogv._2._0.Services
             return _postCategoryRepository.FindPostCategory(id);
         }
 
+        public List<PostCategory> GetAllPostCategories(int postId)
+        {
+            return _postCategoryRepository.GetAllPostCategories(postId);
+        }
+
         public PostCategory UpdatePostCategory(int id, DateTime createdAt, int postId, int categoryId)
         {
             var postCategory = _postCategoryRepository.FindPostCategory(id);
 
             postCategory.CreatedAt = DateTime.Now;
 
-            postCategory.Post = _postService.FindById(postId);
+            postCategory.Post = _postRepository.FindById(postId);
 
             postCategory.Category = _categoryService.FindById(categoryId);
 

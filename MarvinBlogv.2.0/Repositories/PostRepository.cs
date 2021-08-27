@@ -46,14 +46,9 @@ namespace MarvinBlogv._2._0.Repositories
             return _dbContext.Users.Find(userId);
         }
 
-        public IEnumerable<PostCategory> GetAllPostCategories(int postId)
+        public List<PostCategory> GetAllPostCategories(int postId)
         {
             return _dbContext.PostCategories.Where(post => post.PostId == postId).ToList();
-        }
-
-        public IEnumerable<PostImages> GetAllPostImages(int postId)
-        {
-            return _dbContext.PostImages.Where(post => post.PostId == postId).ToList();
         }
 
         public IEnumerable<Post> GetAllPosts()

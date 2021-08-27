@@ -41,6 +41,11 @@ namespace MarvinBlogv._2._0.Repositories
             return _dbContext.Categories.Find(id);
         }
 
+        public Category FindCategoryByName(string categoryName)
+        {
+            return _dbContext.Categories.FirstOrDefault(c => c.Name.Equals(categoryName));
+        }
+
         public Category UpdateCategory(Category category)
         {
             _dbContext.Categories.Update(category);

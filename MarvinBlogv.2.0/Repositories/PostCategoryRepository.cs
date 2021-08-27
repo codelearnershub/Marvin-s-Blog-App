@@ -1,6 +1,7 @@
 ﻿using MarvinBlogv._2._0.Context;
 using MarvinBlogv._2._0.Interfaces;
 using MarvinBlogv._2._0.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,27 @@ namespace MarvinBlogv._2._0.Repositories
         public PostCategory FindPostCategory(int id)
         {
             return _dbContext.PostCategories.Find(id);
+        }
+
+        public List<PostCategory> GetAllPostCategories(int postId)
+        {
+            var postCategories = _dbContext.PostCategories.Include(c => c.Category).Where(c => c.PostId == postId).ToList();
+
+            List<PostCategory> categories = new List<PostCategory>();
+
+            foreach (var postCategory in postCategories)
+            {
+                Category category = new Category
+                {
+                    Id = postCategory.CategoryId,
+                    Name = postCategory.Category.Name
+                };
+
+                categories.Add(postCategory);
+            }
+
+            return categories;
+
         }
 
         public PostCategory UpdatePostCategory(PostCategory postCategory)

@@ -19,9 +19,12 @@ namespace MarvinBlogv._2._0.Models.ViewModel
 
         public class CreateCategoryViewModel 
         {
+            public int Id { get; set; }
             [Required(ErrorMessage = "Category name is required")]
             [Display(Name = "Category Name:")]
             public string Name { get; set; }
+
+            public DateTime CreatedAt { get; set; }
 
             [Required(ErrorMessage = "Image is required")]
             [Display(Description = "ImageURL")]

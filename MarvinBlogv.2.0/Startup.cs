@@ -41,6 +41,24 @@ namespace MarvinBlogv._2._0
 
             services.AddScoped<IRoleService, RoleService>();
 
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+            services.AddScoped<ICategoryService, CategoryService>();
+
+            services.AddScoped<IPostRepository, PostRepository>();
+
+            services.AddScoped<IPostService, PostService>();
+
+
+            services.AddScoped<IPostCategoryRepository, PostCategoryRepository>();
+
+            services.AddScoped<IReviewRepository, ReviewRepository>();
+
+            services.AddScoped<IReviewService, ReviewService>();
+
+
+            services.AddScoped<IPostCategoryService, PostCategoryService>();
+
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 
             services.AddScoped<IUserRoleService, UserRoleService>();
