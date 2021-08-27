@@ -1,9 +1,11 @@
-﻿using MarvinBlogv._2._0.Interfaces;
+﻿using MarvinBlogv._2._0.DTO;
+using MarvinBlogv._2._0.Interfaces;
 using MarvinBlogv._2._0.Models;
 using MarvinBlogv._2._0.Models.ViewModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -36,11 +38,19 @@ namespace MarvinBlogv._2._0.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(CreateUserViewModel model)
+        public IActionResult Register(CreateUserViewModel model) 
         {
-            var role = _roleService.GetRoleByName("blogger").Id;
+            var CreateModel = new CreateUserDto
+            {
+                ConfirmPassword = model.ConfirmPassword,
+                Email = model.Email,
+                FullName = model.FullName,
+                Id = model.Id,
+                Password = model.Password,
+                CreatedAt = DateTime.Now,
+            };
             
-            _userService.RegisterUser(model.Id, model.Email, model.FullName, model.CreatedAt, model.Password, model.ConfirmPassword, model.Name, model.UserId, role);
+            _userService.RegisterUser(CreateModel);
             return View();
         }
 

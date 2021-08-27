@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\ImageFolder\" />
+    <Folder Include="wwwroot\lib\jquery\2.1.1\" />
   </ItemGroup>
 
 </Project>

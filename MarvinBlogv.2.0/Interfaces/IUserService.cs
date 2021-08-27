@@ -1,4 +1,5 @@
-﻿using MarvinBlogv._2._0.Models;
+﻿using MarvinBlogv._2._0.DTO;
+using MarvinBlogv._2._0.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace MarvinBlogv._2._0.Interfaces
     public interface IUserService
     {
         public User FindUserById(int id);
-        public void RegisterUser(int id, string email, string fullname, DateTime createdAt, string password, string cpassword, string name, int roleId, int userId);
+        public void RegisterUser(CreateUserDto createUserDto);
         public User LoginUser(string email, string password);
         //public User AddUser(int id, DateTime created, string fullName, string email, string password, int roleId, int postId);
         public User FindUserByEmail(string email);

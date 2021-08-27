@@ -50,7 +50,7 @@ namespace MarvinBlogv._2._0.Models.ViewModel
         public int UseId { get; set; }
 
         [Required(ErrorMessage = "Select at least one Category")]
-        public string Categories { get; set; }
+        public string[] Categories { get; set; }
         public IEnumerable<SelectListItem> CategorySelectListItem { get; set; }
 
     }
