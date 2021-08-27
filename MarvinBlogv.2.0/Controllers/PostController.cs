@@ -66,13 +66,7 @@ namespace MarvinBlogv._2._0.Controllers
         {
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
-            _postService.AddBlogPost(model.Id, model.CreatedAt, model.Name, model.Title, model.FeaturedImageURL, model.Content, model.Description, model.PostURL, userId);
-
-            Post post = _postService.FindById(model.Id);
-
-            var categories = _postCategoryService.GetAllPostCategories(post.Id);
-
-            var category = categories[0].Id;
+            _postService.AddBlogPost(model.Id, model.CreatedAt, model.Name, model.Title, model.FeaturedImageURL, model.Content, model.Description, model.PostURL, userId, model.Categories);
 
             return RedirectToAction("Index");
         }

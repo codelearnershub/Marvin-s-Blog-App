@@ -1,7 +1,9 @@
-﻿using MarvinBlogv._2._0.Interfaces;
+﻿using MarvinBlogv._2._0.DTO;
+using MarvinBlogv._2._0.Interfaces;
 using MarvinBlogv._2._0.Models;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 
 namespace MarvinBlogv._2._0.Services
@@ -50,7 +52,7 @@ namespace MarvinBlogv._2._0.Services
             return null;
         }
 
-        public void RegisterUser(int id, string email, string fullname, DateTime createdAt, string password, string cpassword, string name, int roleId, int userId)
+        public void RegisterUser(CreateUserDto createUser)
         {
             byte[] salt = new byte[128 / 8];
 
@@ -61,27 +63,31 @@ namespace MarvinBlogv._2._0.Services
 
             string saltString = Convert.ToBase64String(salt);
 
-            string hashedPassword = HashPassword(password, saltString);
+            string hashedPassword = HashPassword(createUser.Password, saltString);
 
-            User user = new User
+            var role = _roleRepository.GetRoleByName("blogger").Id;
+
+
+            var userRoles = new List<UserRole>
             {
-                Email = email,
-                FullName = fullname,
-                CreatedAt = DateTime.Now,
+                new UserRole
+                {
+                    UserId = createUser.Id,
+                    RoleId = role,
+                }
+            };
+
+                User user = new User
+            {
+                Email = createUser.Email,
+                FullName = createUser.FullName,
+                CreatedAt = createUser.CreatedAt,
                 HashSalt = saltString,
                 PasswordHash = hashedPassword,
+                userRoles = userRoles,
             };
 
             _userRepository.AddUser(user);
-
-            UserRole userRole = new UserRole
-            {
-                CreatedAt = DateTime.Now,
-                UserId = _userRepository.FindUserByEmail(email).Id,
-                RoleId = _roleRepository.GetRoleByName(name).Id,
-            };
-
-            _userRoleRepository.AddUserRole(userRole);
         }
 
         private string HashPassword(string password, string salt)

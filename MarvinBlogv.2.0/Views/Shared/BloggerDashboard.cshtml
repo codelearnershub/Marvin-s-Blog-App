@@ -9,6 +9,18 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/css/bootstrap.min" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <script src="~/lib/jquery//dist/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="~/summernote-0.8.18-dist/summernote-bs4.css" />
+    <script src="~/js/popper.min.js"></script>
+
+
+    <link rel="stylesheet" href="~/lib/bootstrap/4.1.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib//bootstrap/dist/css/bootstrap-select.css" />
+    <script src="~/js/Jquery2.2.1/Jquery2.1.1.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>
 </head>
 
 <body>
@@ -68,7 +80,22 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="js/mdb.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/summernote-0.8.18-dist/summernote.min.js"></script>
+    <script src="~/summernote-0.8.18-dist/summernote-bs4.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $('#summernote').summernote({
+            placeholder: 'Hello Bootstrap 4',
+            height: 300,                 // set editor height
+            width: 3000,
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true
+        });
+        $('select').selectpicker();
+    </script>
 </body>
 
 </html>
@@ -76,14 +103,16 @@
 @section Scripts
 {
     <script type="text/javascript">
-        
-            $(document).ready(function () {
-                $(".button-collapse").sideNav2();
-                var sideNavScrollbar = document.querySelector('.custom-scrollbar');
-                var ps = new PerfectScrollbar(sideNavScrollbar);
-            });
+
+        $(document).ready(function () {
+            $(".button-collapse").sideNav2();
+            var sideNavScrollbar = document.querySelector('.custom-scrollbar');
+            var ps = new PerfectScrollbar(sideNavScrollbar);
+        });
     </script>
-    
+
 }
+
+
 
 

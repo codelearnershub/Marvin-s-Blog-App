@@ -21,31 +21,36 @@ namespace MarvinBlogv._2._0.Services
             _categoryRepository = categoryRepository;
         }
 
-        public void AddBlogPost(int id, DateTime publishedOn, string name, string title, string featuredImageURL, string content, string description, string postURL, int userId)
+        public void AddBlogPost(int id, DateTime publishedOn, string name, string title, string featuredImageURL, string content, string description, string postURL, int userId, string[] categoryIds)
         {
-            Post post = new Post
+            if(categoryIds.Length != 0)
             {
-                Id = id,
-                PublishedOn = DateTime.Now,
-                Title = title.ToUpper(),
-                FeaturedImageURL = featuredImageURL.ToLower(),
-                Content = content.ToUpper(),
-                PostCategories = _postCategoryRepository.GetAllPostCategories(id),
-                Description = description.ToUpper(),
-                PostURL = postURL.ToLower(),        
-                UserId = _userService.FindUserById(userId).Id,
-            };
+                var postCategories = new List<PostCategory>() { };
+                foreach (var catId in categoryIds)
+                {
+                    var postCat = new PostCategory
+                    {
+                        PostId = id,
+                        CategoryId = int.Parse(catId),
+                    };
+                    postCategories.Add(postCat);
+                }
+                Post post = new()
+                {
+                    Id = id,
+                    PublishedOn = DateTime.Now,
+                    Title = title,
+                    FeaturedImageURL = featuredImageURL,
+                    Content = content.ToUpper(),
+                    PostCategories = postCategories,
+                    Description = description,
+                    PostURL = postURL,
+                    UserId = _userService.FindUserById(userId).Id,
+                };
 
-            _postRepository.AddBlogPost(post);
-
-            PostCategory postCategory = new PostCategory
-            {
-                Id = id,
-                CategoryId = _categoryRepository.FindCategoryByName(name).Id,
-                PostId = _postRepository.FindById(id).Id
-            };
-
-            _postCategoryRepository.AddPostCategory(postCategory);
+                _postRepository.AddBlogPost(post);
+            }
+            
         }
 
         public void Delete(int id)

@@ -9,7 +9,7 @@ namespace MarvinBlogv._2._0.Models
         [Required, MaxLength(250)]
         public string Title { get; set; }
 
-        [Required, MaxLength(1000)]
+        [Required]
         public string Content { get; set; }
 
         [Required, MaxLength(250)]
