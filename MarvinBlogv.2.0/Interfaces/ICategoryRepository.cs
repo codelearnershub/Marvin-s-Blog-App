@@ -11,6 +11,7 @@ namespace MarvinBlogv._2._0.Interfaces
         public Category AddCategory(Category category);
         public Category UpdateCategory(Category category);
         public Category FindCategoryById(int? id);
+        public Category FindCategoryByName(string categoryName);
         public void Delete(int id);
         public IEnumerable<Category> GetAllCategories();
     }

@@ -11,6 +11,7 @@ namespace MarvinBlogv._2._0.Interfaces
         public PostCategory AddPostCategory(int id, DateTime createdAt, int postId, int categoryId);
         public void Delete(int id);
         public PostCategory UpdatePostCategory(int id, DateTime createdAt, int postId, int categoryId);
+        public List<PostCategory> GetAllPostCategories(int postId);
         public PostCategory FindPostCategory(int id);
     }
 }

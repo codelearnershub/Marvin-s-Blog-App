@@ -21,11 +21,16 @@ namespace MarvinBlogv._2._0.Context
         public DbSet<Post> Posts { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<PostCategory> PostCategories { get; set; }
-        public DbSet<PostImages> PostImages { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Category>().HasMany(c => c.AssociatedPosts)
+                .WithOne(cr => cr.Category)
+                .HasForeignKey(c => c.CategoryId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Post>().HasMany(p => p.PostCategories)
+                .WithOne(p => p.Post)
+                .HasForeignKey(c => c.PostId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<User>().HasData(
                 new User
                 {

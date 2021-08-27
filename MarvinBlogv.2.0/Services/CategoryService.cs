@@ -54,6 +54,11 @@ namespace MarvinBlogv._2._0.Services
             return categories;
         }
 
+        public Category GetCategoryByName(string categoryName)
+        {
+            return _categoryRepository.FindCategoryByName(categoryName);
+        }
+
         public Category UpdateCategory(int id, DateTime createdAt, string name, string imageURL)
         {
             var category = _categoryRepository.FindCategoryById(id);
