@@ -8,5 +8,7 @@ namespace MarvinBlogv._2._0
     public static class WC
     {
         public const string ImagePath = @"\ImageFolder\";
+
+        public const string PostImagePath = @"\PostImages\";
     }
 }

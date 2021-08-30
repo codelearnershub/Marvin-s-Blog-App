@@ -40,6 +40,7 @@ namespace MarvinBlogv._2._0.Controllers
         [HttpPost]
         public IActionResult Register(CreateUserViewModel model) 
         {
+
             var CreateModel = new CreateUserDto
             {
                 ConfirmPassword = model.ConfirmPassword,
@@ -49,8 +50,8 @@ namespace MarvinBlogv._2._0.Controllers
                 Password = model.Password,
                 CreatedAt = DateTime.Now,
             };
-            
             _userService.RegisterUser(CreateModel);
+                  
             return View();
         }
 

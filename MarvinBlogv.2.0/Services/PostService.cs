@@ -1,4 +1,5 @@
-﻿using MarvinBlogv._2._0.Interfaces;
+﻿using MarvinBlogv._2._0.DTO;
+using MarvinBlogv._2._0.Interfaces;
 using MarvinBlogv._2._0.Models;
 using System;
 using System.Collections.Generic;
@@ -21,11 +22,12 @@ namespace MarvinBlogv._2._0.Services
             _categoryRepository = categoryRepository;
         }
 
-        public void AddBlogPost(int id, DateTime publishedOn, string name, string title, string featuredImageURL, string content, string description, string postURL, int userId, string[] categoryIds)
+        public void AddBlogPost(int id, DateTime publishedOn, string name, string title, string featuredImageURL, string content, string description, string postURL, int userId, string[] categoryIds, string createdBy)
         {
             if(categoryIds.Length != 0)
             {
                 var postCategories = new List<PostCategory>() { };
+
                 foreach (var catId in categoryIds)
                 {
                     var postCat = new PostCategory
@@ -35,10 +37,11 @@ namespace MarvinBlogv._2._0.Services
                     };
                     postCategories.Add(postCat);
                 }
+
                 Post post = new()
                 {
                     Id = id,
-                    PublishedOn = DateTime.Now,
+                    CreatedAt = DateTime.Now,
                     Title = title,
                     FeaturedImageURL = featuredImageURL,
                     Content = content.ToUpper(),
@@ -46,6 +49,7 @@ namespace MarvinBlogv._2._0.Services
                     Description = description,
                     PostURL = postURL,
                     UserId = _userService.FindUserById(userId).Id,
+                    CreatedBy = _userService.FindUserById(id).FullName
                 };
 
                 _postRepository.AddBlogPost(post);
@@ -85,10 +89,10 @@ namespace MarvinBlogv._2._0.Services
             var posts = _postRepository.GetAllPosts().Select(p => new Post
             {
                 Id = p.Id,
-                CreatedAt = DateTime.Now,
+                CreatedAt = p.CreatedAt,
                 Title = p.Title.ToUpper(),
                 Content = p.Content.ToUpper(),
-                Description = p.Description.ToUpper(),
+                Description = p.Description,
                 Reviews = _postRepository.GetAllPostReviews(postId).ToList(),
                 PostURL = p.PostURL,
                 Status = p.Status
@@ -97,30 +101,59 @@ namespace MarvinBlogv._2._0.Services
             return posts;
         }
 
-        //public Post UpdatePost(int id, DateTime modifiedOn, DateTime publishedOn, string title, string featuredImageURL, string content, string description, string postURL, List<Category> categories, int postId, int userId, bool status)
-        //{
-        //    var post = _postRepository.FindById(id);
+        public IEnumerable<Post> ApprovedPost()
+        {
+            var posts = _postRepository.ApprovedPost().Select(p => new Post
+            {
+                Id = p.Id,
+                CreatedAt = p.CreatedAt,
+                Title = p.Title,
+                Content = p.Content,
+                Description = p.Description,
+                PostURL = p.PostURL,
+                Status = p.Status
+            }
+            ).ToList();
+            return posts;
+        }
 
-        //    post.LastModifiedOn = DateTime.Now;
+        public IEnumerable<Post> UnApprovedPost() 
+        {
+            var posts = _postRepository.UnApprovedPost().Select(p => new Post
+            {
+                Id = p.Id,
+                CreatedAt = p.CreatedAt,
+                Title = p.Title,
+                Content = p.Content,
+                Description = p.Description,
+                PostURL = p.PostURL,
+                Status = p.Status
+            }
+           ).ToList();
+            return posts;
+        }
 
-        //    post.CreatedAt = DateTime.Now;
+        public Post UpdatePost(int id, DateTime createdAt, string title, string featuredImageURL, string content, ICollection<PostCategory> categoryIds, string description, string postURL, bool status)
+        {
+            var post = _postRepository.FindById(id);
 
-        //    post.Title = title.ToUpper();
+            post.CreatedAt = DateTime.Now;
 
-        //    post.FeaturedImageURL = featuredImageURL.ToLower();
+            post.Title = title;
 
-        //    post.Content = content.ToUpper();
+            post.FeaturedImageURL = featuredImageURL;
 
+            post.Content = content.ToUpper();    
 
-        //    post.Description = description.ToUpper();
+            post.PostCategories = categoryIds;
 
-        //    post.PostURL = postURL.ToLower();
+            post.Description =description;
 
-        //    post.Categories = _postCategoryRepository.GetAllPostCategories(postId);
+            post.PostURL = postURL;
 
-        //    post.Reviews = _postRepository.GetAllPostReviews(postId).ToList();
+            post.Status = status;
 
-        //    return _postRepository.UpdatePost(post);
-        //}
+            return _postRepository.UpdatePost(post);
+        }
     }
 }

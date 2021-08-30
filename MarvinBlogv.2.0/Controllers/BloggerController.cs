@@ -27,7 +27,7 @@ namespace MarvinBlogv._2._0.Controllers
         }
 
         [Authorize(Roles = "blogger")]
-        public IActionResult Index()
+        public IActionResult Index(int postId)
         {
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
@@ -35,7 +35,11 @@ namespace MarvinBlogv._2._0.Controllers
 
             ViewBag.name = user.FullName;
 
-            return View();
+            ViewBag.createdBy = user.Email;
+
+            IEnumerable<Post> posts = _postService.GetAllPosts(postId);
+
+            return View(posts);
         }
 
         //[Authorize(Roles = "blogger")]

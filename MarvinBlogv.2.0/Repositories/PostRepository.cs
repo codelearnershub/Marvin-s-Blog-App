@@ -51,6 +51,16 @@ namespace MarvinBlogv._2._0.Repositories
             return _dbContext.PostCategories.Where(post => post.PostId == postId).ToList();
         }
 
+        public IEnumerable<Post> UnApprovedPost()
+        {
+            return _dbContext.Posts.Where(post => post.Status == false).ToList();
+        }
+
+        public IEnumerable<Post> ApprovedPost()
+        {
+            return _dbContext.Posts.Where(post => post.Status == true).ToList();
+        }
+
         public IEnumerable<Post> GetAllPosts()
         {
             return _dbContext.Posts.ToList();
