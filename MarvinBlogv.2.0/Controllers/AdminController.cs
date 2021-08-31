@@ -24,7 +24,7 @@ namespace MarvinBlogv._2._0.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public IActionResult Index(string email, int postId)
+        public IActionResult Index(string email)
         {
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
@@ -34,7 +34,7 @@ namespace MarvinBlogv._2._0.Controllers
 
             ViewBag.email = user.Email;
 
-            IEnumerable<Post> posts = _postService.GetAllPosts(postId);
+            IEnumerable<Post> posts = _postService.UnApprovedPost();
 
             return View(posts); ;
         }

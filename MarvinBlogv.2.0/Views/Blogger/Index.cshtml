@@ -4,57 +4,47 @@
     Layout = "BloggerDashboard";
 }<h3>Welome @ViewBag.email</h3>
 
-<div class="container">
-    <div class="row">
-        @if (Model.Count() > 0)
-        {
-        <div class="card">
-            <div class="card-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            @*<th>Content</th>*@
-                            <th>Description</th>
-                            <th>Featured Image</th>
-                            <th>Created At</th>
-                            <th>Created By</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var post in Model)
-                            {
-                        <tr>
-                            <td> @post.Title </td>
-                            @*<td>@post.Content</td>*@
-                            <td>@post.Description </td>
-                            <td>
-                                <img src="@WC.PostImagePath@post.FeaturedImageURL" />
-                            </td>
-                            <td>@post.CreatedAt </td>
-                            <td>@ViewBag.createdBy </td>
 
-                            @if (post.Status == false && post.CreatedBy == @ViewBag.createdBy)
-                                {
-                            <td>
-                                <a class="btn btn-success" asp-controller="Post" asp-action="Update" asp-route-id="@post.Id">Update</a>
-                                <a class="btn btn-danger" asp-controller="Post" asp-action="Delete" asp-route-id="@post.Id">Delete</a>
-                                @*<a class="btn btn-danger" asp-action="Detail" asp-route-id="@review.Id">Details</a>*@
-                            </td>
-                                }
-
-                        </tr>
-                            }
-                    </tbody>
-                </table>
+@if (Model.Count() > 0)
+{
+    @foreach (var post in Model)
+    {
+        <b>@post.Title</b>
+        <br>
+        <div class="container">
+            <div class="col md-4">
+                <div id="target">
+                    <textarea @post.Content></textarea>
+                </div>
             </div>
         </div>
-        }
 
-        else
+        <br />
+        @post.Description
+        <br />
+
+        <img src="@WC.PostImagePath@post.FeaturedImageURL" />
+
+        @post.CreatedAt
+        <br />
+        @ViewBag.createdBy
+
+        @if (post.Status == false && post.CreatedBy == ViewBag.createdBy)
         {
-        <p> No Post exists.</p>
+            <a class="btn btn-success" asp-controller="Post" asp-action="Update" asp-route-id="@post.Id"><i class="fas fa-edit" aria-hidden="true"></i></a>
         }
-    </div>
-</div>
+    }
+}
+
+else
+{
+    <p> No Post exists.</p>
+}
+
+<script>
+    (function () {
+        $(document).ready(function () {
+            $("#target").html($(this).val());
+        });
+</script>
+<script src="~/js/Jquery2.2.1/Jquery2.1.1.js"></script>

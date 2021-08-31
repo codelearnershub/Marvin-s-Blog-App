@@ -18,5 +18,6 @@ namespace MarvinBlogv._2._0.Interfaces
         public IEnumerable<Review> GetAllPostReviews(int postId);
         public Post UpdatePost(Post post);
         public void Delete(int id);
+        public IList<Post> Search(string searchText);
     }
 }

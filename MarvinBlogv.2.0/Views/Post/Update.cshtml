@@ -14,7 +14,7 @@
 
         @if (Model.Status == false)
         {
-            <form asp-action="Update">
+            <form method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
 
@@ -48,7 +48,6 @@
 
     <input type="submit" value="Submit " class="btn btn-primary" />
 
-</div>
 </div>
 
 <div>

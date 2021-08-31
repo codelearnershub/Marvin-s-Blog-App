@@ -1,6 +1,7 @@
 ﻿using MarvinBlogv._2._0.Context;
 using MarvinBlogv._2._0.Interfaces;
 using MarvinBlogv._2._0.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,6 +77,11 @@ namespace MarvinBlogv._2._0.Repositories
             _dbContext.Posts.Update(post);
             _dbContext.SaveChanges();
             return post;
+        }
+
+        public IList<Post> Search(string searchText) 
+        {
+            return _dbContext.Posts.Where(post => EF.Functions.Like(post.Content, $"%{searchText}%")).ToList();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿function JSalert() {
+﻿
+function JSalert() {
 
     // A confirm dialog
 
@@ -6,11 +7,11 @@
 
         if (e) {
 
-            alertify.alert("File is Removed!");
+            <a class="btn btn-primary" asp-controller="User" asp-action="Logout">Yes</a>;
 
         } else {
 
-            alertify.alert("File is safe!");
+             <a class="btn btn-primary" asp-controller="Blogger" asp-action="Index">No</a>;
 
         }
 

@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/fontawesome/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/login-stylesheet/min.css" />
-    <link rel="stylesheet" href="~/login-stylesheet/google.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    @*<link rel="stylesheet" href="~/login-stylesheet/min.css" />
+    <link rel="stylesheet" href="~/login-stylesheet/google.css" />*@
+    @*<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>*@
 </head>
 <body id="darkmode">
     <button id="btn" onclick="darkmode()">Theme</button>
@@ -38,13 +38,13 @@
                     <ul class="navbar-nav ml-auto nav-flex-icons">
                         <li class="nav-item">
                             <a asp-controller="User" asp-action="Login" class="nav-link waves-effect waves-light">
-                                <i class="fab fa-sign-in"></i>
-                            </a>Login
+                                <i class="fas fa-sign-in-alt"></i>Login
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a asp-controller="User" asp-action="Register" class="nav-link waves-effect waves-light">
-                                <i class="fab fa-sign-in-alt"></i>
-                            </a>Sign Up
+                                <i class="fas fa-user"></i>Sign Up
+                            </a>
                         </li>
 
                     </ul>

@@ -35,6 +35,8 @@ namespace MarvinBlogv._2._0.Models.ViewModel
         {
             public int Id { get; set; }
 
+            public DateTime CreatedAt { get; set; }
+
             [Required(ErrorMessage = "Category name is required")]
             [Display(Name = "Category Name:")]
             public string Name { get; set; }

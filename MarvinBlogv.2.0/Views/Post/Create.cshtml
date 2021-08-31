@@ -41,13 +41,13 @@
 
                                     <div class=form-row col-md-12>
                                         <label asp-for="Categories" class="form-check-label">Pick Category/Categories your Post belongs</label>
-                                        <select asp-items="@Model.CategorySelectListItem" class="selectpicker" multiple data-live-search="true" asp-for="Categories">
+                                        <select size="5" asp-items="@Model.CategorySelectListItem" class="selectpicker" multiple data-live-search="true" asp-for="Categories">
                                         </select>
                                         <span class="text-danger" asp-validation-for="Categories"></span>
                                     </div>
 
                                 </div>
-                                <div class=form-group>
+                                <div id="target" class=form-group>
                                     <div class=form-row col-md-12>
                                         <textarea asp-for="Content" id="summernote" name="content" class="form-control text-danger"></textarea>
                                     </div>
@@ -63,24 +63,7 @@
         </div>
     </form>
 </body>
-<script>
-    onImageUpload: function(files) {
-        var $editor = $(this);
-        var data = new FormData();
-        data.append('file', files[0]);
-        $.ajax({
-            url: 'file-upload.cfm',
-            method: 'POST',
-            data: data,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                console.log(response);
-                $editor.summernote('insertImage', response);
-            }
-        });
-    },
-</script>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

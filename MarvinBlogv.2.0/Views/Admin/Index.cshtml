@@ -27,6 +27,7 @@
                         <tbody>
                             @foreach (var post in Model)
                             {
+                              
                             <tr>
                                 <td> @post.Title </td>
                                 @*<td>@post.Content</td>*@
@@ -35,9 +36,7 @@
                                 <td>@post.CreatedAt </td>
                                 <td>@ViewBag.email </td>
                                 <td>
-                                    <a class="btn btn-success" asp-controller="Post" asp-action="Update" asp-route-id="@post.Id">Update</a>
-                                    <a class="btn btn-danger" asp-controller="Post" asp-action="Delete" asp-route-id="@post.Id">Delete</a>
-                                    <a class="btn btn-success" asp-controller="Post" asp-action="IsApproved" asp-route-id="@post.Id"><i class="fas fa-check-circle"></i></a>
+                                    <a class="btn btn-success" asp-controller="Post" asp-action="IsApproved" asp-route-id="@post.Id"><i class="fas fa-check"></i></a>
                                     @*<a class="btn btn-danger" asp-action="Detail" asp-route-id="@review.Id">Details</a>*@
                                 </td>
                             </tr>
@@ -79,7 +78,7 @@
 
         else
         {
-            <p> No Category exists.</p>
+            <p> No Post exists.</p>
         }
     </div>
 </div>

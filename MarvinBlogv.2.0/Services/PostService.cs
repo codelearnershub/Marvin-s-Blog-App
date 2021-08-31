@@ -22,7 +22,7 @@ namespace MarvinBlogv._2._0.Services
             _categoryRepository = categoryRepository;
         }
 
-        public void AddBlogPost(int id, DateTime publishedOn, string name, string title, string featuredImageURL, string content, string description, string postURL, int userId, string[] categoryIds, string createdBy)
+        public void AddBlogPost(int id, DateTime publishedOn, string name, string title, string featuredImageURL, string content, string description, string postURL, int userId, string[] categoryIds, string createdBy, bool status)
         {
             if(categoryIds.Length != 0)
             {
@@ -45,11 +45,12 @@ namespace MarvinBlogv._2._0.Services
                     Title = title,
                     FeaturedImageURL = featuredImageURL,
                     Content = content.ToUpper(),
-                    PostCategories = postCategories,
-                    Description = description,
+                    PostCategories = postCategories,                  
                     PostURL = postURL,
+                    Description = description,
                     UserId = _userService.FindUserById(userId).Id,
-                    CreatedBy = _userService.FindUserById(id).FullName
+                    CreatedBy = _userService.FindUserById(userId).Email,
+                    Status = status
                 };
 
                 _postRepository.AddBlogPost(post);
