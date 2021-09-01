@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MarvinBlogv._2._0.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    [Migration("20210825130331_modified initialMigration")]
-    partial class modifiedinitialMigration
+    [Migration("20210827165744_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,8 +90,7 @@ namespace MarvinBlogv._2._0.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("varchar(250) CHARACTER SET utf8mb4")
-                        .HasMaxLength(250);
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -101,8 +100,8 @@ namespace MarvinBlogv._2._0.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasColumnType("varchar(250) CHARACTER SET utf8mb4")
+                        .HasMaxLength(250);
 
                     b.Property<string>("FeaturedImageURL")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -124,8 +123,8 @@ namespace MarvinBlogv._2._0.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasColumnType("varchar(250) CHARACTER SET utf8mb4")
+                        .HasMaxLength(250);
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -236,15 +235,6 @@ namespace MarvinBlogv._2._0.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedAt = new DateTime(2021, 8, 25, 14, 3, 25, 375, DateTimeKind.Local).AddTicks(4140),
-                            CreatedBy = "adeoyemarvellous7@gmail.com",
-                            Name = "SuperAdmin"
-                        });
                 });
 
             modelBuilder.Entity("MarvinBlogv._2._0.Models.User", b =>
@@ -279,28 +269,12 @@ namespace MarvinBlogv._2._0.Migrations
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("PublishedOn")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedAt = new DateTime(2021, 8, 25, 14, 3, 25, 362, DateTimeKind.Local).AddTicks(6755),
-                            CreatedBy = "adeoyemarvellous7@gmail.com",
-                            Email = "adeoyemarvellous7@gmail.com",
-                            FullName = "Marvellous Adeoye",
-                            HashSalt = "GHAku+jJgJVENsz/Y7le9w==",
-                            PasswordHash = "jeYMxCrAXGBEfEJB7j3IuPv4LhgThc7OIsAovL/J13Q=",
-                            PostId = 0
-                        });
                 });
 
             modelBuilder.Entity("MarvinBlogv._2._0.Models.UserRole", b =>
@@ -334,16 +308,6 @@ namespace MarvinBlogv._2._0.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedAt = new DateTime(2021, 8, 25, 14, 3, 25, 375, DateTimeKind.Local).AddTicks(7941),
-                            CreatedBy = "adeoyemarvellous@gmail.com",
-                            RoleId = 1,
-                            UserId = 1
-                        });
                 });
 
             modelBuilder.Entity("MarvinBlogv._2._0.Models.Follower", b =>
@@ -367,13 +331,13 @@ namespace MarvinBlogv._2._0.Migrations
                     b.HasOne("MarvinBlogv._2._0.Models.Category", "Category")
                         .WithMany("AssociatedPosts")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MarvinBlogv._2._0.Models.Post", "Post")
-                        .WithMany("Categories")
+                        .WithMany("PostCategories")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -395,13 +359,13 @@ namespace MarvinBlogv._2._0.Migrations
             modelBuilder.Entity("MarvinBlogv._2._0.Models.UserRole", b =>
                 {
                     b.HasOne("MarvinBlogv._2._0.Models.Role", "Role")
-                        .WithMany()
+                        .WithMany("userRoles")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MarvinBlogv._2._0.Models.User", "User")
-                        .WithMany()
+                        .WithMany("userRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

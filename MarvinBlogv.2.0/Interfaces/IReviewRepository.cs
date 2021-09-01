@@ -13,5 +13,6 @@ namespace MarvinBlogv._2._0.Interfaces
         public Review FindReviewById(int? id);
         public Review UpdateReview(Review review);
         public void Delete(int id);
+        public List<Review> FindByPostId(int PostId);
     }
 }

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MarvinBlogv._2._0.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    [Migration("20210821121820_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210828215242_init2")]
+    partial class init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,7 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<DateTime?>("PublishedOn")
+                    b.Property<DateTime>("PublishedOn")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
@@ -69,7 +69,7 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<DateTime?>("LastModifiedOn")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime?>("PublishedOn")
+                    b.Property<DateTime>("PublishedOn")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UserId")
@@ -90,8 +90,7 @@ namespace MarvinBlogv._2._0.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("varchar(250) CHARACTER SET utf8mb4")
-                        .HasMaxLength(250);
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -100,9 +99,13 @@ namespace MarvinBlogv._2._0.Migrations
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("FeaturedImageURL")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ImageURL")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime?>("LastModifiedOn")
                         .HasColumnType("datetime(6)");
@@ -110,7 +113,7 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<string>("PostURL")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<DateTime?>("PublishedOn")
+                    b.Property<DateTime>("PublishedOn")
                         .HasColumnType("datetime(6)");
 
                     b.Property<bool>("Status")
@@ -118,8 +121,8 @@ namespace MarvinBlogv._2._0.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
-                        .HasMaxLength(50);
+                        .HasColumnType("varchar(250) CHARACTER SET utf8mb4")
+                        .HasMaxLength(250);
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -152,7 +155,7 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("PublishedOn")
+                    b.Property<DateTime>("PublishedOn")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
@@ -162,37 +165,6 @@ namespace MarvinBlogv._2._0.Migrations
                     b.HasIndex("PostId");
 
                     b.ToTable("PostCategories");
-                });
-
-            modelBuilder.Entity("MarvinBlogv._2._0.Models.PostImages", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("ImageURL")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("PublishedOn")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("PostImages");
                 });
 
             modelBuilder.Entity("MarvinBlogv._2._0.Models.Review", b =>
@@ -219,10 +191,10 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("PublishedOn")
+                    b.Property<DateTime>("PublishedOn")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("Reaction")
+                    b.Property<int?>("Reaction")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -255,7 +227,7 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<DateTime?>("PublishedOn")
+                    b.Property<DateTime>("PublishedOn")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
@@ -266,9 +238,10 @@ namespace MarvinBlogv._2._0.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 8, 21, 13, 18, 18, 302, DateTimeKind.Local).AddTicks(8310),
+                            CreatedAt = new DateTime(2021, 8, 28, 22, 52, 39, 656, DateTimeKind.Local).AddTicks(4420),
                             CreatedBy = "adeoyemarvellous7@gmail.com",
-                            Name = "SuperAdmin"
+                            Name = "SuperAdmin",
+                            PublishedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -304,10 +277,7 @@ namespace MarvinBlogv._2._0.Migrations
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("PublishedOn")
+                    b.Property<DateTime>("PublishedOn")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
@@ -318,13 +288,13 @@ namespace MarvinBlogv._2._0.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 8, 21, 13, 18, 18, 291, DateTimeKind.Local).AddTicks(9071),
+                            CreatedAt = new DateTime(2021, 8, 28, 22, 52, 39, 641, DateTimeKind.Local).AddTicks(361),
                             CreatedBy = "adeoyemarvellous7@gmail.com",
                             Email = "adeoyemarvellous7@gmail.com",
                             FullName = "Marvellous Adeoye",
                             HashSalt = "GHAku+jJgJVENsz/Y7le9w==",
                             PasswordHash = "jeYMxCrAXGBEfEJB7j3IuPv4LhgThc7OIsAovL/J13Q=",
-                            PostId = 0
+                            PublishedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -343,7 +313,7 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<DateTime?>("LastModifiedOn")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime?>("PublishedOn")
+                    b.Property<DateTime>("PublishedOn")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("RoleId")
@@ -364,8 +334,9 @@ namespace MarvinBlogv._2._0.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 8, 21, 13, 18, 18, 303, DateTimeKind.Local).AddTicks(2383),
+                            CreatedAt = new DateTime(2021, 8, 28, 22, 52, 39, 657, DateTimeKind.Local).AddTicks(957),
                             CreatedBy = "adeoyemarvellous@gmail.com",
+                            PublishedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = 1,
                             UserId = 1
                         });
@@ -392,22 +363,13 @@ namespace MarvinBlogv._2._0.Migrations
                     b.HasOne("MarvinBlogv._2._0.Models.Category", "Category")
                         .WithMany("AssociatedPosts")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MarvinBlogv._2._0.Models.Post", "Post")
-                        .WithMany("Categories")
+                        .WithMany("PostCategories")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MarvinBlogv._2._0.Models.PostImages", b =>
-                {
-                    b.HasOne("MarvinBlogv._2._0.Models.Post", "Post")
-                        .WithMany("PostImages")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -429,13 +391,13 @@ namespace MarvinBlogv._2._0.Migrations
             modelBuilder.Entity("MarvinBlogv._2._0.Models.UserRole", b =>
                 {
                     b.HasOne("MarvinBlogv._2._0.Models.Role", "Role")
-                        .WithMany()
+                        .WithMany("userRoles")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MarvinBlogv._2._0.Models.User", "User")
-                        .WithMany()
+                        .WithMany("userRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

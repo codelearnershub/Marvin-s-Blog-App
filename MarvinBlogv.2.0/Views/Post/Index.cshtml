@@ -1,5 +1,37 @@
-﻿
-    @{
-        Layout = "BloggerDashboard";
+﻿@model IEnumerable<MarvinBlogv._2._0.Models.Post>
+@{
+    Layout = "BloggerDashboard";
+}
+
+
+@if (Model.Count() > 0)
+{
+    @foreach (var post in Model)
+    {
+        <div class="col-4 mb-4 col-lg-4 justify-content-center">
+            <div class="card">
+                <div class="card-header text-center ">
+                    <h5><b class="card-title" style="color:black">@post.Title.ToUpper() </b></h5>
+
+                    <div class="col-4">
+                        <img width="100%" height="150" style="border-radius:5px; border:1px solid #bbb" src="@WC.PostImagePath@post.FeaturedImageURL" />
+                    </div>
+
+                    <div class="col-md-12">
+                        <h6>@post.Content</h6>
+                    </div>
+
+                    <div class="col-md-12">
+                        <h6>@post.CreatedAt</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     }
-    <h1>Loading.....</h1>
+}
+
+else
+{
+    <p> No Category exists.</p>
+}

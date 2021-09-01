@@ -6,12 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MarvinsBlog</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/4.1.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/css/bootstrap.min" />
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
+    <link rel="stylesheet" href="~/sidenav/sidenav.css" />
+    <link rel="stylesheet" href="~/fontawesome/css/all.min.css" />
     <script src="~/lib/jquery//dist/jquery.min.js"></script>
-
     <link rel="stylesheet" href="~/summernote-0.8.18-dist/summernote-bs4.css" />
     <script src="~/js/popper.min.js"></script>
 
@@ -21,53 +20,27 @@
     <script src="~/js/Jquery2.2.1/Jquery2.1.1.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>
+
 </head>
 
-<body>
+<body id="darkmode">
+    <button id="btn" onclick="darkmode()">Theme</button>
 
-    <!-- SideNav slide-out button -->
-    @*<div class="w3-sidebar w3-bar-block w3-collapse" style="width:200px;right:0; background-color:blanchedalmond; color:darkblue" id="mySidebar">
-        <button class="w3-bar-item w3-button w3-hide-large"
-                onclick="w3_close()">
-            Close &times;
-        </button>*@
-    <div class="pos-f-t">
-        <div class="collapse" id="navbarToggleExternalContent">
-            <div class="bg-dark p-4">
-                <h4 class="text-white">Collapsed content</h4>
-                <span class="text-muted">Toggleable via the navbar brand.</span>
-            </div>
-        </div>
-        <nav class="navbar navbar-dark bg-dark">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </nav>
-    </div>
-    @*<a class="w3-bar-item w3-button">DashBoard</a>*@
-    <a asp-controller="Post" asp-action="Create" class="w3-bar-item w3-button">Add Posts</a>
-    <a asp-controller="Category" asp-action="Create" class="w3-bar-item w3-button">Add Category</a>
-    @*</div>*@
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a asp-controller="Post" asp-action="Create"><i class="fas fa-plus"></i>Add Post</a>
+        <a asp-controller="User" asp-action="LogoutOption"><i class="fas fa-sign-out-alt"></i>LogOut</a>
 
-    <div class="w3-main" style="margin-left:200px;color:blueviolet">
-        <div class="w3-teal">
-            <button class="w3-button w3-teal w3-xlarge w3-right w3-hide-large" onclick="w3_open()">&#9776;</button>
-            <div class="w3-container">
-                <h2>My Page</h2>
-            </div>
-        </div>
-
+        @*<div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+            <a class="dropdown-item" asp-controller="Category" asp-action="Create">Add Category</a>
+            <a class="dropdown-item" asp-controller="Category" asp-action="Index">List Category</a>
+        </div>*@
+        </li>
     </div>
 
-    <script>
-        function w3_open() {
-            document.getElementById("mySidebar").style.display = "block";
-        }
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
 
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-        }
-    </script>
+    <script src="~/js/sidenav.js"></script>
 
     <div class="container">
         <main role="main" class="pb-3">
@@ -80,10 +53,13 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="js/mdb.min.js"></script>
+    <script src="~/fontawesome/js/all.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/summernote-0.8.18-dist/summernote.min.js"></script>
     <script src="~/summernote-0.8.18-dist/summernote-bs4.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/darkmode.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
         $('#summernote').summernote({

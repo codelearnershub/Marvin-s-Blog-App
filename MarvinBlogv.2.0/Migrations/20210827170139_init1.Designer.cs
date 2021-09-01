@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MarvinBlogv._2._0.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    [Migration("20210826163344_ModifiedMigrant")]
-    partial class ModifiedMigrant
+    [Migration("20210827170139_init1")]
+    partial class init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,8 +90,7 @@ namespace MarvinBlogv._2._0.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("varchar(1000) CHARACTER SET utf8mb4")
-                        .HasMaxLength(1000);
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -241,7 +240,7 @@ namespace MarvinBlogv._2._0.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 8, 26, 17, 33, 41, 248, DateTimeKind.Local).AddTicks(9080),
+                            CreatedAt = new DateTime(2021, 8, 27, 18, 1, 36, 537, DateTimeKind.Local).AddTicks(7041),
                             CreatedBy = "adeoyemarvellous7@gmail.com",
                             Name = "SuperAdmin"
                         });
@@ -279,9 +278,6 @@ namespace MarvinBlogv._2._0.Migrations
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("PublishedOn")
                         .HasColumnType("datetime(6)");
 
@@ -293,13 +289,12 @@ namespace MarvinBlogv._2._0.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 8, 26, 17, 33, 41, 237, DateTimeKind.Local).AddTicks(8756),
+                            CreatedAt = new DateTime(2021, 8, 27, 18, 1, 36, 518, DateTimeKind.Local).AddTicks(8211),
                             CreatedBy = "adeoyemarvellous7@gmail.com",
                             Email = "adeoyemarvellous7@gmail.com",
                             FullName = "Marvellous Adeoye",
                             HashSalt = "GHAku+jJgJVENsz/Y7le9w==",
-                            PasswordHash = "jeYMxCrAXGBEfEJB7j3IuPv4LhgThc7OIsAovL/J13Q=",
-                            PostId = 0
+                            PasswordHash = "jeYMxCrAXGBEfEJB7j3IuPv4LhgThc7OIsAovL/J13Q="
                         });
                 });
 
@@ -339,7 +334,7 @@ namespace MarvinBlogv._2._0.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 8, 26, 17, 33, 41, 249, DateTimeKind.Local).AddTicks(4888),
+                            CreatedAt = new DateTime(2021, 8, 27, 18, 1, 36, 538, DateTimeKind.Local).AddTicks(3487),
                             CreatedBy = "adeoyemarvellous@gmail.com",
                             RoleId = 1,
                             UserId = 1
@@ -395,13 +390,13 @@ namespace MarvinBlogv._2._0.Migrations
             modelBuilder.Entity("MarvinBlogv._2._0.Models.UserRole", b =>
                 {
                     b.HasOne("MarvinBlogv._2._0.Models.Role", "Role")
-                        .WithMany()
+                        .WithMany("userRoles")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MarvinBlogv._2._0.Models.User", "User")
-                        .WithMany()
+                        .WithMany("userRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

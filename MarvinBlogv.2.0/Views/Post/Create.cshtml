@@ -8,7 +8,7 @@
 
 <body>
     <!-- <div id="summernote"></div> -->
-    <form method="post">
+    <form method="post" asp-controller="Admin" asp-action="Index" enctype="multipart/form-data">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 mt-5">
@@ -22,24 +22,34 @@
                                     <div class=form-row col-md-12>
                                         <label class="form-check-label">Enter the Title of your blog</label>
                                         <input asp-for="Title" id="title" name="title" type="text" class="form-control">
-                                        <span asp-validation-for="Title"></span>
+                                        <span class="text-danger" asp-validation-for="Title"></span>
                                     </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-4">
+                                            <label>Feature Image:</label>
+                                            <input type="file" name="files" onclick="return validateInput()" asp-for="FeaturedImageURL" id="uploadBox" multiple class="form-control" Required>
+                                            <span class="text-danger"></span><br>
+                                        </div>
+                                    </div>
+
                                     <div class=form-row col-md-12>
                                         <label class="form-check-label">Enter the Description</label>
                                         <input asp-for="Description" id="description" name="description" type="text" class="form-control">
                                         <span asp-validation-for="Description"></span>
                                     </div>
+
                                     <div class=form-row col-md-12>
                                         <label asp-for="Categories" class="form-check-label">Pick Category/Categories your Post belongs</label>
-                                        <select asp-items="@Model.CategorySelectListItem" class="selectpicker" multiple data-live-search="true" asp-for="Categories">
+                                        <select size="5" asp-items="@Model.CategorySelectListItem" class="selectpicker" multiple data-live-search="true" asp-for="Categories">
                                         </select>
-                                        <span asp-validation-for="Categories"></span>
+                                        <span class="text-danger" asp-validation-for="Categories"></span>
                                     </div>
 
                                 </div>
-                                <div class=form-group>
+                                <div id="target" class=form-group>
                                     <div class=form-row col-md-12>
-                                        <textarea asp-for="Content" id="summernote" name="content" class="form-control"></textarea>
+                                        <textarea asp-for="Content" id="summernote" name="content" class="form-control text-danger"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -53,6 +63,7 @@
         </div>
     </form>
 </body>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

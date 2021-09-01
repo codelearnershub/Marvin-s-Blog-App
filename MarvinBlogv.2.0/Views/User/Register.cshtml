@@ -21,11 +21,11 @@
                     <input asp-for="Email" class="form-control" placeholder="Email Address" required />
                     <span asp-validation-for="Email" class="text-danger"></span><br>
 
-                    <input type="password" asp-for="Password" class="form-control" placeholder="Create Password" />
+                    <input type="password" asp-for="Password" class="form-control" placeholder="Create Password" required />
                     <span asp-validation-for="Password" class="text-danger"></span><br />
 
                     <input type="password" asp-for="ConfirmPassword" class="form-control"
-                           placeholder="Confirm Password" />
+                           placeholder="Confirm Password" required />
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span><br />
 
                 </div>
