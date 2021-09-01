@@ -32,9 +32,9 @@
         <a asp-controller="User" asp-action="LogoutOption"><i class="fas fa-sign-out-alt"></i>LogOut</a>
 
         @*<div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
-            <a class="dropdown-item" asp-controller="Category" asp-action="Create">Add Category</a>
-            <a class="dropdown-item" asp-controller="Category" asp-action="Index">List Category</a>
-        </div>*@
+                <a class="dropdown-item" asp-controller="Category" asp-action="Create">Add Category</a>
+                <a class="dropdown-item" asp-controller="Category" asp-action="Index">List Category</a>
+            </div>*@
         </li>
     </div>
 
@@ -62,16 +62,53 @@
     <script src="~/js/darkmode.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
-        $('#summernote').summernote({
-            placeholder: 'Hello Bootstrap 4',
-            height: 300,                 // set editor height
-            width: 3000,
-            minHeight: null,             // set minimum height of editor
-            maxHeight: null,             // set maximum height of editor
-            focus: true
-        });
         $('select').selectpicker();
     </script>
+
+    <script>
+
+    $("#summernote").summernote({
+        height: 300,                 // set editor height
+        minHeight: null,             // set minimum height of editor
+        maxHeight: null,             // set maximum height of editor
+        focus: true,                  // set focus to editable area after initializing summernote
+        callbacks: {
+            onImageUpload: function (files) {
+                for (let i = 0; i < files.length; i++) {
+                    UploadImage(files[i]);
+                }
+            }
+        }
+    });
+
+
+
+
+    function UploadImage(file) {
+        var url = '@Url.Action("UploadFile", "Post")';
+
+        formData = new FormData();
+        formData.append("aUploadedFile", file);
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (FileUrl) {
+               // alert(FileUrl);
+                var imgNode = document.createElement('img');
+                imgNode.src = FileUrl;
+                $('#summernote').summernote('insertNode', imgNode);
+            },
+            error: function (data) {
+                alert(data.responseText);
+            }
+        });
+    }
+    </script>
+
 </body>
 
 </html>
