@@ -39,10 +39,10 @@ namespace MarvinBlogv._2._0.Repositories
             return _dbContext.Posts.ToList();
         }
 
-        public IEnumerable<User> GetUserPosts(int postId)
-        {
-            return _dbContext.Users.Where(user => user.PostId == postId).ToList();
-        }
+        //public IEnumerable<User> GetUserPosts(int postId)
+        //{
+        //    return _dbContext.Users.Where(user => user.PostId == postId).ToList();
+        //}
 
         public Role FindRole(string name)
         {

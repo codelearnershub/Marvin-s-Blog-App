@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace MarvinBlogv._2._0.Models.ViewModel
 {
@@ -39,9 +40,9 @@ namespace MarvinBlogv._2._0.Models.ViewModel
 
         [Required(ErrorMessage = "Post Content is required")]
         [Display(Name = "Content:")]
+        [AllowHtml]
         public string Content { get; set; }
 
-        [Required(ErrorMessage = "Descibe more about your post here")]
         public string Description { get; set; }
         public string FeaturedImageURL { get; set; }
         public string PostURL { get; set; }
@@ -51,19 +52,28 @@ namespace MarvinBlogv._2._0.Models.ViewModel
 
         [Required(ErrorMessage = "Select at least one Category")]
         public string[] Categories { get; set; }
-        public IEnumerable<SelectListItem> CategorySelectListItem { get; set; }
+        public IEnumerable<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> CategorySelectListItem { get; set; }
 
     }
 
     public class UpdatePostViewModel
     {
-        [Required(ErrorMessage = "Post Title required")]
-        [Display(Name = "Title:")]
-        public string Name { get; set; }
+        public int Id { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-        [Required(ErrorMessage = "Post Content required")]
+        public DateTime CreatedBy { get; set; }
+        public DateTime? LastModifiedOn { get; set; }
+
+        [Display(Name = "Title:")]
+        public string Title { get; set; }
+
         [Display(Name = "Content:")]
         public string Content { get; set; }
+        public string PostURL { get; set; }
+        public string FeaturedImageURL { get; set; }
         public string Description { get; set; }
+        public ICollection<PostCategory> PostCategories { get; set; } = new HashSet<PostCategory>();
+        public bool Status { get; set; }
+        public IEnumerable<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> CategorySelectListItem { get; set; }
     }
 }

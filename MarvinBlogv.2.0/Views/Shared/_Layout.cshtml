@@ -5,15 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MarvinBlogv._2._0</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/fontawesome/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    @*<link rel="stylesheet" href="~/login-stylesheet/min.css" />
+    <link rel="stylesheet" href="~/login-stylesheet/google.css" />*@
+    @*<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>*@
 </head>
-<body>
+<body id="darkmode">
+    <button id="btn" onclick="darkmode()">Theme</button>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MarvinBlogv._2._0</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand font-weight-bold " asp-area="" asp-controller="Home" asp-action="Index"
+                   style="color:hotpink">MarVins</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
@@ -21,29 +28,30 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home"
+                               asp-action="Privacy">Privacy</a>
                         </li>
 
+                    </ul>
+                    <ul class="navbar-nav ml-auto nav-flex-icons">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User"
-                               asp-action="Register">Register</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="AddRole">
-                                Add
-                                Role
+                            <a asp-controller="User" asp-action="Login" class="nav-link waves-effect waves-light">
+                                <i class="fas fa-sign-in-alt"></i>Login
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a asp-controller="User" asp-action="Register" class="nav-link waves-effect waves-light">
+                                <i class="fas fa-user"></i>Sign Up
+                            </a>
+                        </li>
+
                     </ul>
                 </div>
             </div>
         </nav>
+        <!--/.Navbar -->
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -57,6 +65,8 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/fontawesome/js/all.min.js"></script>
+    <script src="~/js/darkmode.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

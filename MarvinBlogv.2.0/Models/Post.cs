@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace MarvinBlogv._2._0.Models
 {
@@ -10,9 +11,9 @@ namespace MarvinBlogv._2._0.Models
         public string Title { get; set; }
 
         [Required]
+        [AllowHtml]
         public string Content { get; set; }
 
-        [Required, MaxLength(250)]
         public string Description { get; set; }
 
         public string FeaturedImageURL { get; set; }

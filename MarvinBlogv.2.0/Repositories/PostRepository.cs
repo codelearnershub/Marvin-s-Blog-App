@@ -1,6 +1,7 @@
 ﻿using MarvinBlogv._2._0.Context;
 using MarvinBlogv._2._0.Interfaces;
 using MarvinBlogv._2._0.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,16 @@ namespace MarvinBlogv._2._0.Repositories
             return _dbContext.PostCategories.Where(post => post.PostId == postId).ToList();
         }
 
+        public IEnumerable<Post> UnApprovedPost()
+        {
+            return _dbContext.Posts.Where(post => post.Status == false).ToList();
+        }
+
+        public IEnumerable<Post> ApprovedPost()
+        {
+            return _dbContext.Posts.Where(post => post.Status == true).ToList();
+        }
+
         public IEnumerable<Post> GetAllPosts()
         {
             return _dbContext.Posts.ToList();
@@ -66,6 +77,11 @@ namespace MarvinBlogv._2._0.Repositories
             _dbContext.Posts.Update(post);
             _dbContext.SaveChanges();
             return post;
+        }
+
+        public IList<Post> Search(string searchText) 
+        {
+            return _dbContext.Posts.Where(post => EF.Functions.Like(post.Content, $"%{searchText}%")).ToList();
         }
     }
 }

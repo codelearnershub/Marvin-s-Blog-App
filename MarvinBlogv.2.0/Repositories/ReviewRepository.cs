@@ -52,5 +52,10 @@ namespace MarvinBlogv._2._0.Repositories
             _dbContext.SaveChanges();
             return review;
         }
+
+        public List<Review> FindByPostId(int PostId)
+        {
+            return _dbContext.Reviews.Where(review => review.PostId == PostId).ToList();
+        }
     }
 }
