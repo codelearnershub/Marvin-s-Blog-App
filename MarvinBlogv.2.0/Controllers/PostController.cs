@@ -5,6 +5,7 @@ using MarvinBlogv._2._0.Models;
 using MarvinBlogv._2._0.Models.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -180,6 +181,34 @@ namespace MarvinBlogv._2._0.Controllers
 
             _postService.Delete(id);
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UploadFile(IFormFile aUploadedFile)
+        {
+            var vImageSavePath = string.Empty;
+            if (aUploadedFile.Length > 0)
+            {
+                var vFileName = Path.GetFileNameWithoutExtension(aUploadedFile.FileName);
+                var vExtension = Path.GetExtension(aUploadedFile.FileName);
+
+                string sImageName = vFileName + "-" + "image";
+
+                vImageSavePath = Path.Combine(_webHostEnvironment.ContentRootPath+ "\\UploadFiles\\" + sImageName + vExtension);
+                //vReturnImagePath = "/UploadFiles/" + sImageName + vExtension;
+                ViewBag.Msg = vImageSavePath;
+                var path = vImageSavePath;
+
+                // Saving Image in Original Mode
+                using (var stream = new FileStream(vImageSavePath, FileMode.Create))
+                {
+                    await aUploadedFile.CopyToAsync(stream);
+                }
+                var vImageLength = new FileInfo(path).Length;
+                //here to add Image Path to You Database ,  
+                TempData["message"] = string.Format("Image was Added Successfully");
+            }
+            return Json(Convert.ToString(vImageSavePath));
         }
 
     }
