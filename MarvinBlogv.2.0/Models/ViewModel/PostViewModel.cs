@@ -8,6 +8,20 @@ using System.Web.Mvc;
 
 namespace MarvinBlogv._2._0.Models.ViewModel
 {
+    public class PostCategoryIndexModel 
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? LastModifiedOn { get; set; }
+        public DateTime? PublishedOn { get; set; }
+        public string CreatedBy { get; set; }
+        public List<PostCategory> AssociatedPosts { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string ImageURL { get; set; }
+        public int CategoryId { get; set; }
+    }
     public class PostViewModel
     {
         public DateTime CreatedAt { get; set; }

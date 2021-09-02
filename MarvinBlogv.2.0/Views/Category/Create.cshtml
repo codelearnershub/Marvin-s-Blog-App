@@ -28,7 +28,7 @@
                 <div class="form-group row">
                     <div class="col-4">
                         <label>Image:</label>
-                        <input type="file" name="files" onclick="return validateInput()" asp-for="ImageURL" id="uploadBox" multiple class="form-control" Required>
+                        <input type="file" name="files" asp-for="ImageURL" multiple class="form-control" Required>
                         <span class="text-danger"></span><br>
                     </div>
                 </div>
@@ -46,9 +46,6 @@
                     <a asp-action="Index" class="btn btn-success w-100"><i class="fas fa-sign-out-alt"></i> Back</a>
                 </div>
 
-
-                <img src="@WC.ImagePath" style="width:100px; border-radius: 5px; border:1px solid #bbb" />
-
             </div>
         </div>
     </div>
@@ -58,24 +55,5 @@
 @section Scripts {
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        $(document).ready(function)(){
-            $('.summernote').summernote({
-                height: 250
-            });
-        };
-        function validateInput() {
-            if (document.getElementById("uploadBox").value == "") {
-                Swal.fire(
-                    'Error!',
-                    'Please upload an Image!',
-                    'error'
-                )
-                return false;
-            }
-            return true;
-        }
-    </script>
-
 }
 

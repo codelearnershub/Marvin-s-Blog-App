@@ -85,7 +85,7 @@ namespace MarvinBlogv._2._0.Services
             return review;
         }
 
-        public IEnumerable<Post> GetAllPosts(int postId)
+        public IEnumerable<Post> GetAllPosts()
         {
             var posts = _postRepository.GetAllPosts().Select(p => new Post
             {
@@ -94,7 +94,7 @@ namespace MarvinBlogv._2._0.Services
                 Title = p.Title.ToUpper(),
                 Content = p.Content,
                 Description = p.Description,
-                Reviews = _postRepository.GetAllPostReviews(postId).ToList(),
+                //Reviews = _postRepository.GetAllPostReviews(postId).ToList(),
                 PostURL = p.PostURL,
                 Status = p.Status
             }).ToList();

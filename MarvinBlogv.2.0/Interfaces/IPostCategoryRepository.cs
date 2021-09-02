@@ -13,5 +13,7 @@ namespace MarvinBlogv._2._0.Interfaces
         public PostCategory UpdatePostCategory(PostCategory postCategory);
         public List<PostCategory> GetAllPostCategories(int postId);
         public PostCategory FindPostCategory(int id);
+
+        public List<PostCategory> GetPostByCategoryId(int categoryId);
     }
 }

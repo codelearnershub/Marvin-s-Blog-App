@@ -13,7 +13,7 @@ namespace MarvinBlogv._2._0.Interfaces
         public Post FindById(int? id);
         public User FindByUser(int userId);
         public List<PostCategory> GetAllPostCategories(int postId);
-        public IEnumerable<Post> GetAllPosts(int postId);
+        public IEnumerable<Post> GetAllPosts();
         public IEnumerable<Post> ApprovedPost();
         public IEnumerable<Post> UnApprovedPost();
         public IEnumerable<Review> GetAllPostReviews(int postId);

@@ -8,6 +8,7 @@ using System.Security.Claims;
 
 namespace MarvinBlogv._2._0.Controllers
 {
+     [Authorize(Roles = "blogger")]
     public class BloggerController : Controller
     {
         private readonly IUserService _userService;
@@ -23,8 +24,8 @@ namespace MarvinBlogv._2._0.Controllers
             _postCategoryService = postCategoryService;
         }
 
-        [Authorize(Roles = "blogger")]
-        public IActionResult Index(int postId)
+       [Authorize]
+        public IActionResult Index()
         {
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
@@ -32,9 +33,7 @@ namespace MarvinBlogv._2._0.Controllers
 
             ViewBag.name = user.FullName;
 
-            ViewBag.createdBy = user.Email;
-
-            IEnumerable<Post> posts = _postService.GetAllPosts(postId);
+            IEnumerable<Post> posts = _postService.GetAllPosts();
 
             return View(posts);
         }
