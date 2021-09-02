@@ -10,10 +10,12 @@ namespace MarvinBlogv._2._0.Services
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IPostRepository _postRepository;
 
-        public CategoryService(ICategoryRepository categoryRepository)
+        public CategoryService(ICategoryRepository categoryRepository, IPostRepository postRepository)
         {
             _categoryRepository = categoryRepository;
+            _postRepository = postRepository;
         }
 
         public Category AddCategory(int id, DateTime createdAt, string name, string imageURL)

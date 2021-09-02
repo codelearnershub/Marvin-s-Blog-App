@@ -34,7 +34,7 @@
                                 <td>@post.Description </td>
                                 <td><img src="@WC.PostImagePath@post.FeaturedImageURL" /> </td>
                                 <td>@post.CreatedAt </td>
-                                <td>@ViewBag.email </td>
+                                <td>@post.CreatedBy </td>
                                 <td>
                                     <a class="btn btn-success" asp-controller="Post" asp-action="IsApproved" asp-route-id="@post.Id"><i class="fas fa-check"></i></a>
                                     @*<a class="btn btn-danger" asp-action="Detail" asp-route-id="@review.Id">Details</a>*@

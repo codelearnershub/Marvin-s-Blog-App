@@ -21,5 +21,6 @@ namespace MarvinBlogv._2._0.Models
         public ICollection<Follower> Followers { get; set; } = new HashSet<Follower>();
 
         public ICollection<UserRole> userRoles {set; get;} = new HashSet<UserRole>();
+        public List<Notification> Notifications { get; set; }
     }
 }

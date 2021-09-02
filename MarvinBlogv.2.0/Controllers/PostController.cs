@@ -37,7 +37,7 @@ namespace MarvinBlogv._2._0.Controllers
         }
 
         [Authorize(Roles = "blogger")]
-        public IActionResult Index(int postId)
+        public IActionResult Index()
         {
 
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
@@ -46,7 +46,9 @@ namespace MarvinBlogv._2._0.Controllers
 
             ViewBag.name = user.FullName;
 
-            IEnumerable<Post> posts = _postService.GetAllPosts(postId);
+            ViewBag.createdBy = user.Email;
+
+            IEnumerable<Post> posts = _postService.GetAllPosts();
 
             return View(posts);
         }
@@ -97,7 +99,7 @@ namespace MarvinBlogv._2._0.Controllers
                 _postService.AddBlogPost(model.Id, model.CreatedAt, model.Name, model.Title, model.FeaturedImageURL, model.Content, model.Description, model.PostURL, userId, model.Categories, model.CreatedBy, model.Status);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Blogger");
         }
 
 
@@ -115,7 +117,17 @@ namespace MarvinBlogv._2._0.Controllers
         [HttpGet]
         public IActionResult Update(int id) 
         {
+            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            UpdatePostViewModel vm = new UpdatePostViewModel()
+            {
+                CategorySelectListItem = _categoryService.GetAllCategories().Select(c => new SelectListItem
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString(),
+                }),
+            };
             var post = _postService.FindById(id);
+
             if (post == null)
             {
                 return NotFound();
@@ -128,14 +140,7 @@ namespace MarvinBlogv._2._0.Controllers
         [HttpPost]
         public IActionResult Update(UpdatePostViewModel model) 
         {
-            //UpdatePostViewModel vm = new UpdatePostViewModel()
-            //{
-            //    CategorySelectListItem = _categoryService.GetAllCategories().Select(c => new SelectListItem
-            //    {
-            //        Text = c.Name,
-            //        Value = c.Id.ToString(),
-            //    }),
-            //};
+            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
             var objFromDb = _db.Posts.AsNoTracking().FirstOrDefault(u => u.Id == model.Id);
             var files = HttpContext.Request.Form.Files;
             string webRootPath = _webHostEnvironment.WebRootPath;
@@ -172,6 +177,7 @@ namespace MarvinBlogv._2._0.Controllers
         [Authorize]
         public IActionResult Delete(int id)
         {
+            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
             var post = _postService.FindById(id);
 
             if (post == null)
@@ -186,7 +192,9 @@ namespace MarvinBlogv._2._0.Controllers
         [HttpPost]
         public async Task<JsonResult> UploadFile(IFormFile aUploadedFile)
         {
+            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
             var vImageSavePath = string.Empty;
+
             if (aUploadedFile.Length > 0)
             {
                 var vFileName = Path.GetFileNameWithoutExtension(aUploadedFile.FileName);
@@ -194,7 +202,7 @@ namespace MarvinBlogv._2._0.Controllers
 
                 string sImageName = vFileName + "-" + "image";
 
-                vImageSavePath = Path.Combine(_webHostEnvironment.ContentRootPath+ "\\UploadFiles\\" + sImageName + vExtension);
+                vImageSavePath = Path.Combine(_webHostEnvironment.ContentRootPath + "\\UploadFiles\\" + sImageName + vExtension);
                 //vReturnImagePath = "/UploadFiles/" + sImageName + vExtension;
                 ViewBag.Msg = vImageSavePath;
                 var path = vImageSavePath;
@@ -205,11 +213,12 @@ namespace MarvinBlogv._2._0.Controllers
                     await aUploadedFile.CopyToAsync(stream);
                 }
                 var vImageLength = new FileInfo(path).Length;
-                //here to add Image Path to You Database ,  
-                TempData["message"] = string.Format("Image was Added Successfully");
+
+
             }
+            //here to add Image Path to You Database,
+            TempData["message"] = string.Format("Image was Added Successfully");
             return Json(Convert.ToString(vImageSavePath));
         }
-
     }
 }

@@ -1,6 +1,7 @@
 ﻿using MarvinBlogv._2._0.Context;
 using MarvinBlogv._2._0.Interfaces;
 using MarvinBlogv._2._0.Models;
+using MarvinBlogv._2._0.Models.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -15,18 +16,22 @@ using static MarvinBlogv._2._0.Models.ViewModel.CategoryViewModel;
 
 namespace MarvinBlogv._2._0.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
+        private readonly IPostService _postService;
+        private readonly IPostCategoryService _postCategoryService;
         private readonly IWebHostEnvironment _webHostEnvironment;
         public readonly BlogDbContext _db;
 
-        public CategoryController(ICategoryService categoryService, IWebHostEnvironment webHostEnvironment, BlogDbContext db)
+        public CategoryController(ICategoryService categoryService, IWebHostEnvironment webHostEnvironment, BlogDbContext db, IPostService postService, IPostCategoryService postCategoryService)
         {
             _categoryService = categoryService;
             _webHostEnvironment = webHostEnvironment;
             _db = db;
+            _postService = postService;
+            _postCategoryService = postCategoryService;
         }
 
         [Authorize]
@@ -35,6 +40,22 @@ namespace MarvinBlogv._2._0.Controllers
             IEnumerable<Category> categories = _categoryService.GetAllCategories();
 
             return View(categories);
+        }
+
+        [HttpGet]
+        public IActionResult GetPostByCategoryId(int id) 
+        {
+            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+
+            var postsCategory = _postCategoryService.GetPostByCategoryId(id);
+            List<Post> Posts = new List<Post>();
+            foreach(var item in postsCategory)
+            {
+                var post = _postService.FindById(item.PostId);
+                Posts.Add(post);
+            }
+
+            return View(Posts);
         }
 
         [Authorize]
@@ -73,13 +94,13 @@ namespace MarvinBlogv._2._0.Controllers
         [HttpGet]
         public IActionResult Update(int id) 
         {
-            var post = _categoryService.FindById(id);
+            var category = _categoryService.FindById(id);
 
-            if (post == null)
+            if (category == null)
             {
                 return NotFound();
             }
-            return View(post);
+            return View(category);
         }
 
         public IActionResult Update(UpdateCategoryViewModel model) 
