@@ -15,5 +15,6 @@ namespace MarvinBlogv._2._0.Interfaces
         public PostCategory FindPostCategory(int id);
 
         public List<PostCategory> GetPostByCategoryId(int categoryId);
+        public List<PostCategory> GetCategoryByPostId(int postId);
     }
 }

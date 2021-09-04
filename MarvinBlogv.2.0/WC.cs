@@ -10,5 +10,7 @@ namespace MarvinBlogv._2._0
         public const string ImagePath = @"\ImageFolder\";
 
         public const string PostImagePath = @"\PostImages\";
+
+        public const string ContentImagePath = @"\UploadFiles\";
     }
 }

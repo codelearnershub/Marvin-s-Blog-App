@@ -94,6 +94,8 @@ namespace MarvinBlogv._2._0.Services
                 Title = p.Title.ToUpper(),
                 Content = p.Content,
                 Description = p.Description,
+                FeaturedImageURL = p.FeaturedImageURL,
+                CreatedBy = p.CreatedBy,
                 //Reviews = _postRepository.GetAllPostReviews(postId).ToList(),
                 PostURL = p.PostURL,
                 Status = p.Status
@@ -110,6 +112,8 @@ namespace MarvinBlogv._2._0.Services
                 CreatedAt = p.CreatedAt,
                 Title = p.Title,
                 Content = p.Content,
+                FeaturedImageURL = p.FeaturedImageURL,
+                CreatedBy = p.CreatedBy,
                 Description = p.Description,
                 PostURL = p.PostURL,
                 Status = p.Status
@@ -126,6 +130,8 @@ namespace MarvinBlogv._2._0.Services
                 CreatedAt = p.CreatedAt,
                 Title = p.Title,
                 Content = p.Content,
+                FeaturedImageURL = p.FeaturedImageURL,
+                CreatedBy = p.CreatedBy,
                 Description = p.Description,
                 PostURL = p.PostURL,
                 Status = p.Status

@@ -54,17 +54,17 @@ namespace MarvinBlogv._2._0.Repositories
 
         public IEnumerable<Post> UnApprovedPost()
         {
-            return _dbContext.Posts.Where(post => post.Status == false).ToList();
+            return _dbContext.Posts.Where(post => post.Status == false).OrderByDescending(p => p.CreatedAt).ToList();
         }
 
         public IEnumerable<Post> ApprovedPost()
         {
-            return _dbContext.Posts.Where(post => post.Status == true).ToList();
+            return _dbContext.Posts.Where(post => post.Status == true).OrderByDescending(p => p.CreatedAt).ToList();
         }
 
         public IEnumerable<Post> GetAllPosts()
         {
-            return _dbContext.Posts.ToList();
+            return _dbContext.Posts.OrderByDescending(p => p.CreatedAt).ToList();
         }
 
         public IEnumerable<Review> GetAllPostReviews(int postId)

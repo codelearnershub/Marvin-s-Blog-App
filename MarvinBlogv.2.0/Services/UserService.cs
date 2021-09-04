@@ -78,14 +78,14 @@ namespace MarvinBlogv._2._0.Services
             };
 
                 User user = new User
-            {
+                {
                 Email = createUser.Email,
                 FullName = createUser.FullName,
                 CreatedAt = createUser.CreatedAt,
                 HashSalt = saltString,
                 PasswordHash = hashedPassword,
                 userRoles = userRoles,
-            };
+                };
 
             _userRepository.AddUser(user);
         }
