@@ -40,11 +40,9 @@ namespace MarvinBlogv._2._0.Models.ViewModel
 
             public DateTime CreatedAt { get; set; }
 
-            [Required(ErrorMessage = "Category name is required")]
             [Display(Name = "Category Name:")]
             public string Name { get; set; }
 
-            [Required(ErrorMessage = "ImageURL is required")]
             [Display(Description = "ImageURL:")]
             public string ImageURL { get; set; }
         }

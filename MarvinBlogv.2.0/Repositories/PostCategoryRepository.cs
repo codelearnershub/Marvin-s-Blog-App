@@ -74,5 +74,10 @@ namespace MarvinBlogv._2._0.Repositories
         {
             return _dbContext.PostCategories.Include(c => c.Post).Where(c => c.CategoryId == categoryId).ToList();
         }
+
+        public List<PostCategory> GetCategoryByPostId(int postId)
+        {
+            return _dbContext.PostCategories.Include(p => p.Category).Where(p => p.PostId == postId).ToList();
+        }
     }
 }

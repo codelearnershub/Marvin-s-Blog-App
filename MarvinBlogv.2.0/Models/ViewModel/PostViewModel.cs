@@ -62,7 +62,6 @@ namespace MarvinBlogv._2._0.Models.ViewModel
         public string PostURL { get; set; }
         public bool Status { get; set; }
         public string Name { get; set; }
-        public int UseId { get; set; }
 
         [Required(ErrorMessage = "Select at least one Category")]
         public string[] Categories { get; set; }

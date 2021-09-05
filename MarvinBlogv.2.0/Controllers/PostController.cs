@@ -36,13 +36,13 @@ namespace MarvinBlogv._2._0.Controllers
             _db = db;
         }
 
-        [Authorize(Roles = "blogger")]
+        [Authorize(Roles = "blogger, admin")]
         public IActionResult Index()
         {
 
-            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            int UserId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
-            User user = _userService.FindUserById(userId);
+            User user = _userService.FindUserById(UserId);
 
             ViewBag.name = user.FullName;
 
@@ -53,7 +53,7 @@ namespace MarvinBlogv._2._0.Controllers
             return View(posts);
         }
 
-        [Authorize(Roles = "blogger")]
+        [Authorize(Roles = "blogger, admin")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -118,6 +118,7 @@ namespace MarvinBlogv._2._0.Controllers
         public IActionResult Update(int id) 
         {
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+
             UpdatePostViewModel vm = new UpdatePostViewModel()
             {
                 CategorySelectListItem = _categoryService.GetAllCategories().Select(c => new SelectListItem
@@ -194,6 +195,7 @@ namespace MarvinBlogv._2._0.Controllers
         {
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
             var vImageSavePath = string.Empty;
+            string img = "";
 
             if (aUploadedFile.Length > 0)
             {
@@ -201,8 +203,8 @@ namespace MarvinBlogv._2._0.Controllers
                 var vExtension = Path.GetExtension(aUploadedFile.FileName);
 
                 string sImageName = vFileName + "-" + "image";
-
-                vImageSavePath = Path.Combine(_webHostEnvironment.ContentRootPath + "\\UploadFiles\\" + sImageName + vExtension);
+                img = WC.ContentImagePath + sImageName + vExtension;
+                vImageSavePath = Path.Combine(_webHostEnvironment.ContentRootPath + "\\wwwroot\\" + "\\UploadFiles\\" + sImageName + vExtension);
                 //vReturnImagePath = "/UploadFiles/" + sImageName + vExtension;
                 ViewBag.Msg = vImageSavePath;
                 var path = vImageSavePath;
@@ -214,11 +216,26 @@ namespace MarvinBlogv._2._0.Controllers
                 }
                 var vImageLength = new FileInfo(path).Length;
 
-
             }
             //here to add Image Path to You Database,
             TempData["message"] = string.Format("Image was Added Successfully");
-            return Json(Convert.ToString(vImageSavePath));
+            return Json(img);
+        }
+
+        [HttpGet]
+        public IActionResult GetCategoryByPostId(int id)
+        {
+            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+
+            var postsCategory = _postCategoryService.GetCategoryByPostId(id);
+            List<Category> Categories = new List<Category>();
+            foreach (var item in postsCategory)
+            {
+                var category = _categoryService.FindById(item.CategoryId);
+                Categories.Add(category);
+            }
+
+            return View(Categories);
         }
     }
 }

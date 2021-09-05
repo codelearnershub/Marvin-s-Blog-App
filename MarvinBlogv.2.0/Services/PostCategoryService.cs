@@ -45,6 +45,11 @@ namespace MarvinBlogv._2._0.Services
             return _postCategoryRepository.GetAllPostCategories(postId);
         }
 
+        public IEnumerable<PostCategory> GetCategoryByPostId(int postId)
+        {
+            return _postCategoryRepository.GetCategoryByPostId(postId);
+        }
+
         public IEnumerable<PostCategory> GetPostByCategoryId(int categoryId)
         {
             return _postCategoryRepository.GetPostByCategoryId(categoryId);

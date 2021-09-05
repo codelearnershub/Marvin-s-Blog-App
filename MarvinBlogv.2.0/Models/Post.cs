@@ -7,7 +7,7 @@ namespace MarvinBlogv._2._0.Models
 {
     public class Post : BaseEntity
     {
-        [Required, MaxLength(250)]
+        [Required]
         public string Title { get; set; }
 
         [Required]

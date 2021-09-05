@@ -58,6 +58,12 @@ namespace MarvinBlogv._2._0.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            if(HttpContext.User.Identity.IsAuthenticated) 
+            {
+                var routeName = HttpContext.Request.Path;
+
+                return View();
+            }
             return View();
         }
 

@@ -40,7 +40,18 @@ namespace MarvinBlogv._2._0.Context
             modelBuilder.Entity<Role>().HasMany(u => u.userRoles)
                 .WithOne(u => u.Role)
                 .HasForeignKey(u => u.RoleId).OnDelete(DeleteBehavior.Restrict);
+        
+            modelBuilder.Entity<User>()
+                .HasIndex(u => new { u.Email, u.FullName })
+                .IsUnique(true);
 
+            modelBuilder.Entity<Post>()
+                .HasIndex(p => new { p.Title, p.Description, p.Content, p.PostURL })
+                .IsUnique(true);
+
+            modelBuilder.Entity<Category>()
+                .HasIndex(c => new { c.Name })
+                .IsUnique(true);
 
             modelBuilder.Entity<User>().HasData(
                 new User
