@@ -46,7 +46,7 @@ namespace MarvinBlogv._2._0.Services
                     FeaturedImageURL = featuredImageURL,
                     Content = content,
                     PostCategories = postCategories,                  
-                    PostURL = postURL,
+                    PostURL = Guid.NewGuid().ToString().Substring(0, 7),
                     Description = description,
                     UserId = _userService.FindUserById(userId).Id,
                     CreatedBy = _userService.FindUserById(userId).Email,

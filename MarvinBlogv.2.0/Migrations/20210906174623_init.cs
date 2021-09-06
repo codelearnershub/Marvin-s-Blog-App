@@ -16,7 +16,6 @@ namespace MarvinBlogv._2._0.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     LastModifiedOn = table.Column<DateTime>(nullable: true),
-                    PublishedOn = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     ImageURL = table.Column<string>(nullable: true)
@@ -34,7 +33,6 @@ namespace MarvinBlogv._2._0.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     LastModifiedOn = table.Column<DateTime>(nullable: true),
-                    PublishedOn = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true)
                 },
@@ -51,7 +49,6 @@ namespace MarvinBlogv._2._0.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     LastModifiedOn = table.Column<DateTime>(nullable: true),
-                    PublishedOn = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(nullable: true),
                     FullName = table.Column<string>(maxLength: 150, nullable: false),
                     Email = table.Column<string>(nullable: false),
@@ -71,7 +68,6 @@ namespace MarvinBlogv._2._0.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     LastModifiedOn = table.Column<DateTime>(nullable: true),
-                    PublishedOn = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(nullable: true),
                     UserId = table.Column<int>(nullable: true),
                     FollowerId = table.Column<int>(nullable: false),
@@ -89,6 +85,29 @@ namespace MarvinBlogv._2._0.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notification",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    LastModifiedOn = table.Column<DateTime>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    Message = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notification", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notification_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
@@ -96,11 +115,10 @@ namespace MarvinBlogv._2._0.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     LastModifiedOn = table.Column<DateTime>(nullable: true),
-                    PublishedOn = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(maxLength: 250, nullable: false),
+                    Title = table.Column<string>(nullable: false),
                     Content = table.Column<string>(nullable: false),
-                    Description = table.Column<string>(maxLength: 250, nullable: false),
+                    Description = table.Column<string>(nullable: true),
                     FeaturedImageURL = table.Column<string>(nullable: true),
                     ImageURL = table.Column<string>(nullable: true),
                     PostURL = table.Column<string>(nullable: true),
@@ -126,7 +144,6 @@ namespace MarvinBlogv._2._0.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     LastModifiedOn = table.Column<DateTime>(nullable: true),
-                    PublishedOn = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(nullable: true),
                     RoleId = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
@@ -156,7 +173,6 @@ namespace MarvinBlogv._2._0.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     LastModifiedOn = table.Column<DateTime>(nullable: true),
-                    PublishedOn = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(nullable: true),
                     PostId = table.Column<int>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false)
@@ -186,11 +202,10 @@ namespace MarvinBlogv._2._0.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     LastModifiedOn = table.Column<DateTime>(nullable: true),
-                    PublishedOn = table.Column<DateTime>(nullable: true),
                     CreatedBy = table.Column<string>(nullable: true),
                     UserId = table.Column<int>(nullable: false),
                     CreatedById = table.Column<int>(nullable: false),
-                    Reaction = table.Column<int>(nullable: true),
+                    Reaction = table.Column<bool>(nullable: false),
                     PostId = table.Column<int>(nullable: false),
                     Comment = table.Column<string>(nullable: true)
                 },
@@ -211,9 +226,35 @@ namespace MarvinBlogv._2._0.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "CreatedAt", "CreatedBy", "LastModifiedOn", "Name" },
+                values: new object[] { 1, new DateTime(2021, 9, 6, 18, 46, 21, 147, DateTimeKind.Local).AddTicks(1014), "adeoyemarvellous7@gmail.com", null, "SuperAdmin" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "CreatedAt", "CreatedBy", "Email", "FullName", "HashSalt", "LastModifiedOn", "PasswordHash" },
+                values: new object[] { 1, new DateTime(2021, 9, 6, 18, 46, 21, 129, DateTimeKind.Local).AddTicks(357), "adeoyemarvellous7@gmail.com", "adeoyemarvellous7@gmail.com", "Marvellous Adeoye", "GHAku+jJgJVENsz/Y7le9w==", null, "jeYMxCrAXGBEfEJB7j3IuPv4LhgThc7OIsAovL/J13Q=" });
+
+            migrationBuilder.InsertData(
+                table: "UserRoles",
+                columns: new[] { "Id", "CreatedAt", "CreatedBy", "LastModifiedOn", "RoleId", "UserId" },
+                values: new object[] { 1, new DateTime(2021, 9, 6, 18, 46, 21, 147, DateTimeKind.Local).AddTicks(5039), "adeoyemarvellous@gmail.com", null, 1, 1 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_Name",
+                table: "Categories",
+                column: "Name",
+                unique: true);
+
             migrationBuilder.CreateIndex(
                 name: "IX_Followers_UserId",
                 table: "Followers",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notification_UserId",
+                table: "Notification",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -225,6 +266,30 @@ namespace MarvinBlogv._2._0.Migrations
                 name: "IX_PostCategories_PostId",
                 table: "PostCategories",
                 column: "PostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_Content",
+                table: "Posts",
+                column: "Content",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_Description",
+                table: "Posts",
+                column: "Description",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_PostURL",
+                table: "Posts",
+                column: "PostURL",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_Title",
+                table: "Posts",
+                column: "Title",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_UserId",
@@ -250,12 +315,21 @@ namespace MarvinBlogv._2._0.Migrations
                 name: "IX_UserRoles_UserId",
                 table: "UserRoles",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email_FullName",
+                table: "Users",
+                columns: new[] { "Email", "FullName" },
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Followers");
+
+            migrationBuilder.DropTable(
+                name: "Notification");
 
             migrationBuilder.DropTable(
                 name: "PostCategories");

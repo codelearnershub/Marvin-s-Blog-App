@@ -1,0 +1,13 @@
+﻿@model IEnumerable<MarvinBlogv._2._0.Models.PostCategory>
+
+@{
+    Layout = "BloggerDashboard";
+    ViewData["Title"] = "Post Detail";
+}
+
+ @foreach(var category in Model) 
+ {
+     @category.Category.Name
+ }
+
+

@@ -10,21 +10,15 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/sidenav/sidenav.css" />
     <link rel="stylesheet" href="~/fontawesome/css/all.min.css" />
-    <script src="~/lib/jquery//dist/jquery.min.js"></script>
     <link rel="stylesheet" href="~/summernote-0.8.18-dist/summernote-bs4.css" />
-    <script src="~/js/popper.min.js"></script>
-
-
+    <link rel="stylesheet" href="~/summernote-0.8.18-dist/summernote-bs4.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/4.1.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib//bootstrap/dist/css/bootstrap-select.css" />
-    <script src="~/js/Jquery2.2.1/Jquery2.1.1.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>
 
 </head>
 
 <body id="darkmode">
-    <button id="btn" onclick="darkmode()">Theme</button>
+    <button id="btn" onclick="darkmode()"><i class="fas fa-toggle-off" aria-hidden="true"></i></button>
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -52,13 +46,15 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="js/mdb.min.js"></script>
+    <script src="~/js/mdb.min.js"></script>
     <script src="~/fontawesome/js/all.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/summernote-0.8.18-dist/summernote.min.js"></script>
     <script src="~/summernote-0.8.18-dist/summernote-bs4.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>
     <script src="~/js/darkmode.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
@@ -80,8 +76,6 @@
             }
         }
     });
-
-
 
 
     function UploadImage(file) {

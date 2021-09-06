@@ -4,4 +4,9 @@
     Layout = "BloggerDashboard";
 }
 
+@foreach(var category in Model) 
+{
+    @category.Name
+}
+
 

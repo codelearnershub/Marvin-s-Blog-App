@@ -1,0 +1,10 @@
+﻿@model IEnumerable<MarvinBlogv._2._0.Models.Review>
+@{
+    Layout = "BloggerDashboard";
+}
+
+@foreach(var review in Model) 
+{
+    @review.Reaction;
+    @review.Comment;
+}

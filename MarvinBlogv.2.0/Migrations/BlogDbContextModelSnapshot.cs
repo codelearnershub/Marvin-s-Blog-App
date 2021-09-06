@@ -38,9 +38,6 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
-                    b.Property<DateTime>("PublishedOn")
-                        .HasColumnType("datetime(6)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
@@ -70,9 +67,6 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<DateTime?>("LastModifiedOn")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("PublishedOn")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
@@ -100,9 +94,6 @@ namespace MarvinBlogv._2._0.Migrations
 
                     b.Property<string>("Message")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<DateTime>("PublishedOn")
-                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
@@ -145,9 +136,6 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<string>("PostURL")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
-                    b.Property<DateTime>("PublishedOn")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<bool>("Status")
                         .HasColumnType("tinyint(1)");
 
@@ -160,10 +148,19 @@ namespace MarvinBlogv._2._0.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("Title", "Description", "Content", "PostURL")
+                    b.HasIndex("Content")
                         .IsUnique();
+
+                    b.HasIndex("Description")
+                        .IsUnique();
+
+                    b.HasIndex("PostURL")
+                        .IsUnique();
+
+                    b.HasIndex("Title")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Posts");
                 });
@@ -188,9 +185,6 @@ namespace MarvinBlogv._2._0.Migrations
 
                     b.Property<int>("PostId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("PublishedOn")
-                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
@@ -225,11 +219,8 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("PublishedOn")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int?>("Reaction")
-                        .HasColumnType("int");
+                    b.Property<bool>("Reaction")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -261,9 +252,6 @@ namespace MarvinBlogv._2._0.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<DateTime>("PublishedOn")
-                        .HasColumnType("datetime(6)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
@@ -272,10 +260,9 @@ namespace MarvinBlogv._2._0.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 9, 2, 23, 12, 15, 859, DateTimeKind.Local).AddTicks(303),
+                            CreatedAt = new DateTime(2021, 9, 6, 18, 46, 21, 147, DateTimeKind.Local).AddTicks(1014),
                             CreatedBy = "adeoyemarvellous7@gmail.com",
-                            Name = "SuperAdmin",
-                            PublishedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "SuperAdmin"
                         });
                 });
 
@@ -311,9 +298,6 @@ namespace MarvinBlogv._2._0.Migrations
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<DateTime>("PublishedOn")
-                        .HasColumnType("datetime(6)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Email", "FullName")
@@ -325,13 +309,12 @@ namespace MarvinBlogv._2._0.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 9, 2, 23, 12, 15, 847, DateTimeKind.Local).AddTicks(5923),
+                            CreatedAt = new DateTime(2021, 9, 6, 18, 46, 21, 129, DateTimeKind.Local).AddTicks(357),
                             CreatedBy = "adeoyemarvellous7@gmail.com",
                             Email = "adeoyemarvellous7@gmail.com",
                             FullName = "Marvellous Adeoye",
                             HashSalt = "GHAku+jJgJVENsz/Y7le9w==",
-                            PasswordHash = "jeYMxCrAXGBEfEJB7j3IuPv4LhgThc7OIsAovL/J13Q=",
-                            PublishedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            PasswordHash = "jeYMxCrAXGBEfEJB7j3IuPv4LhgThc7OIsAovL/J13Q="
                         });
                 });
 
@@ -348,9 +331,6 @@ namespace MarvinBlogv._2._0.Migrations
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("PublishedOn")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("RoleId")
@@ -371,9 +351,8 @@ namespace MarvinBlogv._2._0.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 9, 2, 23, 12, 15, 859, DateTimeKind.Local).AddTicks(4244),
+                            CreatedAt = new DateTime(2021, 9, 6, 18, 46, 21, 147, DateTimeKind.Local).AddTicks(5039),
                             CreatedBy = "adeoyemarvellous@gmail.com",
-                            PublishedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = 1,
                             UserId = 1
                         });

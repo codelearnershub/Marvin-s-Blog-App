@@ -14,12 +14,14 @@ namespace MarvinBlogv._2._0.Controllers
     public class ReviewController : Microsoft.AspNetCore.Mvc.Controller
     {
         private readonly IUserService _userService;
+        private readonly IPostService _postService;
         private readonly IReviewService _reviewService;
 
-        public ReviewController(IUserService userService, IReviewService reviewService)
+        public ReviewController(IUserService userService, IReviewService reviewService, IPostService postService)
         {
             _userService = userService;
             _reviewService = reviewService;
+            _postService = postService;
         }
 
         [Authorize(Roles = "blogger")]
@@ -37,13 +39,14 @@ namespace MarvinBlogv._2._0.Controllers
             return View();
         }
 
-        [Microsoft.AspNetCore.Mvc.HttpPost]
-        public IActionResult Create(CreateReviewViewModel model) 
+        [System.Web.Mvc.HttpPost]
+        public IActionResult GetReviewByPostId(int id) 
         {
+            ViewBag.Likes = _reviewService.ReviewCount(id);
             int userId = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-
-            _reviewService.AddReview(model.Id, model.CreatedAt, userId, model.Reaction, model.PostId, model.Comment);
-            return View();
+            _reviewService.AddReview(userId, true, id);
+           
+            return RedirectToAction("Index", "Blogger");
         }
     }
 }
