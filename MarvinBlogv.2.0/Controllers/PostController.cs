@@ -41,16 +41,42 @@ namespace MarvinBlogv._2._0.Controllers
         {
 
             int UserId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-
             User user = _userService.FindUserById(UserId);
-
             ViewBag.name = user.FullName;
+            ViewBag.email = user.Email;
+            List<ListPostVM> ListPosts = new List<ListPostVM>();
+            var posts = _postService.GetAllPosts();
 
-            ViewBag.createdBy = user.Email;
+            foreach (var post in posts)
+            {
+                var postsCategory = _postCategoryService.GetCategoryByPostId(post.Id);
 
-            IEnumerable<Post> posts = _postService.GetAllPosts();
+                List<Category> Categories = new List<Category>();
+                List<Review> Reviews = new List<Review>();
+                foreach (var item in postsCategory)
+                {
+                    var category = _categoryService.FindById(item.CategoryId);
+                    Categories.Add(category);
+                }
+                ListPostVM listPost = new ListPostVM
+                {
+                    Id = post.Id,
+                    PostTitle = post.Title,
+                    Content = post.Content,
+                    Description = post.Description,
+                    PostUrl = post.PostURL,
+                    CreatedAt = post.CreatedAt,
+                    CreatedBy = post.CreatedBy,
+                    ImageUrl = post.FeaturedImageURL,
+                    Status = post.Status,
+                    PostCategories = Categories,
+                    PostReviews = Reviews,
+                };
 
-            return View(posts);
+                ListPosts.Add(listPost);
+            }
+
+            return View(ListPosts);
         }
 
         [Authorize(Roles = "blogger, admin")]
@@ -108,14 +134,14 @@ namespace MarvinBlogv._2._0.Controllers
         {
             var posts = _postService.FindById(id);
 
-            _postService.UpdatePost(posts.Id ,posts.CreatedAt, posts.Title, posts.FeaturedImageURL, posts.Content, posts.PostCategories, posts.Description, posts.PostURL, true);
-         
+            _postService.UpdatePost(posts.Id, posts.CreatedAt, posts.Title, posts.FeaturedImageURL, posts.Content, posts.PostCategories, posts.Description, posts.PostURL, true);
+
             return RedirectToAction("Index", "Admin");
         }
 
         [Authorize]
         [HttpGet]
-        public IActionResult Update(int id) 
+        public IActionResult Update(int id)
         {
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
@@ -127,19 +153,26 @@ namespace MarvinBlogv._2._0.Controllers
                     Value = c.Id.ToString(),
                 }),
             };
-            var post = _postService.FindById(id);
 
+            var post = _postService.FindById(id);
             if (post == null)
             {
                 return NotFound();
             }
-           
-            return View(post);
+
+            var categories = _postCategoryService.GetCategoryByPostId(post.Id);
+         
+            if(categories == null) 
+            {
+                return NotFound();
+            }
+          
+            return View(categories);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult Update(UpdatePostViewModel model) 
+        public IActionResult Update(UpdatePostViewModel model)
         {
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
             var objFromDb = _db.Posts.AsNoTracking().FirstOrDefault(u => u.Id == model.Id);
@@ -172,13 +205,14 @@ namespace MarvinBlogv._2._0.Controllers
                 model.FeaturedImageURL = objFromDb.FeaturedImageURL;
             }
             _postService.UpdatePost(model.Id, model.CreatedAt, model.Title, model.FeaturedImageURL, model.Content, model.PostCategories, model.Description, model.PostURL, false);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Blogger");
         }
 
         [Authorize]
         public IActionResult Delete(int id)
         {
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+
             var post = _postService.FindById(id);
 
             if (post == null)
@@ -187,7 +221,7 @@ namespace MarvinBlogv._2._0.Controllers
             }
 
             _postService.Delete(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Blogger");
         }
 
         [HttpPost]
@@ -228,6 +262,7 @@ namespace MarvinBlogv._2._0.Controllers
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
             var postsCategory = _postCategoryService.GetCategoryByPostId(id);
+
             List<Category> Categories = new List<Category>();
             foreach (var item in postsCategory)
             {

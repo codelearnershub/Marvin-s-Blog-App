@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MarvinBlogv._2._0.Models.Post>
+﻿@model List<MarvinBlogv._2._0.Models.ViewModel.ListPostVM>
 
 @{
     Layout = "BloggerDashboard";
@@ -9,31 +9,38 @@
 {
     @foreach (var post in Model)
     {
-        <b>@post.Title</b>
-        <br>
-        <div class="container">
-            <div class="col md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="target">@Html.Raw(@post.Content)</div>
+        @if (post.Status == true)
+        {
+            <b>@post.PostTitle</b>
+            <br>
+            <div class="container">
+                <div class="col md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="target">@Html.Raw(@post.Content)</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <br />
-        @post.Description
-        <br />
+            <br />
+            @post.Description
+            <br />
 
-        <img src="@WC.PostImagePath@post.FeaturedImageURL" />
+            <img src="@WC.PostImagePath@post.ImageUrl" />
 
-        @post.CreatedAt
-        <br />
-        @post.CreatedBy
+            @post.CreatedAt
+            <br />
+            @post.CreatedBy
 
-        @if (post.Status == false && post.CreatedBy == ViewBag.createdBy)
-        {
-            <a class="btn btn-success" asp-controller="Post" asp-action="Update" asp-route-id="@post.Id"><i class="fas fa-edit" aria-hidden="true"></i></a>
+            <div>
+                @foreach (var category in post.PostCategories)
+                {
+                    <a asp-controller="Post" asp-action="GetPostByCategoryId" asp-route-Id="@category.Id" class="font-weight-bold btn" style="color:white; background-color:dimgrey; border-radius:10%; display:inline">@category.Name</a>
+                }
+
+            </div><br />
+                   @post.PostReviews <a asp-controller="Review" asp-action="GetReviewByPostId" asp-route-Id="@post.Id"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>
         }
     }
 }
@@ -42,3 +49,4 @@ else
 {
     <p> No Post exists.</p>
 }
+

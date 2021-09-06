@@ -74,6 +74,11 @@ namespace MarvinBlogv._2._0.Controllers
 
             if (user == null) return View();
 
+            if(model.Password != user.PasswordHash) 
+            {
+                ViewBag.ErrorMessage = "Invalid Username/Password";
+            }
+
             var roles = _userRoleService.FindUserRole(user.Id);
 
             var role = roles[0].Name;

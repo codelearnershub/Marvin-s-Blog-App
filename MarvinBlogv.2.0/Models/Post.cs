@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
 
 namespace MarvinBlogv._2._0.Models
@@ -11,6 +12,7 @@ namespace MarvinBlogv._2._0.Models
         public string Title { get; set; }
 
         [Required]
+        [Column(TypeName = "text")]
         [AllowHtml]
         public string Content { get; set; }
 

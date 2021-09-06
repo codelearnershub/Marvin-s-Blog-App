@@ -1,6 +1,7 @@
 ﻿using MarvinBlogv._2._0.Interfaces;
 using MarvinBlogv._2._0.Models;
 using System;
+using System.Collections.Generic;
 
 namespace MarvinBlogv._2._0.Services
 {
@@ -17,16 +18,14 @@ namespace MarvinBlogv._2._0.Services
             _postService = postService;
         }
 
-        public Review AddReview(int id, DateTime reviewedOn, int userId, int reaction, int postId, string comment)
+        public Review AddReview(int userId, bool reaction, int postId)
         {
             Review review = new Review
             {
-                Id = id,
-                PublishedOn = DateTime.Now,
-                User = _userService.FindUserById(userId),
+                CreatedAt = DateTime.Now,
+                UserId = userId,
                 Reaction = reaction,
-                Post = _postService.FindById(postId),
-                Comment = comment.ToUpper(),
+                PostId = postId,
             };
 
             _reviewRepository.AddReview(review);
@@ -49,7 +48,7 @@ namespace MarvinBlogv._2._0.Services
             return _reviewRepository.FindReviewer(reviewerId);
         }
 
-        public Review UpdateReview(int id, DateTime reviewedOn, int userId, int reaction, int postId, string comment)
+        public Review UpdateReview(int id, DateTime reviewedOn, int userId, bool reaction, int postId, string comment)
         {
             var review = _reviewRepository.FindReviewById(id);
 
@@ -61,9 +60,37 @@ namespace MarvinBlogv._2._0.Services
 
             review.PostId = postId;
 
-            review.Comment = comment.ToUpper();
+            review.Comment = comment;
 
             return _reviewRepository.UpdateReview(review);
         }
+
+        public int ReviewCount(int postId)
+        {
+            return _reviewRepository.ReviewCount(postId);
+        }
+
+        public List<Review> FindByPostId(int PostId) 
+        {
+            return _reviewRepository.FindByPostId(PostId);
+        }
+
+        //public int LikeCount(int postId) 
+        //{
+        //    var reviews = _reviewRepository.FindByPostId(postId);
+        //    int sum = 0;
+
+        //    if (reviews.Count == 0)
+        //    {
+        //        return 0;
+        //    }
+
+        //    foreach (var review in reviews)
+        //    {
+        //        sum += review.Reaction;
+        //    }
+           
+        //    return sum;
+        //}
     }
 }

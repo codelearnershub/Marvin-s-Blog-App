@@ -1,6 +1,7 @@
 ﻿using MarvinBlogv._2._0.Context;
 using MarvinBlogv._2._0.Interfaces;
 using MarvinBlogv._2._0.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,6 +57,11 @@ namespace MarvinBlogv._2._0.Repositories
         public List<Review> FindByPostId(int PostId)
         {
             return _dbContext.Reviews.Where(review => review.PostId == PostId).ToList();
+        }
+
+        public int ReviewCount(int postId)
+        {
+            return _dbContext.Reviews.Include(r => r.Reaction).Where(r => r.PostId == postId).Count();
         }
     }
 }
