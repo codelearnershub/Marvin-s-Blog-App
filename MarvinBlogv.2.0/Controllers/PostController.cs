@@ -23,10 +23,11 @@ namespace MarvinBlogv._2._0.Controllers
         private readonly IUserService _userService;
         private readonly IPostService _postService;
         private readonly ICategoryService _categoryService;
+        private readonly IReviewService _reviewService;
         private readonly IPostCategoryService _postCategoryService;
         private readonly BlogDbContext _db;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public PostController(IUserService userService, IPostService postService, ICategoryService categoryService, IPostCategoryService postCategoryService, IWebHostEnvironment webHostEnvironment, BlogDbContext db)
+        public PostController(IUserService userService, IPostService postService, ICategoryService categoryService, IPostCategoryService postCategoryService, IWebHostEnvironment webHostEnvironment, BlogDbContext db, IReviewService reviewService)
         {
             _userService = userService;
             _postService = postService;
@@ -34,30 +35,29 @@ namespace MarvinBlogv._2._0.Controllers
             _postCategoryService = postCategoryService;
             _webHostEnvironment = webHostEnvironment;
             _db = db;
+            _reviewService = reviewService;
         }
 
         [Authorize(Roles = "blogger, admin")]
-        public IActionResult Index()
+        public IActionResult Index(int postId)
         {
-
-            int UserId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-            User user = _userService.FindUserById(UserId);
+            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            User user = _userService.FindUserById(userId);
             ViewBag.name = user.FullName;
             ViewBag.email = user.Email;
+            
+            var review = _reviewService.LikeCount(userId);
+          
+            if (review > 1)
+            {
+                ViewBag.Unlike = review--;
+            }
+            
             List<ListPostVM> ListPosts = new List<ListPostVM>();
             var posts = _postService.GetAllPosts();
-
+            var categories = new List<Category>();
             foreach (var post in posts)
             {
-                var postsCategory = _postCategoryService.GetCategoryByPostId(post.Id);
-
-                List<Category> Categories = new List<Category>();
-                List<Review> Reviews = new List<Review>();
-                foreach (var item in postsCategory)
-                {
-                    var category = _categoryService.FindById(item.CategoryId);
-                    Categories.Add(category);
-                }
                 ListPostVM listPost = new ListPostVM
                 {
                     Id = post.Id,
@@ -69,15 +69,15 @@ namespace MarvinBlogv._2._0.Controllers
                     CreatedBy = post.CreatedBy,
                     ImageUrl = post.FeaturedImageURL,
                     Status = post.Status,
-                    PostCategories = Categories,
-                    PostReviews = Reviews,
+                    PostCategories = post.PostCategories.Select(p => p.Category).ToList(),
+                    Like = post.Reviews.Where(r => r.Reaction == true).Count(),               
                 };
-
                 ListPosts.Add(listPost);
             }
 
             return View(ListPosts);
         }
+        
 
         [Authorize(Roles = "blogger, admin")]
         [HttpGet]
@@ -271,6 +271,21 @@ namespace MarvinBlogv._2._0.Controllers
             }
 
             return View(Categories);
+        }
+
+        [HttpGet]
+        public IActionResult Detail(int id)
+        {
+            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            User user = _userService.FindUserById(userId);
+
+           
+            var post = _postService.FindById(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return View(post);
         }
     }
 }

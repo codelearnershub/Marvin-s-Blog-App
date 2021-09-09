@@ -96,7 +96,8 @@ namespace MarvinBlogv._2._0.Services
                 Description = p.Description,
                 FeaturedImageURL = p.FeaturedImageURL,
                 CreatedBy = p.CreatedBy,
-                //Reviews = _postRepository.GetAllPostReviews(postId).ToList(),
+                PostCategories = p.PostCategories,
+                Reviews = p.Reviews,
                 PostURL = p.PostURL,
                 Status = p.Status
             }).ToList();
@@ -114,6 +115,8 @@ namespace MarvinBlogv._2._0.Services
                 Content = p.Content,
                 FeaturedImageURL = p.FeaturedImageURL,
                 CreatedBy = p.CreatedBy,
+                PostCategories = p.PostCategories,
+                Reviews = p.Reviews,
                 Description = p.Description,
                 PostURL = p.PostURL,
                 Status = p.Status

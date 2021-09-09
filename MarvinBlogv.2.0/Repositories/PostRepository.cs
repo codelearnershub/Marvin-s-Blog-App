@@ -59,12 +59,12 @@ namespace MarvinBlogv._2._0.Repositories
 
         public IEnumerable<Post> ApprovedPost()
         {
-            return _dbContext.Posts.Where(post => post.Status == true).OrderByDescending(p => p.CreatedAt).ToList();
+            return _dbContext.Posts.Include(post => post.Reviews).Include(post => post.PostCategories).ThenInclude(post => post.Category).Where(post => post.Status == true).OrderByDescending(p => p.CreatedAt).ToList();
         }
 
         public IEnumerable<Post> GetAllPosts()
         {
-            return _dbContext.Posts.OrderByDescending(p => p.CreatedAt).ToList();
+            return _dbContext.Posts.Include(p => p.Reviews).Include(p => p.PostCategories).ThenInclude(p => p.Category).OrderByDescending(p => p.CreatedAt).ToList();
         }
 
         public IEnumerable<Review> GetAllPostReviews(int postId)

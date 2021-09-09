@@ -113,7 +113,8 @@ namespace MarvinBlogv._2._0.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("text")
+                        .HasMaxLength(100000000);
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
@@ -260,7 +261,7 @@ namespace MarvinBlogv._2._0.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 9, 6, 18, 46, 21, 147, DateTimeKind.Local).AddTicks(1014),
+                            CreatedAt = new DateTime(2021, 9, 6, 22, 59, 9, 988, DateTimeKind.Local).AddTicks(4442),
                             CreatedBy = "adeoyemarvellous7@gmail.com",
                             Name = "SuperAdmin"
                         });
@@ -309,7 +310,7 @@ namespace MarvinBlogv._2._0.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 9, 6, 18, 46, 21, 129, DateTimeKind.Local).AddTicks(357),
+                            CreatedAt = new DateTime(2021, 9, 6, 22, 59, 9, 957, DateTimeKind.Local).AddTicks(9086),
                             CreatedBy = "adeoyemarvellous7@gmail.com",
                             Email = "adeoyemarvellous7@gmail.com",
                             FullName = "Marvellous Adeoye",
@@ -351,7 +352,7 @@ namespace MarvinBlogv._2._0.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2021, 9, 6, 18, 46, 21, 147, DateTimeKind.Local).AddTicks(5039),
+                            CreatedAt = new DateTime(2021, 9, 6, 22, 59, 9, 989, DateTimeKind.Local).AddTicks(932),
                             CreatedBy = "adeoyemarvellous@gmail.com",
                             RoleId = 1,
                             UserId = 1

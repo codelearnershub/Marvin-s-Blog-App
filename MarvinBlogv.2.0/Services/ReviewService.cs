@@ -74,23 +74,30 @@ namespace MarvinBlogv._2._0.Services
         {
             return _reviewRepository.FindByPostId(PostId);
         }
+        
+         public int LikeCount(int userId)
+         {
+            return _reviewRepository.LikeCount(userId);
+         }
 
-        //public int LikeCount(int postId) 
-        //{
-        //    var reviews = _reviewRepository.FindByPostId(postId);
-        //    int sum = 0;
+        public Review AddComment(int userId, string comment, int postId)
+        {
+            Review review = new Review
+            {
+                CreatedAt = DateTime.Now,
+                UserId = userId,
+                Comment = comment,
+                PostId = postId,
+            };
 
-        //    if (reviews.Count == 0)
-        //    {
-        //        return 0;
-        //    }
+            _reviewRepository.AddComment(review);
 
-        //    foreach (var review in reviews)
-        //    {
-        //        sum += review.Reaction;
-        //    }
-           
-        //    return sum;
-        //}
+            return review;
+        }
+
+        public List<Review> FindByUserId(int userId)
+        {
+           return _reviewRepository.FindByUserId(userId);
+        }
     }
 }

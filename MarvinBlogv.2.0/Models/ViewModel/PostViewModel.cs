@@ -103,7 +103,8 @@ namespace MarvinBlogv._2._0.Models.ViewModel
         public string Content { get; set; }
 
         public string Description { get; set; }
-
+        public int Like { get; set; }
+        public int Unlike { get; set; }
         public DateTime CreatedAt { get; set; }
 
         public string ImageUrl { get; set; }

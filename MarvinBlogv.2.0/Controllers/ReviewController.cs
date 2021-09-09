@@ -24,13 +24,14 @@ namespace MarvinBlogv._2._0.Controllers
             _postService = postService;
         }
 
-        [Authorize(Roles = "blogger")]
+        [Authorize(Roles = "blogger, admin")]
         public IActionResult Index()
         {
             return View();
         }
 
         [System.Web.Mvc.HttpGet]
+        [Authorize(Roles = "admin, blogger")]
         public IActionResult Create() 
         {
             int userId = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
@@ -40,6 +41,7 @@ namespace MarvinBlogv._2._0.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
+        [Authorize(Roles = "admin, blogger")]
         public IActionResult GetReviewByPostId(int id) 
         {
             ViewBag.Likes = _reviewService.ReviewCount(id);
@@ -48,5 +50,28 @@ namespace MarvinBlogv._2._0.Controllers
            
             return RedirectToAction("Index", "Blogger");
         }
+
+        [Microsoft.AspNetCore.Mvc.HttpGet]
+        [Authorize(Roles = "admin, blogger")]
+        public IActionResult AddComment()
+        {
+            int userId = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            User user = _userService.FindUserById(userId);
+
+            return View();
+        }
+
+        [Microsoft.AspNetCore.Mvc.HttpPost]
+        [Authorize(Roles = "admin, blogger")]
+        public IActionResult AddComment(CreateReviewViewModel model)
+        {
+            int userId = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            User user = _userService.FindUserById(userId);
+
+            _reviewService.AddComment(userId, model.Comment, model.Id);
+
+            return View("Index", "Blogger");
+        }
+
     }
 }

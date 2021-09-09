@@ -11,36 +11,34 @@
     {
         @if (post.Status == true)
         {
-            <b>@post.PostTitle</b>
-            <br>
-            <div class="container">
-                <div class="col md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="target">@Html.Raw(@post.Content)</div>
-                        </div>
-                    </div>
-                </div>
+
+            <div class="float-right rounded-bottom">
+                <img src="@WC.PostImagePath@post.ImageUrl" class="flex-xl-column" style="width:250px; height:200px" />
             </div>
 
+
+            <b>@post.PostTitle</b>
+
             <br />
-            @post.Description
+            @post.Description.Substring(10)<a asp-action="Index" asp-controller="Post"><span>.....Read More</span></a>
             <br />
 
-            <img src="@WC.PostImagePath@post.ImageUrl" />
-
-            @post.CreatedAt
+            @post.CreatedAt.ToLongDateString();
             <br />
             @post.CreatedBy
 
             <div>
                 @foreach (var category in post.PostCategories)
                 {
-                    <a asp-controller="Post" asp-action="GetPostByCategoryId" asp-route-Id="@category.Id" class="font-weight-bold btn" style="color:white; background-color:dimgrey; border-radius:10%; display:inline">@category.Name</a>
+                    <a asp-controller="Category" asp-action="GetPostByCategoryId" asp-route-Id="@category.Id" class="font-weight-bold btn" style="color:white; background-color:dimgrey; border-radius:10%; display:inline">@category.Name</a>
                 }
 
-            </div><br />
-                   @post.PostReviews <a asp-controller="Review" asp-action="GetReviewByPostId" asp-route-Id="@post.Id"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>
+            </div>
+            <br />
+            
+            <a asp-controller="Review" asp-action="GetReviewByPostId" asp-route-Id="@post.Id"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>@post.Like<i class="fa fa-thumbs-down" aria-hidden="true"></i> @ViewBag.Unlike
+
+            <a asp-controller="Review" asp-action="AddComment">Add Comment</a>
         }
     }
 }
@@ -49,4 +47,3 @@ else
 {
     <p> No Post exists.</p>
 }
-

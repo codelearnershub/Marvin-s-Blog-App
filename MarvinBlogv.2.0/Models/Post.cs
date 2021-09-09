@@ -13,6 +13,7 @@ namespace MarvinBlogv._2._0.Models
 
         [Required]
         [Column(TypeName = "text")]
+        [StringLength(100000000)]
         [AllowHtml]
         public string Content { get; set; }
 
@@ -20,9 +21,9 @@ namespace MarvinBlogv._2._0.Models
 
         public string FeaturedImageURL { get; set; }
 
-        public string ImageURL { get;set; } 
+        public string ImageURL { get;set; }
 
-        public List<Review> Reviews { get; set; }
+        public List<Review> Reviews { get; set; } = new List<Review>();
 
         public string PostURL { get; set; }
 

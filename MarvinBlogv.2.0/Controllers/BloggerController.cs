@@ -45,12 +45,8 @@ namespace MarvinBlogv._2._0.Controllers
             {
                 var postsCategory = _postCategoryService.GetCategoryByPostId(post.Id);
 
-                List<Category> Categories = new List<Category>();
-                foreach (var item in postsCategory)
-                {
-                    var category = _categoryService.FindById(item.CategoryId);
-                    Categories.Add(category);
-                }
+                var categories = new List<Category>();
+              
                 ListPostVM listPost = new ListPostVM
                 {
                     Id = post.Id,
@@ -62,7 +58,8 @@ namespace MarvinBlogv._2._0.Controllers
                     CreatedBy = post.CreatedBy,
                     ImageUrl = post.FeaturedImageURL,
                     Status = post.Status,
-                    PostCategories = Categories,
+                    PostCategories = post.PostCategories.Select(p => p.Category).ToList(),
+                    Like = post.Reviews.Where(r => r.Reaction == true).Count(),
                 };
 
                 ListPosts.Add(listPost);

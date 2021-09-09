@@ -46,7 +46,7 @@ namespace MarvinBlogv._2._0.Repositories
         {
             return _dbContext.Reviews.FirstOrDefault(r => r.UserId == reviewerId);
         }
-
+        
         public Review UpdateReview(Review review)
         {
             _dbContext.Reviews.Update(review);
@@ -59,9 +59,27 @@ namespace MarvinBlogv._2._0.Repositories
             return _dbContext.Reviews.Where(review => review.PostId == PostId).ToList();
         }
 
-        public int ReviewCount(int postId)
+        public List<Review> FindByUserId(int userId)
         {
-            return _dbContext.Reviews.Include(r => r.Reaction).Where(r => r.PostId == postId).Count();
+            return _dbContext.Reviews.Where(review => review.UserId == userId).ToList();
+        }
+
+        public int ReviewCount(int postId)        
+        {
+           return _dbContext.Reviews.Where(r => r.PostId == postId && r.Reaction == true).Count();
+        }
+        
+
+        public int LikeCount(int userId)
+        {
+            return _dbContext.Reviews.Where(r => r.UserId == userId && r.Reaction == true).Count();
+        }
+
+        public Review AddComment(Review review)
+        {
+            _dbContext.Reviews.Add(review);
+            _dbContext.SaveChanges();
+            return review;
         }
     }
 }
