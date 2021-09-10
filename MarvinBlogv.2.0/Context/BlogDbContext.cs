@@ -22,6 +22,8 @@ namespace MarvinBlogv._2._0.Context
         public DbSet<Review> Reviews { get; set; }
         public DbSet<PostCategory> PostCategories { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

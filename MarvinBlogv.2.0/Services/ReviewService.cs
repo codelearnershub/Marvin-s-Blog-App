@@ -70,15 +70,10 @@ namespace MarvinBlogv._2._0.Services
             return _reviewRepository.ReviewCount(postId);
         }
 
-        public List<Review> FindByPostId(int PostId) 
+        public List<Review> FindByPostId(int postId) 
         {
-            return _reviewRepository.FindByPostId(PostId);
+            return _reviewRepository.FindByPostId(postId);
         }
-        
-         public int LikeCount(int userId)
-         {
-            return _reviewRepository.LikeCount(userId);
-         }
 
         public Review AddComment(int userId, string comment, int postId)
         {

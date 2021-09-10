@@ -16,7 +16,7 @@ using static MarvinBlogv._2._0.Models.ViewModel.CategoryViewModel;
 
 namespace MarvinBlogv._2._0.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, blogger")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -34,7 +34,7 @@ namespace MarvinBlogv._2._0.Controllers
             _postCategoryService = postCategoryService;
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin, blogger")]
         public IActionResult Index()
         {
             IEnumerable<Category> categories = _categoryService.GetAllCategories();
@@ -43,6 +43,7 @@ namespace MarvinBlogv._2._0.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin, blogger")]
         public IActionResult GetPostByCategoryId(int id) 
         {
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
@@ -58,7 +59,7 @@ namespace MarvinBlogv._2._0.Controllers
             return View(Posts);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -75,7 +76,7 @@ namespace MarvinBlogv._2._0.Controllers
                 //Creating
                 string upload = webRootPath + WC.ImagePath;
                 string fileName = Guid.NewGuid().ToString();
-                string extension = Path.GetExtension(files[0].FileName);
+                string extension = Path.GetExtension(files[0].FileName); 
                 string filePath = fileName + extension;
 
                 using (var fileStream = new FileStream(Path.Combine(upload, filePath), FileMode.Create))
@@ -90,7 +91,7 @@ namespace MarvinBlogv._2._0.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Update(int id) 
         {

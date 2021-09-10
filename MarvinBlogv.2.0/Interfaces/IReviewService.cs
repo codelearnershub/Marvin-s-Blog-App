@@ -15,8 +15,7 @@ namespace MarvinBlogv._2._0.Interfaces
         public Review UpdateReview(int id, DateTime reviewedOn, int userId, bool reaction, int postId, string comment);
         public void Delete(int id);
         public int ReviewCount(int userId);
-        public List<Review> FindByPostId(int PostId);
-        public int LikeCount(int userId);
+        public List<Review> FindByPostId(int postId);
         public List<Review> FindByUserId(int userId);
     }
 }

@@ -36,7 +36,7 @@
             </div>
             <br />
             
-            <a asp-controller="Review" asp-action="GetReviewByPostId" asp-route-Id="@post.Id"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>@post.Like<i class="fa fa-thumbs-down" aria-hidden="true"></i> @ViewBag.Unlike
+            <a asp-controller="Review" asp-action="GetReviewByPostId" asp-route-Id="@post.Id"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>@post.Like 
 
             <a asp-controller="Review" asp-action="AddComment">Add Comment</a>
         }

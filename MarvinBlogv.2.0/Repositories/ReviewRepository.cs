@@ -54,9 +54,9 @@ namespace MarvinBlogv._2._0.Repositories
             return review;
         }
 
-        public List<Review> FindByPostId(int PostId)
+        public List<Review> FindByPostId(int postId)
         {
-            return _dbContext.Reviews.Where(review => review.PostId == PostId).ToList();
+            return _dbContext.Reviews.Where(review => review.PostId == postId).ToList();
         }
 
         public List<Review> FindByUserId(int userId)
@@ -69,12 +69,6 @@ namespace MarvinBlogv._2._0.Repositories
            return _dbContext.Reviews.Where(r => r.PostId == postId && r.Reaction == true).Count();
         }
         
-
-        public int LikeCount(int userId)
-        {
-            return _dbContext.Reviews.Where(r => r.UserId == userId && r.Reaction == true).Count();
-        }
-
         public Review AddComment(Review review)
         {
             _dbContext.Reviews.Add(review);

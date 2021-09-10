@@ -45,14 +45,7 @@ namespace MarvinBlogv._2._0.Controllers
             User user = _userService.FindUserById(userId);
             ViewBag.name = user.FullName;
             ViewBag.email = user.Email;
-            
-            var review = _reviewService.LikeCount(userId);
-          
-            if (review > 1)
-            {
-                ViewBag.Unlike = review--;
-            }
-            
+     
             List<ListPostVM> ListPosts = new List<ListPostVM>();
             var posts = _postService.GetAllPosts();
             var categories = new List<Category>();
@@ -70,7 +63,7 @@ namespace MarvinBlogv._2._0.Controllers
                     ImageUrl = post.FeaturedImageURL,
                     Status = post.Status,
                     PostCategories = post.PostCategories.Select(p => p.Category).ToList(),
-                    Like = post.Reviews.Where(r => r.Reaction == true).Count(),               
+                    Like = post.Reviews.Where(r => r.Reaction == true).Count(),
                 };
                 ListPosts.Add(listPost);
             }
@@ -130,6 +123,7 @@ namespace MarvinBlogv._2._0.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public IActionResult IsApproved(int id)
         {
             var posts = _postService.FindById(id);
