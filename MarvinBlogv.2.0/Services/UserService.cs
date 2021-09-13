@@ -67,6 +67,8 @@ namespace MarvinBlogv._2._0.Services
 
             var role = _roleRepository.GetRoleByName("blogger").Id;
 
+            Console.WriteLine(role);
+
 
             var userRoles = new List<UserRole>
             {
@@ -103,6 +105,11 @@ namespace MarvinBlogv._2._0.Services
             Console.WriteLine($"Hashed: {hashed}");
 
             return hashed;
+        }
+
+        public IEnumerable<User> GetUsers(int userId)
+        {
+            return _userRepository.GetUsers(userId);
         }
     }
 }

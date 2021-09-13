@@ -1,8 +1,698 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model List<MarvinBlogv._2._0.Models.Post>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+<style>
+    /* Container holding the image and the text */
+    .container2 {
+        position: relative;
+        text-align: center;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        font-family: 'Times New Roman';
+    }
+
+    /* Bottom left text */
+    .bottom-left {
+        position: absolute;
+        bottom: 8px;
+        left: 16px;
+    }
+
+    /* Top left text */
+    .top-left {
+        position: absolute;
+        top: 8px;
+        left: 16px;
+    }
+
+    /* Top right text */
+    .top-right {
+        position: absolute;
+        top: 8px;
+        right: 16px;
+    }
+
+    /* Bottom right text */
+    .bottom-right {
+        position: absolute;
+        bottom: 8px;
+        right: 16px;
+    }
+
+    /* Centered text */
+    .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+            <div class="container2">
+                <img src="@WC.PostImagePath@Model[0].FeaturedImageURL"
+                     class="w-100 shadow-1-strong rounded mb-4"
+                     alt="" />
+                <div class="top-left ">
+                    @if (Model[0].Title.Length > 15)
+                    {
+                        <span class="float-left">@Model[0].Title.Substring(0, 15). . . :</span>
+                    }
+
+                    else
+                    {
+                        <span class="float-left">@Model[0].Title</span>
+                    }
+
+                    @if (Model[0].Description.Length > 35)
+                    {
+                        <a href="#" style="font-size: 15px; color:white; display: block">@Model[0].Description.Substring(0, 35). . . </a>
+                    }
+                    else
+                    {
+                        <a href="#" style="font-size: 15px; color: white; display: block">@Model[0].Description</a>
+                    }
+
+                </div>
+            </div>
+
+            <div class="container2">
+                <img src="@WC.PostImagePath@Model[0].FeaturedImageURL"
+                     class="w-100 shadow-1-strong rounded mb-4"
+                     alt="" />
+                <div class="centered ">
+                    @if (Model[0].Title.Length > 15)
+                    {
+                        <span class="float-left">@Model[0].Title.Substring(0, 15). . . :</span>
+                    }
+
+                    else
+                    {
+                        <span class="float-left">@Model[0].Title</span>
+                    }
+                    @if (Model[0].Description.Length > 35)
+                    {
+                        <a href="#" style="font-size: 15px; color:white; display: block">@Model[0].Description.Substring(0, 35). . . </a>
+                    }
+                    else
+                    {
+                        <a href="#" style="font-size: 15px; color: white; display: block">@Model[0].Description</a>
+                    }
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4 mb-lg-0">
+            <div class="container2">
+                <img src="@WC.PostImagePath@Model[2].FeaturedImageURL"
+                     class="w-100 shadow-1-strong rounded mb-4"
+                     alt="" />
+                <div class="top-right ">
+                    @if (Model[2].Title.Length > 15)
+                    {
+                        <span class="float-left">@Model[2].Title.Substring(0, 15). . . :</span>
+                    }
+
+                    else
+                    {
+                        <span class="float-left">@Model[2].Title</span>
+                    }
+                    @if (Model[2].Description.Length > 35)
+                    {
+                        <a href="#" style="font-size: 15px; color:white; display: block">@Model[2].Description.Substring(0, 35). . . </a>
+                    }
+                    else
+                    {
+                        <a href="#" style="font-size: 15px; color: white; display: block">@Model[2].Description</a>
+                    }
+
+                </div>
+            </div>
+
+            <div class="container2">
+                <img src="@WC.PostImagePath@Model[3].FeaturedImageURL"
+                     class="w-100 shadow-1-strong rounded mb-4"
+                     alt="" />
+                <div class="centered ">
+                    @if (Model[3].Title.Length > 15)
+                    {
+                        <span class="float-left">@Model[3].Title.Substring(0, 15). . . :</span>
+                    }
+
+                    else
+                    {
+                        <span class="float-left">@Model[3].Title</span>
+                    }
+                    @if (Model[3].Description.Length > 35)
+                    {
+                        <a href="#" style="font-size: 15px; color:white; display: block">@Model[3].Description.Substring(0, 35). . . </a>
+                    }
+                    else
+                    {
+                        <a href="#" style="font-size: 15px; color: white; display: block">@Model[3].Description</a>
+                    }
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4 mb-lg-0">
+            <div class="container2">
+                <img src="@WC.PostImagePath@Model[4].FeaturedImageURL"
+                     class="w-100 shadow-1-strong rounded mb-4"
+                     alt="" />
+                <div class="top-left ">
+                    @if (Model[4].Title.Length > 15)
+                    {
+                        <span class="float-left">@Model[4].Title.Substring(0, 15). . . :</span>
+                    }
+
+                    else
+                    {
+                        <span class="float-left">@Model[4].Title</span>
+                    }
+                    @if (Model[4].Description.Length > 35)
+                    {
+                        <a href="#" style="font-size: 15px; color:white; display: block">@Model[4].Description.Substring(0, 35). . . </a>
+                    }
+                    else
+                    {
+                        <a href="#" style="font-size: 15px; color: white; display: block">@Model[4].Description</a>
+                    }
+
+                </div>
+            </div>
+
+            <div class="container2">
+                <img src="@WC.PostImagePath@Model[5].FeaturedImageURL"
+                     class="w-100 shadow-1-strong rounded mb-4"
+                     alt="" />
+                <div class="top-left ">
+                    @if (Model[5].Title.Length > 15)
+                    {
+                        <span class="float-left">@Model[5].Title.Substring(0, 15). . . :</span>
+                    }
+
+                    else
+                    {
+                        <span class="float-left">@Model[5].Title</span>
+                    }
+                    @if (Model[5].Description.Length > 35)
+                    {
+                        <a href="#" style="font-size: 15px; color:white; display: block">@Model[5].Description.Substring(0, 35). . . </a>
+                    }
+                    else
+                    {
+                        <a href="#" style="font-size: 15px; color: white; display: block">@Model[5].Description</a>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br /><br /><br />
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                <div class="container2">
+                    <img src="@WC.PostImagePath@Model[0].FeaturedImageURL"
+                         class="w-100 shadow-1-strong rounded mb-4"
+                         alt="" />
+                    <div class="top-left ">
+                        @if (Model[0].Title.Length > 15)
+                        {
+                            <span class="float-left">@Model[0].Title.Substring(0, 15). . . :</span>
+                        }
+
+                        else
+                        {
+                            <span class="float-left">@Model[0].Title</span>
+                        }
+
+                        @if (Model[0].Description.Length > 35)
+                        {
+                            <a href="#" style="font-size: 15px; color:white; display: block">@Model[0].Description.Substring(0, 35). . . </a>
+                        }
+                        else
+                        {
+                            <a href="#" style="font-size: 15px; color: white; display: block">@Model[0].Description</a>
+                        }
+
+                    </div>
+                </div>
+
+                <div class="container2">
+                    <img src="@WC.PostImagePath@Model[0].FeaturedImageURL"
+                         class="w-100 shadow-1-strong rounded mb-4"
+                         alt="" />
+                    <div class="centered ">
+                        @if (Model[0].Title.Length > 15)
+                        {
+                            <span class="float-left">@Model[0].Title.Substring(0, 15). . . :</span>
+                        }
+
+                        else
+                        {
+                            <span class="float-left">@Model[0].Title</span>
+                        }
+                        @if (Model[0].Description.Length > 35)
+                        {
+                            <a href="#" style="font-size: 15px; color:white; display: block">@Model[0].Description.Substring(0, 35). . . </a>
+                        }
+                        else
+                        {
+                            <a href="#" style="font-size: 15px; color: white; display: block">@Model[0].Description</a>
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="container2">
+                    <img src="@WC.PostImagePath@Model[2].FeaturedImageURL"
+                         class="w-100 shadow-1-strong rounded mb-4"
+                         alt="" />
+                    <div class="top-right ">
+                        @if (Model[2].Title.Length > 15)
+                        {
+                            <span class="float-left">@Model[2].Title.Substring(0, 15). . . :</span>
+                        }
+
+                        else
+                        {
+                            <span class="float-left">@Model[2].Title</span>
+                        }
+                        @if (Model[2].Description.Length > 35)
+                        {
+                            <a href="#" style="font-size: 15px; color:white; display: block">@Model[2].Description.Substring(0, 35). . . </a>
+                        }
+                        else
+                        {
+                            <a href="#" style="font-size: 15px; color: white; display: block">@Model[2].Description</a>
+                        }
+
+                    </div>
+                </div>
+
+                <div class="container2">
+                    <img src="@WC.PostImagePath@Model[3].FeaturedImageURL"
+                         class="w-100 shadow-1-strong rounded mb-4"
+                         alt="" />
+                    <div class="centered ">
+                        @if (Model[3].Title.Length > 15)
+                        {
+                            <span class="float-left">@Model[3].Title.Substring(0, 15). . . :</span>
+                        }
+
+                        else
+                        {
+                            <span class="float-left">@Model[3].Title</span>
+                        }
+                        @if (Model[3].Description.Length > 35)
+                        {
+                            <a href="#" style="font-size: 15px; color:white; display: block">@Model[3].Description.Substring(0, 35). . . </a>
+                        }
+                        else
+                        {
+                            <a href="#" style="font-size: 15px; color: white; display: block">@Model[3].Description</a>
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="container2">
+                    <img src="@WC.PostImagePath@Model[4].FeaturedImageURL"
+                         class="w-100 shadow-1-strong rounded mb-4"
+                         alt="" />
+                    <div class="top-left ">
+                        @if (Model[4].Title.Length > 15)
+                        {
+                            <span class="float-left">@Model[4].Title.Substring(0, 15). . . :</span>
+                        }
+
+                        else
+                        {
+                            <span class="float-left">@Model[4].Title</span>
+                        }
+                        @if (Model[4].Description.Length > 35)
+                        {
+                            <a href="#" style="font-size: 15px; color:white; display: block">@Model[4].Description.Substring(0, 35). . . </a>
+                        }
+                        else
+                        {
+                            <a href="#" style="font-size: 15px; color: white; display: block">@Model[4].Description</a>
+                        }
+
+                    </div>
+                </div>
+
+                <div class="container2">
+                    <img src="@WC.PostImagePath@Model[5].FeaturedImageURL"
+                         class="w-100 shadow-1-strong rounded mb-4"
+                         alt="" />
+                    <div class="top-left ">
+                        @if (Model[5].Title.Length > 15)
+                        {
+                            <span class="float-left">@Model[5].Title.Substring(0, 15). . . :</span>
+                        }
+
+                        else
+                        {
+                            <span class="float-left">@Model[5].Title</span>
+                        }
+                        @if (Model[5].Description.Length > 35)
+                        {
+                            <a href="#" style="font-size: 15px; color:white; display: block">@Model[5].Description.Substring(0, 35). . . </a>
+                        }
+                        else
+                        {
+                            <a href="#" style="font-size: 15px; color: white; display: block">@Model[5].Description</a>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br /><br /><br />
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                    <div class="container2">
+                        <img src="@WC.PostImagePath@Model[0].FeaturedImageURL"
+                             class="w-100 shadow-1-strong rounded mb-4"
+                             alt="" />
+                        <div class="top-left ">
+                            @if (Model[0].Title.Length > 15)
+                            {
+                                <span class="float-left">@Model[0].Title.Substring(0, 15). . . :</span>
+                            }
+
+                            else
+                            {
+                                <span class="float-left">@Model[0].Title</span>
+                            }
+
+                            @if (Model[0].Description.Length > 35)
+                            {
+                                <a href="#" style="font-size: 15px; color:white; display: block">@Model[0].Description.Substring(0, 35). . . </a>
+                            }
+                            else
+                            {
+                                <a href="#" style="font-size: 15px; color: white; display: block">@Model[0].Description</a>
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="container2">
+                        <img src="@WC.PostImagePath@Model[0].FeaturedImageURL"
+                             class="w-100 shadow-1-strong rounded mb-4"
+                             alt="" />
+                        <div class="centered ">
+                            @if (Model[0].Title.Length > 15)
+                            {
+                                <span class="float-left">@Model[0].Title.Substring(0, 15). . . :</span>
+                            }
+
+                            else
+                            {
+                                <span class="float-left">@Model[0].Title</span>
+                            }
+                            @if (Model[0].Description.Length > 35)
+                            {
+                                <a href="#" style="font-size: 15px; color:white; display: block">@Model[0].Description.Substring(0, 35). . . </a>
+                            }
+                            else
+                            {
+                                <a href="#" style="font-size: 15px; color: white; display: block">@Model[0].Description</a>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="container2">
+                        <img src="@WC.PostImagePath@Model[2].FeaturedImageURL"
+                             class="w-100 shadow-1-strong rounded mb-4"
+                             alt="" />
+                        <div class="top-right ">
+                            @if (Model[2].Title.Length > 15)
+                            {
+                                <span class="float-left">@Model[2].Title.Substring(0, 15). . . :</span>
+                            }
+
+                            else
+                            {
+                                <span class="float-left">@Model[2].Title</span>
+                            }
+                            @if (Model[2].Description.Length > 35)
+                            {
+                                <a href="#" style="font-size: 15px; color:white; display: block">@Model[2].Description.Substring(0, 35). . . </a>
+                            }
+                            else
+                            {
+                                <a href="#" style="font-size: 15px; color: white; display: block">@Model[2].Description</a>
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="container2">
+                        <img src="@WC.PostImagePath@Model[3].FeaturedImageURL"
+                             class="w-100 shadow-1-strong rounded mb-4"
+                             alt="" />
+                        <div class="centered ">
+                            @if (Model[3].Title.Length > 15)
+                            {
+                                <span class="float-left">@Model[3].Title.Substring(0, 15). . . :</span>
+                            }
+
+                            else
+                            {
+                                <span class="float-left">@Model[3].Title</span>
+                            }
+                            @if (Model[3].Description.Length > 35)
+                            {
+                                <a href="#" style="font-size: 15px; color:white; display: block">@Model[3].Description.Substring(0, 35). . . </a>
+                            }
+                            else
+                            {
+                                <a href="#" style="font-size: 15px; color: white; display: block">@Model[3].Description</a>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="container2">
+                        <img src="@WC.PostImagePath@Model[4].FeaturedImageURL"
+                             class="w-100 shadow-1-strong rounded mb-4"
+                             alt="" />
+                        <div class="top-left ">
+                            @if (Model[4].Title.Length > 15)
+                            {
+                                <span class="float-left">@Model[4].Title.Substring(0, 15). . . :</span>
+                            }
+
+                            else
+                            {
+                                <span class="float-left">@Model[4].Title</span>
+                            }
+                            @if (Model[4].Description.Length > 35)
+                            {
+                                <a href="#" style="font-size: 15px; color:white; display: block">@Model[4].Description.Substring(0, 35). . . </a>
+                            }
+                            else
+                            {
+                                <a href="#" style="font-size: 15px; color: white; display: block">@Model[4].Description</a>
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="container2">
+                        <img src="@WC.PostImagePath@Model[5].FeaturedImageURL"
+                             class="w-100 shadow-1-strong rounded mb-4"
+                             alt="" />
+                        <div class="top-left ">
+                            @if (Model[5].Title.Length > 15)
+                            {
+                                <span class="float-left">@Model[5].Title.Substring(0, 15). . . :</span>
+                            }
+
+                            else
+                            {
+                                <span class="float-left">@Model[5].Title</span>
+                            }
+                            @if (Model[5].Description.Length > 35)
+                            {
+                                <a href="#" style="font-size: 15px; color:white; display: block">@Model[5].Description.Substring(0, 35). . . </a>
+                            }
+                            else
+                            {
+                                <a href="#" style="font-size: 15px; color: white; display: block">@Model[5].Description</a>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gallery -->
+            <!--<!DOCTYPE html>
+            <html>
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <style>
+                    * {
+                        box-sizing: border-box;
+                    }
+
+                    body {
+                        margin: 0;
+                        font-family: Arial, Helvetica, sans-serif;
+                    }
+
+                    .header {
+                        text-align: center;
+                        padding: 32px;
+                    }
+
+                    .row {
+                        display: -ms-flexbox; /* IE 10 */
+                        display: flex;
+                        -ms-flex-wrap: wrap; /* IE 10 */
+                        flex-wrap: wrap;
+                        padding: 0 4px;
+                    }
+
+                    /* Create two equal columns that sits next to each other */
+                    .column {
+                        -ms-flex: 50%; /* IE 10 */
+                        flex: 50%;
+                        padding: 0 4px;
+                    }
+
+                        .column img {
+                            margin-top: 8px;
+                            vertical-align: middle;
+                        }
+
+                    /* Style the buttons */
+                    .btn {
+                        border: none;
+                        outline: none;
+                        padding: 10px 16px;
+                        background-color: #f1f1f1;
+                        cursor: pointer;
+                        font-size: 18px;
+                    }
+
+                        .btn:hover {
+                            background-color: #ddd;
+                        }
+
+                        .btn.active {
+                            background-color: #666;
+                            color: white;
+                        }
+                </style>
+            </head>
+            <body>-->
+            <!-- Header -->
+            <!--<div class="header" id="myHeader">
+                <h1>Image Grid</h1>
+                <p>Click on the buttons to change the grid view.</p>
+                <button class="btn" onclick="one()">1</button>
+                <button class="btn active" onclick="two()">2</button>
+                <button class="btn" onclick="four()">4</button>
+            </div>-->
+            <!-- Photo Grid -->
+            <!--<div class="row">
+                    <div class="column">
+                        <img src="@WC.PostImagePath@Model[1].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[2].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[3].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[4].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[5].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[6].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[0].FeaturedImageURL" style="width:100%">
+                    </div>
+                    <div class="column">
+                        <img src="@WC.PostImagePath@Model[1].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[2].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[3].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[4].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[5].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[6].FeaturedImageURL" style="width:100%">
+                    </div>
+                    <div class="column">
+                        <img src="@WC.PostImagePath@Model[1].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[2].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[3].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[4].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[5].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[6].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[0].FeaturedImageURL" style="width:100%">
+                    </div>
+                    <div class="column">
+                        <img src="@WC.PostImagePath@Model[1].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[2].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[3].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[4].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[5].FeaturedImageURL" style="width:100%">
+                        <img src="@WC.PostImagePath@Model[6].FeaturedImageURL" style="width:100%">
+                    </div>
+                </div>
+
+            </body>
+
+            <script>
+                // Get the elements with class="column"
+                var elements = document.getElementsByClassName("column");
+
+                // Declare a loop variable
+                var i;
+
+                // Full-width images
+                function one() {
+                    for (i = 0; i < elements.length; i++) {
+                        elements[i].style.msFlex = "100%";  // IE10
+                        elements[i].style.flex = "100%";
+                    }
+                }
+
+                // Two images side by side
+                function two() {
+                    for (i = 0; i < elements.length; i++) {
+                        elements[i].style.msFlex = "50%";  // IE10
+                        elements[i].style.flex = "50%";
+                    }
+                }
+
+                // Four images side by side
+                function four() {
+                    for (i = 0; i < elements.length; i++) {
+                        elements[i].style.msFlex = "25%";  // IE10
+                        elements[i].style.flex = "25%";
+                    }
+                }
+
+                // Add active class to the current button (highlight it)
+                var header = document.getElementById("myHeader");
+                var btns = header.getElementsByClassName("btn");
+                for (var i = 0; i < btns.length; i++) {
+                    btns[i].addEventListener("click", function () {
+                        var current = document.getElementsByClassName("active");
+                        current[0].className = current[0].className.replace(" active", "");
+                        this.className += " active";
+                    });
+                }
+            </script>
+
+
+            </html>-->

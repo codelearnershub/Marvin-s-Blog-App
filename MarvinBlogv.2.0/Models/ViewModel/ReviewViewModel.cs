@@ -36,4 +36,30 @@ namespace MarvinBlogv._2._0.Models.ViewModel
         public int PostId { get; set; }
         public string Comment { get; set; }
     }
+
+    public class LikeList
+    {
+        public string FullName { get; set; }
+
+        public int UserId { get; set; }
+
+        public bool IsFollowing { get; set; }
+
+        public string PosterRole { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+    }
+
+    public class CommentList
+    {
+        public int Id { get; set; }
+        public string Comment { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public string FullName { get; set; }
+        public int CommentCount { get; set; }
+        public string PosterRole { get; set; }
+        public bool IsFollowing { get; set; }
+        public int UserId { get; set; }
+
+    }
 }

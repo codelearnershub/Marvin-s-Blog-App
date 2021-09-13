@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using MarvinBlogv._2._0.Context;
 using MarvinBlogv._2._0.DTO;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace MarvinBlogv._2._0.Services
 {
@@ -24,22 +26,31 @@ namespace MarvinBlogv._2._0.Services
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var notification = FindById(id);
+            {
+                if (notification != null)
+                {
+                    _dbContext.Notifications.Remove(notification);
+                    _dbContext.SaveChanges();
+                }
+            }
         }
 
         public Notification Update(Notification notification)
         {
-            throw new NotImplementedException();
+            _dbContext.Notifications.Update(notification);
+            _dbContext.SaveChanges();
+            return notification;
         }
 
         public Notification FindById(int id)
         {
-            throw new NotImplementedException();
+            return _dbContext.Notifications.Find(id);
         }
 
         public IEnumerable<Notification> GetUserNotificationByUserId(int userId)
         {
-            throw new NotImplementedException();
+            return _dbContext.Notifications.Include(n => n.Post).Where(n => n.UserId == userId).ToList();
         }
     }
 }

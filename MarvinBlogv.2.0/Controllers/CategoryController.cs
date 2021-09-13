@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using static MarvinBlogv._2._0.Models.ViewModel.CategoryViewModel;
 
 namespace MarvinBlogv._2._0.Controllers
@@ -20,18 +19,26 @@ namespace MarvinBlogv._2._0.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
+        private readonly IUserRoleService _userRoleService;
         private readonly IPostService _postService;
+        private readonly IUserService _userService;
         private readonly IPostCategoryService _postCategoryService;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IReviewService _reviewService;
+        private readonly IFollowerService _followerService;
         public readonly BlogDbContext _db;
 
-        public CategoryController(ICategoryService categoryService, IWebHostEnvironment webHostEnvironment, BlogDbContext db, IPostService postService, IPostCategoryService postCategoryService)
+        public CategoryController(ICategoryService categoryService, IWebHostEnvironment webHostEnvironment, BlogDbContext db, IPostService postService, IPostCategoryService postCategoryService, IReviewService reviewService, IFollowerService followerService, IUserService userService, IUserRoleService userRoleService)
         {
             _categoryService = categoryService;
             _webHostEnvironment = webHostEnvironment;
             _db = db;
             _postService = postService;
             _postCategoryService = postCategoryService;
+            _reviewService = reviewService;
+            _followerService = followerService;
+            _userService = userService;
+            _userRoleService = userRoleService;
         }
 
         [Authorize(Roles = "admin, blogger")]
@@ -48,15 +55,53 @@ namespace MarvinBlogv._2._0.Controllers
         {
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
-            var postsCategory = _postCategoryService.GetPostByCategoryId(id);
-            List<Post> Posts = new List<Post>();
-            foreach(var item in postsCategory)
-            {
-                var post = _postService.FindById(item.PostId);
-                Posts.Add(post);
-            }
+            var roles = _userRoleService.FindUserRole(userId);
 
-            return View(Posts);
+            ViewBag.Role = roles[0].Name;
+
+            User user = _userService.FindUserById(userId);
+
+            ViewBag.name = user.FullName;
+
+            ViewBag.email = user.Email;
+            ViewBag.Category = _categoryService.FindById(id).Name;
+
+            List<ListPostVM> ListPosts = new List<ListPostVM>();
+            var posts = _postCategoryService.GetPostByCategoryId(id);
+            foreach (var post in posts)
+            {
+                var postsCategory = _postCategoryService.GetCategoryByPostId(post.Id);
+
+                var categories = new List<Category>();
+                var following = false;
+                int posterId = _postService.FindById(post.Id).UserId;
+                var poster = _userService.FindUserById(posterId);
+                if (_followerService.CheckFollow(userId, posterId) != null)
+                {
+                    following = true;
+                }
+
+                ListPostVM listPost = new ListPostVM
+                {
+                    Id = post.Id,
+                    PostTitle = post.Post.Title,
+                    Content = post.Post.Content,
+                    Description = post.Post.Description,
+                    PostUrl = post.Post.PostURL,
+                    CreatedAt = post.Post.CreatedAt,
+                    CreatedBy = post.Post.CreatedBy,
+                    ImageUrl = post.Post.FeaturedImageURL,
+                    Created = posterId,
+                    Status = post.Post.Status,
+                    IsFollowing = following,
+                    PosterFullName = poster.FullName,
+                    PostCategories = post.Post.PostCategories.Select(p => p.Category).ToList(),
+                    Like = _reviewService.ReviewCount(post.Id),
+                };
+
+                ListPosts.Add(listPost);
+            }
+            return View(ListPosts);
         }
 
         [Authorize(Roles = "admin")]

@@ -21,13 +21,14 @@ namespace MarvinBlogv._2._0.Controllers
     public class PostController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IUserRoleService _userRoleService;
         private readonly IPostService _postService;
         private readonly ICategoryService _categoryService;
         private readonly IReviewService _reviewService;
         private readonly IPostCategoryService _postCategoryService;
         private readonly BlogDbContext _db;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public PostController(IUserService userService, IPostService postService, ICategoryService categoryService, IPostCategoryService postCategoryService, IWebHostEnvironment webHostEnvironment, BlogDbContext db, IReviewService reviewService)
+        public PostController(IUserService userService, IPostService postService, ICategoryService categoryService, IPostCategoryService postCategoryService, IWebHostEnvironment webHostEnvironment, BlogDbContext db, IReviewService reviewService, IUserRoleService userRoleService)
         {
             _userService = userService;
             _postService = postService;
@@ -36,6 +37,7 @@ namespace MarvinBlogv._2._0.Controllers
             _webHostEnvironment = webHostEnvironment;
             _db = db;
             _reviewService = reviewService;
+            _userRoleService = userRoleService;
         }
 
         [Authorize(Roles = "blogger, admin")]
@@ -64,10 +66,10 @@ namespace MarvinBlogv._2._0.Controllers
                     Status = post.Status,
                     PostCategories = post.PostCategories.Select(p => p.Category).ToList(),
                     Like = post.Reviews.Where(r => r.Reaction == true).Count(),
+                    //Comment = post.Reviews.Where(r => r.PostId == post.Id && r.Comment == post.Comment).Count(),
                 };
                 ListPosts.Add(listPost);
             }
-
             return View(ListPosts);
         }
         
@@ -77,6 +79,10 @@ namespace MarvinBlogv._2._0.Controllers
         public IActionResult Create()
         {
             int userId = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+
+            var roles = _userRoleService.FindUserRole(userId);
+
+            ViewBag.Role = roles[0].Name;
             User user = _userService.FindUserById(userId);
             ViewBag.userId = user.Email;
             ViewBag.id = user.Id;
@@ -124,13 +130,13 @@ namespace MarvinBlogv._2._0.Controllers
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public IActionResult IsApproved(int id)
+        public IActionResult ApprovePost(int id)
         {
             var posts = _postService.FindById(id);
 
             _postService.UpdatePost(posts.Id, posts.CreatedAt, posts.Title, posts.FeaturedImageURL, posts.Content, posts.PostCategories, posts.Description, posts.PostURL, true);
 
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("UnApprovedPost", "Blogger");
         }
 
         [Authorize]
@@ -203,7 +209,7 @@ namespace MarvinBlogv._2._0.Controllers
         }
 
         [Authorize]
-        public IActionResult Delete(int id)
+        public IActionResult DeletePost(int id)
         {
             int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
@@ -215,7 +221,7 @@ namespace MarvinBlogv._2._0.Controllers
             }
 
             _postService.Delete(id);
-            return RedirectToAction("Index", "Blogger");
+            return RedirectToAction("PendingPostPerUser", "Blogger");
         }
 
         [HttpPost]
@@ -266,20 +272,8 @@ namespace MarvinBlogv._2._0.Controllers
 
             return View(Categories);
         }
+     
 
-        [HttpGet]
-        public IActionResult Detail(int id)
-        {
-            int userId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
-            User user = _userService.FindUserById(userId);
-
-           
-            var post = _postService.FindById(id);
-            if (post == null)
-            {
-                return NotFound();
-            }
-            return View(post);
-        }
+  
     }
 }

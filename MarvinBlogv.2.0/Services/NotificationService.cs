@@ -8,31 +8,48 @@ namespace MarvinBlogv._2._0.Services
 {
     public class NotificationService : INotificationService
     {
+        private readonly INotificationRepository _notificationRepository;
+
+        public NotificationService(INotificationRepository notificationRepository)
+        {
+           _notificationRepository = notificationRepository;
+        }
+
         public Notification AddNotification(CreateNotificationDTO createNotificationDto)
         {
-        //     Notification notification = new Notification()
-        //     {
-        //         Id = createNotificationDto.Id,
-        //         CreatedAt = DateTime.Now,
-        //         PostId = createNotificationDto.PostId,
-        //     };
-        //     return;
-        throw new NotImplementedException();
+            Notification notification = new Notification()
+            {
+                Id = createNotificationDto.Id,
+                CreatedAt = DateTime.Now,
+                PostId = createNotificationDto.PostId,
+                Message = createNotificationDto.Message,
+                CreatedBy = createNotificationDto.CreatedBy
+            };
+            return _notificationRepository.AddNotification(notification);
+            
         }
 
         public Notification UpdateNotification(CreateNotificationDTO updateDto)
         {
-            throw new NotImplementedException();
+            var notification = _notificationRepository.FindById(updateDto.Id);
+
+            updateDto.Message = notification.Message;
+
+            updateDto.CreatedAt = notification.CreatedAt;
+
+            updateDto.CreatedBy = notification.CreatedBy;
+
+            return notification;
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _notificationRepository.Delete(id);
         }
 
         public IEnumerable<Notification> GetNotificationByUserId(int userId)
         {
-            throw new NotImplementedException();
+            return _notificationRepository.GetUserNotificationByUserId(userId);
         }
     }
 }

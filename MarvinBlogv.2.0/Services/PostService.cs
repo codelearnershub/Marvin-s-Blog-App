@@ -42,7 +42,7 @@ namespace MarvinBlogv._2._0.Services
                 {
                     Id = id,
                     CreatedAt = DateTime.Now,
-                    Title = title,
+                    Title = title.ToUpper(),
                     FeaturedImageURL = featuredImageURL,
                     Content = content,
                     PostCategories = postCategories,                  
@@ -149,11 +149,11 @@ namespace MarvinBlogv._2._0.Services
 
             post.CreatedAt = DateTime.Now;
 
-            post.Title = title;
+            post.Title = title.ToUpper();
 
             post.FeaturedImageURL = featuredImageURL;
 
-            post.Content = content.ToUpper();    
+            post.Content = content;    
 
             post.PostCategories = categoryIds;
 
@@ -164,6 +164,16 @@ namespace MarvinBlogv._2._0.Services
             post.Status = status;
 
             return _postRepository.UpdatePost(post);
+        }
+
+        public List<Post> GetPostByUserId(int userId)
+        {
+            return _postRepository.GetPostByUserId(userId);
+        }
+
+        public IEnumerable<Post> GetPendingPostByUserId(int userId)
+        {
+            return _postRepository.GetPendingPostByUserId(userId);
         }
     }
 }

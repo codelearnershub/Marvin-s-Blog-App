@@ -51,19 +51,32 @@ namespace MarvinBlogv._2._0.Controllers
                 CreatedAt = DateTime.Now,
             };
             _userService.RegisterUser(CreateModel);
-                  
-            return View();
+
+            ViewBag.Message = "Successfully Registered, You can now Log In";
+            return RedirectToAction("Login");
+            
         }
 
-        [HttpGet]
-        public IActionResult Login()
-        {
-            if(HttpContext.User.Identity.IsAuthenticated) 
-            {
-                var routeName = HttpContext.Request.Path;
+        //[HttpGet]
+        //public IActionResult Login()
+        //{
+        //    //if(HttpContext.User.Identity.IsAuthenticated) 
+        //    //{
+        //    //    var routeName = HttpContext.Request.Path;
 
-                return View();
+        //    //    return View();
+        //    //}
+        //    return View();
+        //}
+
+        [HttpGet]
+        public ActionResult Login(string ReturnUrl = "")
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("LogoutOption");
             }
+            ViewBag.ReturnUrl = ReturnUrl;
             return View();
         }
 
@@ -84,7 +97,7 @@ namespace MarvinBlogv._2._0.Controllers
             var role = roles[0].Name;
 
 
-            if(role == "SuperAdmin") 
+            if(role == "xx") 
             {
                 var claims = new List<Claim>
                 {
@@ -103,7 +116,7 @@ namespace MarvinBlogv._2._0.Controllers
                 return RedirectToAction("Index", "SuperAdmin");
             }
 
-            else if(role == "admin")
+            else if(role == "SuperAdmin")
             {
                 var claims = new List<Claim>
                 {
@@ -119,7 +132,7 @@ namespace MarvinBlogv._2._0.Controllers
                 var props = new AuthenticationProperties();
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props);
-                return RedirectToAction("Index", "Admin");
+                return RedirectToAction("UnApprovedPost", "Blogger");
             }
 
             else if (role == "blogger")

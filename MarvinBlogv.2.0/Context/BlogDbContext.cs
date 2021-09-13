@@ -52,16 +52,20 @@ namespace MarvinBlogv._2._0.Context
                 .IsUnique(true);
 
             modelBuilder.Entity<Post>()
-                .HasIndex(p => new { p.Title })
-                .IsUnique(true);
+                .HasIndex(p => new { p.Title });
 
             modelBuilder.Entity<Post>()
-               .HasIndex(p => new { p.Description })
-               .IsUnique(true);
+               .HasIndex(p => new { p.Description });
 
             modelBuilder.Entity<Post>()
-               .HasIndex(p => new { p.Content })
+               .Property(p => p.Content)
+               .HasColumnType("text");
+
+            modelBuilder.Entity<Post>()
+                .HasIndex(p => new { p.Content })
                .IsUnique(true);
+
+
 
             modelBuilder.Entity<Post>()
                .HasIndex(p => new { p.PostURL })
@@ -76,7 +80,7 @@ namespace MarvinBlogv._2._0.Context
                 {
                     Id = 1,
                     FullName = "Marvellous Adeoye",
-                    Email = "adeoyemarvellous7@gmail.com",
+                    Email = "2",
                     CreatedAt = DateTime.Now,
                     CreatedBy = "adeoyemarvellous7@gmail.com",
                     PasswordHash = "jeYMxCrAXGBEfEJB7j3IuPv4LhgThc7OIsAovL/J13Q=",

@@ -9,6 +9,7 @@ namespace MarvinBlogv._2._0.Models
     public class Post : BaseEntity
     {
         [Required]
+        [MaxLength(30)]
         public string Title { get; set; }
 
         [Required]
@@ -17,13 +18,15 @@ namespace MarvinBlogv._2._0.Models
         [AllowHtml]
         public string Content { get; set; }
 
+        [Required]
+        [MaxLength(30)]
         public string Description { get; set; }
 
         public string FeaturedImageURL { get; set; }
 
-        public string ImageURL { get;set; }
-
         public List<Review> Reviews { get; set; } = new List<Review>();
+
+        public List<Notification> Notifications { get; set; } = new List<Notification>();
 
         public string PostURL { get; set; }
 

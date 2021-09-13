@@ -18,7 +18,7 @@ namespace MarvinBlogv._2._0.Models
         [Required]
         public string HashSalt { get; set; }
         public ICollection<Post> Posts { set; get; } = new HashSet<Post>();
-        public ICollection<Follower> Followers { get; set; } = new HashSet<Follower>();
+        public List<Follower> Followers { get; set; } = new List<Follower>();
 
         public ICollection<UserRole> userRoles {set; get;} = new HashSet<UserRole>();
         public List<Notification> Notifications { get; set; }

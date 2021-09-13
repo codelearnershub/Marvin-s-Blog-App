@@ -70,6 +70,16 @@ namespace MarvinBlogv._2._0.Services
             return _reviewRepository.ReviewCount(postId);
         }
 
+         public int CommentCount(int postId)
+        {
+            return _reviewRepository.CommentCount(postId);
+        }
+        
+        public IEnumerable<Review> GetAllComments(int postId)
+        {
+            return _reviewRepository.GetAllComments(postId);
+        }
+
         public List<Review> FindByPostId(int postId) 
         {
             return _reviewRepository.FindByPostId(postId);
@@ -93,6 +103,11 @@ namespace MarvinBlogv._2._0.Services
         public List<Review> FindByUserId(int userId)
         {
            return _reviewRepository.FindByUserId(userId);
+        }
+
+        public Review CheckLike(int postId, int userId)
+        {
+            return _reviewRepository.CheckLike(postId, userId);
         }
     }
 }

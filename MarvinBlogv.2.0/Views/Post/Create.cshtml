@@ -1,7 +1,14 @@
 ﻿@model MarvinBlogv._2._0.Models.ViewModel.CreatePostViewModel
 
-@{
+@if (ViewBag.Role == "SuperAdmin")
+{
+    Layout = "_AdminDashboardLayout";
+}
+else
+{
     Layout = "BloggerDashboard";
+}
+@{ 
     ViewBag.Title = "Create Post";
 }
 

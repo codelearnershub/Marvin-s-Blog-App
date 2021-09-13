@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace MarvinBlogv._2._0.Models.ViewModel
 {
@@ -56,7 +55,6 @@ namespace MarvinBlogv._2._0.Models.ViewModel
 
         [Required(ErrorMessage = "Post Content is required")]
         [Display(Name = "Content:")]
-        [AllowHtml]
         public string Content { get; set; }
 
         public string Description { get; set; }
@@ -71,6 +69,7 @@ namespace MarvinBlogv._2._0.Models.ViewModel
 
     }
 
+    
     public class UpdatePostViewModel
     {
         public int Id { get; set; }
@@ -99,17 +98,31 @@ namespace MarvinBlogv._2._0.Models.ViewModel
 
         public bool Status { get; set; }
         public string CreatedBy { get; set; }
+        public int CommentCount{get;set;}
+
+        public string Message { get; set; }
+
+        public string PosterRole { get; set; }
 
         public string Content { get; set; }
 
         public string Description { get; set; }
+
         public int Like { get; set; }
-        public int Unlike { get; set; }
+
+        
         public DateTime CreatedAt { get; set; }
 
+        public string Comment { get; set; }
         public string ImageUrl { get; set; }
 
         public string PostUrl { get; set; }
+
+        public string PosterFullName { get; set; }
+
+        public int Created { get; set; }
+
+        public bool IsFollowing { get; set; }
 
         public List<Category> PostCategories { get; set; }
         public List<Review> PostReviews { get; set; }

@@ -47,6 +47,16 @@ namespace MarvinBlogv._2._0.Repositories
             return _dbContext.Users.Find(userId);
         }
 
+        public List<Post> GetPostByUserId(int userId)
+        {
+            return _dbContext.Posts.Where(r => r.UserId == userId).OrderByDescending(r=> r.CreatedAt).ToList();
+        }
+
+        public List<Post> GetPendingPostByUserId(int userId)
+        {
+            return _dbContext.Posts.Include(u=> u.User).Where(r => r.User.Id == userId && r.Status == false).OrderByDescending(r => r.CreatedAt).ToList();
+        }
+
         public List<PostCategory> GetAllPostCategories(int postId)
         {
             return _dbContext.PostCategories.Where(post => post.PostId == postId).ToList();
@@ -59,7 +69,7 @@ namespace MarvinBlogv._2._0.Repositories
 
         public IEnumerable<Post> ApprovedPost()
         {
-            return _dbContext.Posts.Include(post => post.Reviews).Include(post => post.PostCategories).ThenInclude(post => post.Category).Where(post => post.Status == true).OrderByDescending(p => p.CreatedAt).ToList();
+            return _dbContext.Posts.Include(post => post.Notifications).ThenInclude(post => post.Message).Include(post => post.Reviews).Include(post => post.PostCategories).ThenInclude(post => post.Category).Where(post => post.Status == true).OrderByDescending(p => p.CreatedAt).ToList();
         }
 
         public IEnumerable<Post> GetAllPosts()

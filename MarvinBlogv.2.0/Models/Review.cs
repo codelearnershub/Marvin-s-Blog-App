@@ -4,7 +4,6 @@
     { 
         public User User { get; set; }
         public int UserId { get; set; }
-        public int CreatedById { get; set; }
         public bool Reaction { get; set; }
         public Post Post { get; set; }
         public int PostId { get; set; }

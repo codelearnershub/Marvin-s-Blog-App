@@ -17,30 +17,76 @@
 
 </head>
 
-<body id="darkmode">
-    <button id="btn" onclick="darkmode()"><i class="fas fa-toggle-off" aria-hidden="true"></i></button>
+<body>
 
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a asp-controller="Post" asp-action="Create"><i class="fas fa-plus"></i>Add Post</a>
-        <a asp-controller="User" asp-action="LogoutOption"><i class="fas fa-sign-out-alt"></i>LogOut</a>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand font-weight-bold " asp-area="" asp-controller="Blogger" asp-action="Index"
+                   >Marvins</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Blogger" asp-action="Index">Post</a>
+                        </li>
 
-        @*<div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
-                <a class="dropdown-item" asp-controller="Category" asp-action="Create">Add Category</a>
-                <a class="dropdown-item" asp-controller="Category" asp-action="Index">List Category</a>
-            </div>*@
-        </li>
-    </div>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Blogger"
+                               asp-action="ListUsers">Bloggers</a>
+                        </li>
 
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+                        @*<li class="nav-item">
+                            <a class="nav-link text-dark" href="#">Notifications</a>
+                        </li>*@
 
-    <script src="~/js/sidenav.js"></script>
+                    </ul>
+                    <ul class="navbar-nav ml-auto nav-flex-icons">
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect waves-light " data-toggle="modal" data-target="#exampleModalCenter">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle"> <i class="fas fa-sign-out-alt"></i> Logout</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to Logout?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn font-weight-bold" style="background-color:red; color:white" asp-controller="User" asp-action="Logout">Yes</a>
+                                            <a class="btn font-weight-bold" style="background-color:greenyellow; color:white" data-dismiss="modal">No</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--/.Navbar -->
+    </header>
+
+
+
+
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
     <!--/. Sidebar navigation -->
     @*</footer>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

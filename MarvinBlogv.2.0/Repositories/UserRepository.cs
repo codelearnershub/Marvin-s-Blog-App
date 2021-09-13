@@ -26,12 +26,17 @@ namespace MarvinBlogv._2._0.Repositories
 
         public IEnumerable<Follower> FindFollower(int followerId)
         {
-            return _dbContext.Followers.Where(follower => follower.FollowerId == followerId).ToList();
+            return _dbContext.Followers.Where(follower => follower.FollowingId == followerId).ToList();
         }
 
         public IEnumerable<Follower> FindFollowing(int followingId)
         {
             return _dbContext.Followers.Where(following => following.FollowingId == followingId).ToList();
+        }
+
+        public List<User> GetUsers(int userId)
+        {
+            return _dbContext.Users.Where(u=> u.Id != 1 && u.Id != userId).ToList();
         }
 
         public IEnumerable<Post> GetAllPosts() 
