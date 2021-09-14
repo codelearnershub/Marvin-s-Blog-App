@@ -99,7 +99,7 @@ namespace MarvinBlogv._2._0.Models.ViewModel
         public bool Status { get; set; }
         public string CreatedBy { get; set; }
         public int CommentCount{get;set;}
-
+        public int CurrentDate { get; set; }
         public string Message { get; set; }
 
         public string PosterRole { get; set; }

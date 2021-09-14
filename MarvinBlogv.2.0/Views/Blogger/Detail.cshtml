@@ -45,7 +45,7 @@ else
 
     @if (Model.CreatedBy != ViewBag.email && ViewBag.Role != "SuperAdmin" && Model.PosterRole != "SuperAdmin")
     {
-        @if (Model.IsFollowing == false)
+        if (Model.IsFollowing == false)
         {
             <a style="border-radius:20px; border-bottom:10px;" asp-route-id="@Model.Id" asp-controller="Blogger"
         asp-action="AddFollower" class="btn btn-primary float-right">Follow</a>
@@ -59,6 +59,7 @@ else
         <div style="color:grey; margin-left:30px; margin-top:-1%;font-size:15px; font-family:'Times New Roman'"><i
             class="fas fa-dot-circle"></i> Following</div>
     }
+ 
 
     <h2 class="text-center font-weight-bold" style="font-family:'Times New Roman'">@Model.PostTitle</h2>
     <img style="width:80%; height:500px; margin-left:15%" src="@WC.PostImagePath@Model.ImageUrl"
@@ -84,6 +85,5 @@ else
     </form>
     <br />
     <hr /><br />
-
 
 </div>

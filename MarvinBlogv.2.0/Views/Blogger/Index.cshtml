@@ -24,12 +24,13 @@ else{
     {
         @foreach (var post in Model)
         {
-            if(post.PosterRole == "SuperAdmin" && ViewBag.Role == "SuperAdmin")
+            @if(post.PosterRole == "SuperAdmin" && ViewBag.Role == "SuperAdmin")
             {
                 <span style="font-size:30px; color:grey"><i class="fas fa-user-circle"></i></span> <span 
         style="font-size:15px; margin-right: 50px;text-decoration:none; color:black"
         class="font-weight-bold">Me <span style=" color:deepskyblue; font-size:15px"><i class="fas fa-check-circle"></i></span></span>
             }
+
             else if (post.PosterRole == "SuperAdmin" )
             {
                  <span style="font-size:30px; color:grey"><i class="fas fa-user-circle"></i></span> <span 
@@ -44,9 +45,11 @@ else{
         style="font-size:15px; margin-right: 50px;text-decoration:none; color:black"
         class="font-weight-bold">@post.PosterFullName</a>
                                     
-                 
+               
              }
-
+    
+    }
+}
             @foreach (var category in post.PostCategories)
             {
               

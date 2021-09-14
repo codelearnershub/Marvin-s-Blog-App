@@ -2,11 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\MarvinBlogv.2.0",
-    "\\MarvinBlogv.2.0\\Controllers",
     "\\MarvinBlogv.2.0\\Views",
-    "\\MarvinBlogv.2.0\\Views\\Blogger",
+    "\\MarvinBlogv.2.0\\Views\\Home",
     "\\MarvinBlogv.2.0\\Views\\Review"
   ],
-  "SelectedNode": "\\MarvinBlogv.2.0\\Views\\Review\\LikeList.cshtml",
+  "SelectedNode": "\\MarvinBlogv.2.0\\Views\\Home\\Index.cshtml",
   "PreviewInSolutionExplorer": false
 }
