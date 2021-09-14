@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MarvinBlogv._2._0.Models.ViewModel;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace MarvinBlogv._2._0.Models
+namespace MarvinBlogv._2._0.Models.ViewModel
 {
     public class UserViewModel
     {
@@ -44,4 +46,34 @@ namespace MarvinBlogv._2._0.Models
         [Display(Name = "Password:")]
         public string Password { get; set; }
     }
+
+    public class ListUserVM
+    {
+        public int Id { get; set; }
+        public string FullName { get; set; }
+
+        public string Email { get; set; }
+
+        public bool IsFollowing { get; set; }
+    }
+
+    public class UserProfileVM
+    {
+        public string Fullname { get; set; }
+
+        public int Followers { get; set; }
+
+        public int Following { get; set; }
+
+        public int NoOfPosts { get; set; }
+
+        public int UserId { get; set; }
+
+        public bool IsFollowing { get; set; }
+
+        public string UserLogEmail { get; set; }
+
+       public List<ListPostVM> ListOfPosts { get; set; }
+    }
+
 }

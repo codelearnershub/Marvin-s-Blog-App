@@ -22,6 +22,8 @@ namespace MarvinBlogv._2._0.Context
         public DbSet<Review> Reviews { get; set; }
         public DbSet<PostCategory> PostCategories { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -40,14 +42,34 @@ namespace MarvinBlogv._2._0.Context
             modelBuilder.Entity<Role>().HasMany(u => u.userRoles)
                 .WithOne(u => u.Role)
                 .HasForeignKey(u => u.RoleId).OnDelete(DeleteBehavior.Restrict);
-        
+
+            modelBuilder.Entity<Post>()
+                .Property(e => e.Content)
+                .HasColumnType("text");
+
             modelBuilder.Entity<User>()
                 .HasIndex(u => new { u.Email, u.FullName })
                 .IsUnique(true);
 
             modelBuilder.Entity<Post>()
-                .HasIndex(p => new { p.Title, p.Description, p.Content, p.PostURL })
-                .IsUnique(true);
+                .HasIndex(p => new { p.Title });
+
+            modelBuilder.Entity<Post>()
+               .HasIndex(p => new { p.Description });
+
+            modelBuilder.Entity<Post>()
+               .Property(p => p.Content)
+               .HasColumnType("text");
+
+            modelBuilder.Entity<Post>()
+                .HasIndex(p => new { p.Content })
+               .IsUnique(true);
+
+
+
+            modelBuilder.Entity<Post>()
+               .HasIndex(p => new { p.PostURL })
+               .IsUnique(true);
 
             modelBuilder.Entity<Category>()
                 .HasIndex(c => new { c.Name })
@@ -58,7 +80,7 @@ namespace MarvinBlogv._2._0.Context
                 {
                     Id = 1,
                     FullName = "Marvellous Adeoye",
-                    Email = "adeoyemarvellous7@gmail.com",
+                    Email = "2",
                     CreatedAt = DateTime.Now,
                     CreatedBy = "adeoyemarvellous7@gmail.com",
                     PasswordHash = "jeYMxCrAXGBEfEJB7j3IuPv4LhgThc7OIsAovL/J13Q=",

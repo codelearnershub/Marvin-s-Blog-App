@@ -6,21 +6,28 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MarvinBlogv._2._0.Models;
+using MarvinBlogv._2._0.Interfaces;
 
 namespace MarvinBlogv._2._0.Controllers
 {
+    
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IPostService _postService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IPostService postService)
         {
             _logger = logger;
+            _postService = postService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var posts = _postService.ApprovedPost();
+
+            return View(posts);
         }
 
         public IActionResult Privacy()

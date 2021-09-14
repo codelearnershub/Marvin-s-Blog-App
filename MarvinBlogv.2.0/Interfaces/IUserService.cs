@@ -20,5 +20,7 @@ namespace MarvinBlogv._2._0.Interfaces
         //public IEnumerable<Follower> FindFollower(int followerId);
         //public IEnumerable<Follower> FindFollowing(int followingId);
         //public User FindUserById(int id);
+
+        public IEnumerable<User> GetUsers(int userId);
     }
 }

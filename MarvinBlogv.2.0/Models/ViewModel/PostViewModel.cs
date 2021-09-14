@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace MarvinBlogv._2._0.Models.ViewModel
 {
-    public class PostCategoryIndexModel 
+    public class PostCategoryIndexModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -33,14 +32,16 @@ namespace MarvinBlogv._2._0.Models.ViewModel
         public string Content { get; set; }
         public string Description { get; set; }
         public List<PostCategory> Categories { get; set; }
+        public string FeaturedImageURL { get; set; }
         public List<Review> Reviews { get; set; }
         public string PostURL { get; set; }
         public User User { get; set; }
+        public Category Category { get; set; }
         public int UserId { get; set; }
         public bool Status { get; set; }
     }
 
-    public class CreatePostViewModel 
+    public class CreatePostViewModel
     {
         public DateTime CreatedAt { get; set; }
         public DateTime? LastModifiedOn { get; set; }
@@ -54,7 +55,6 @@ namespace MarvinBlogv._2._0.Models.ViewModel
 
         [Required(ErrorMessage = "Post Content is required")]
         [Display(Name = "Content:")]
-        [AllowHtml]
         public string Content { get; set; }
 
         public string Description { get; set; }
@@ -69,12 +69,13 @@ namespace MarvinBlogv._2._0.Models.ViewModel
 
     }
 
+    
     public class UpdatePostViewModel
     {
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        public DateTime CreatedBy { get; set; }
+        public string CreatedBy { get; set; }
         public DateTime? LastModifiedOn { get; set; }
 
         [Display(Name = "Title:")]
@@ -88,5 +89,42 @@ namespace MarvinBlogv._2._0.Models.ViewModel
         public ICollection<PostCategory> PostCategories { get; set; } = new HashSet<PostCategory>();
         public bool Status { get; set; }
         public IEnumerable<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> CategorySelectListItem { get; set; }
+    }
+
+    public class ListPostVM
+    {
+        public int Id { get; set; }
+        public string PostTitle { get; set; }
+
+        public bool Status { get; set; }
+        public string CreatedBy { get; set; }
+        public int CommentCount{get;set;}
+        public int CurrentDate { get; set; }
+        public string Message { get; set; }
+
+        public string PosterRole { get; set; }
+
+        public string Content { get; set; }
+
+        public string Description { get; set; }
+
+        public int Like { get; set; }
+
+        
+        public DateTime CreatedAt { get; set; }
+
+        public string Comment { get; set; }
+        public string ImageUrl { get; set; }
+
+        public string PostUrl { get; set; }
+
+        public string PosterFullName { get; set; }
+
+        public int Created { get; set; }
+
+        public bool IsFollowing { get; set; }
+
+        public List<Category> PostCategories { get; set; }
+        public List<Review> PostReviews { get; set; }
     }
 }

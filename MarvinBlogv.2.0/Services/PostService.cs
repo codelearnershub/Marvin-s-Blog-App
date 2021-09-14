@@ -42,11 +42,11 @@ namespace MarvinBlogv._2._0.Services
                 {
                     Id = id,
                     CreatedAt = DateTime.Now,
-                    Title = title,
+                    Title = title.ToUpper(),
                     FeaturedImageURL = featuredImageURL,
                     Content = content,
                     PostCategories = postCategories,                  
-                    PostURL = postURL,
+                    PostURL = Guid.NewGuid().ToString().Substring(0, 7),
                     Description = description,
                     UserId = _userService.FindUserById(userId).Id,
                     CreatedBy = _userService.FindUserById(userId).Email,
@@ -96,7 +96,8 @@ namespace MarvinBlogv._2._0.Services
                 Description = p.Description,
                 FeaturedImageURL = p.FeaturedImageURL,
                 CreatedBy = p.CreatedBy,
-                //Reviews = _postRepository.GetAllPostReviews(postId).ToList(),
+                PostCategories = p.PostCategories,
+                Reviews = p.Reviews,
                 PostURL = p.PostURL,
                 Status = p.Status
             }).ToList();
@@ -114,6 +115,8 @@ namespace MarvinBlogv._2._0.Services
                 Content = p.Content,
                 FeaturedImageURL = p.FeaturedImageURL,
                 CreatedBy = p.CreatedBy,
+                PostCategories = p.PostCategories,
+                Reviews = p.Reviews,
                 Description = p.Description,
                 PostURL = p.PostURL,
                 Status = p.Status
@@ -146,11 +149,11 @@ namespace MarvinBlogv._2._0.Services
 
             post.CreatedAt = DateTime.Now;
 
-            post.Title = title;
+            post.Title = title.ToUpper();
 
             post.FeaturedImageURL = featuredImageURL;
 
-            post.Content = content.ToUpper();    
+            post.Content = content;    
 
             post.PostCategories = categoryIds;
 
@@ -161,6 +164,16 @@ namespace MarvinBlogv._2._0.Services
             post.Status = status;
 
             return _postRepository.UpdatePost(post);
+        }
+
+        public List<Post> GetPostByUserId(int userId)
+        {
+            return _postRepository.GetPostByUserId(userId);
+        }
+
+        public IEnumerable<Post> GetPendingPostByUserId(int userId)
+        {
+            return _postRepository.GetPendingPostByUserId(userId);
         }
     }
 }

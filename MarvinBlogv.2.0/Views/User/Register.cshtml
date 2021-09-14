@@ -1,7 +1,9 @@
-﻿@model MarvinBlogv._2._0.Models.CreateUserViewModel
+﻿@model MarvinBlogv._2._0.Models.ViewModel.CreateUserViewModel
 
 @{
-    ViewBag.Title = "Register"; }
+    ViewBag.Title = "Register";
+}
+
 
 <div class="row justify-content-center">
     <div class="card">
@@ -21,17 +23,19 @@
                     <input asp-for="Email" class="form-control" placeholder="Email Address" required />
                     <span asp-validation-for="Email" class="text-danger"></span><br>
 
-                    <input type="password" asp-for="Password" class="form-control" placeholder="Create Password" required />
+                    <input type="password" asp-for="Password" class="form-control" placeholder="Create Password"
+                        required />
                     <span asp-validation-for="Password" class="text-danger"></span><br />
 
-                    <input type="password" asp-for="ConfirmPassword" class="form-control"
-                           placeholder="Confirm Password" required />
+                    <input type="password" asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password"
+                        required />
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span><br />
 
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="Register" class="btn" style="background:orchid" />
+                    <input type="submit" value="Register"
+                        class="btn btn-outline-success text-align center" />@ViewBag.Message
                     <span class="mr-3">
                         Already Registered?<a asp-area="" asp-controller="User" asp-action="Login">
                             Login
@@ -46,6 +50,29 @@
     </div>
 </div>
 
+
+<footer class="my-footer">
+    <div class="container grid">
+        <div class="foot1">
+            <h3>Marvin's Blog</h3>
+            <p>Copyrights &copy; 2021</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="Home.blog.html">Home</a></li>
+                <li><a href="About.html">About</a></li>
+                <li><a href="Contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="social">
+            <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
+            <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
+            <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+            <a href="#"><i class="fab fa-github fa-2x"></i></a>
+        </div>
+    </div>
+</footer>
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

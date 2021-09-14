@@ -27,6 +27,22 @@ namespace MarvinBlogv._2._0.Repositories
         {
            return _dbContext.Followers.Find(id);
         }
+
+        public Follower CheckFollow(int userLogId, int posterId)
+        {
+            return _dbContext.Followers.FirstOrDefault(f=> f.FollowingId == posterId && f.UserId == userLogId);
+        }
+
+        public List<Follower> GetFollowersOfUser(int userId)
+        {
+            return _dbContext.Followers.Where(f => f.FollowingId == userId).ToList();
+        }
+
+        public List<Follower> GetFollowingOfUser(int userId)
+        {
+            return _dbContext.Followers.Where(f => f.UserId == userId).ToList();
+        }
+
         public void Unfollow(int id)
         {
             var unfollow = FindById(id);

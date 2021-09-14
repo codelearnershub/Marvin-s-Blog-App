@@ -1,6 +1,7 @@
 ﻿using MarvinBlogv._2._0.Interfaces;
 using MarvinBlogv._2._0.Models;
 using System;
+using System.Collections.Generic;
 
 namespace MarvinBlogv._2._0.Services
 {
@@ -17,16 +18,14 @@ namespace MarvinBlogv._2._0.Services
             _postService = postService;
         }
 
-        public Review AddReview(int id, DateTime reviewedOn, int userId, int reaction, int postId, string comment)
+        public Review AddReview(int userId, bool reaction, int postId)
         {
             Review review = new Review
             {
-                Id = id,
-                PublishedOn = DateTime.Now,
-                User = _userService.FindUserById(userId),
+                CreatedAt = DateTime.Now,
+                UserId = userId,
                 Reaction = reaction,
-                Post = _postService.FindById(postId),
-                Comment = comment.ToUpper(),
+                PostId = postId,
             };
 
             _reviewRepository.AddReview(review);
@@ -49,7 +48,7 @@ namespace MarvinBlogv._2._0.Services
             return _reviewRepository.FindReviewer(reviewerId);
         }
 
-        public Review UpdateReview(int id, DateTime reviewedOn, int userId, int reaction, int postId, string comment)
+        public Review UpdateReview(int id, DateTime reviewedOn, int userId, bool reaction, int postId, string comment)
         {
             var review = _reviewRepository.FindReviewById(id);
 
@@ -61,9 +60,54 @@ namespace MarvinBlogv._2._0.Services
 
             review.PostId = postId;
 
-            review.Comment = comment.ToUpper();
+            review.Comment = comment;
 
             return _reviewRepository.UpdateReview(review);
+        }
+
+        public int ReviewCount(int postId)
+        {
+            return _reviewRepository.ReviewCount(postId);
+        }
+
+         public int CommentCount(int postId)
+        {
+            return _reviewRepository.CommentCount(postId);
+        }
+        
+        public IEnumerable<Review> GetAllComments(int postId)
+        {
+            return _reviewRepository.GetAllComments(postId);
+        }
+
+        public List<Review> FindByPostId(int postId) 
+        {
+            return _reviewRepository.FindByPostId(postId);
+        }
+
+        public Review AddComment(int userId, string comment, int postId)
+        {
+            Review review = new Review
+            {
+                CreatedAt = DateTime.Now,
+                UserId = userId,
+                Comment = comment,
+                PostId = postId,
+            };
+
+            _reviewRepository.AddComment(review);
+
+            return review;
+        }
+
+        public List<Review> FindByUserId(int userId)
+        {
+           return _reviewRepository.FindByUserId(userId);
+        }
+
+        public Review CheckLike(int postId, int userId)
+        {
+            return _reviewRepository.CheckLike(postId, userId);
         }
     }
 }

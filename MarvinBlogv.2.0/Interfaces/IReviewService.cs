@@ -8,10 +8,18 @@ namespace MarvinBlogv._2._0.Interfaces
 {
     public interface IReviewService
     {
-        public Review AddReview(int id, DateTime reviewedOn, int userId, int reaction, int postId, string comment);
+        public Review AddReview(int userId, bool reaction, int postId);
+        public Review AddComment(int userId, string comment, int postId);
         public Review FindReviewer(int reviewerId);
         public Review FindReviewById(int? id);
-        public Review UpdateReview(int id, DateTime reviewedOn, int userId, int reaction, int postId, string comment);
+        public IEnumerable<Review> GetAllComments(int postId);
+        public int CommentCount(int postId);
+        public Review UpdateReview(int id, DateTime reviewedOn, int userId, bool reaction, int postId, string comment);
         public void Delete(int id);
+        public int ReviewCount(int postId);
+        public List<Review> FindByPostId(int postId);
+        public List<Review> FindByUserId(int userId);
+
+        public Review CheckLike(int postId, int userId);
     }
 }

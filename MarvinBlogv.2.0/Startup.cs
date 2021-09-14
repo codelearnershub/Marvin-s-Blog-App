@@ -61,6 +61,10 @@ namespace MarvinBlogv._2._0
 
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 
+            services.AddScoped<IFollowerService, FollowerService>();
+
+            services.AddScoped<IFollowerRepository, FollowerRepository>();
+
             services.AddScoped<IUserRoleService, UserRoleService>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(config =>
@@ -69,6 +73,10 @@ namespace MarvinBlogv._2._0
        
                 config.Cookie.Name = "SimpleUser";
             });
+            
+            services
+                .AddControllersWithViews()
+                .AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
